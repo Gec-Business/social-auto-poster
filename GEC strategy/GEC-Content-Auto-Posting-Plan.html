@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEC Content & Auto-Posting System — Implementation Plan</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --surface-alt: #f4f4f5;
+      --border: #e4e4e7;
+      --text: #18181b;
+      --text-muted: #71717a;
+      --text-light: #a1a1aa;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --green: #059669;
+      --green-bg: #d1fae5;
+      --amber: #d97706;
+      --amber-bg: #fef3c7;
+      --red: #dc2626;
+      --red-bg: #fee2e2;
+      --purple: #7c3aed;
+      --purple-bg: #ede9fe;
+      --pink: #db2777;
+      --pink-bg: #fce7f3;
+      --indigo: #4f46e5;
+      --indigo-bg: #e0e7ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    /* Sections */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text);
+    }
+
+    h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 1rem 0 0.5rem;
+      color: var(--text-muted);
+    }
+
+    p { margin-bottom: 0.75rem; color: var(--text); }
+    p.muted { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-blue { background: var(--accent-light); color: var(--accent); }
+    .badge-green { background: var(--green-bg); color: var(--green); }
+    .badge-amber { background: var(--amber-bg); color: var(--amber); }
+    .badge-red { background: var(--red-bg); color: var(--red); }
+    .badge-purple { background: var(--purple-bg); color: var(--purple); }
+    .badge-pink { background: var(--pink-bg); color: var(--pink); }
+    .badge-indigo { background: var(--indigo-bg); color: var(--indigo); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      padding: 0.6rem 0.75rem;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    /* Flow diagrams */
+    .flow {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      color: var(--text-muted);
+      overflow-x: auto;
+    }
+
+    .flow .highlight { color: var(--accent); font-weight: 600; }
+    .flow .green { color: var(--green); }
+    .flow .amber { color: var(--amber); }
+
+    /* Grid layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 640px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* Stat cards */
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* Timeline / phases */
+    .phase-timeline {
+      display: flex;
+      gap: 0;
+      margin: 1rem 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .phase-block {
+      flex: 1;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .phase-awareness { background: #60a5fa; }
+    .phase-interest { background: #34d399; }
+    .phase-urgency { background: #fbbf24; color: #78350f; }
+    .phase-final { background: #f87171; }
+
+    /* Lists */
+    ul, ol {
+      padding-left: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    /* Code */
+    code {
+      background: var(--surface-alt);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* Connectors / arrows */
+    .connector {
+      text-align: center;
+      padding: 0.5rem;
+      color: var(--text-light);
+      font-size: 1.2rem;
+    }
+
+    /* Calendar visual */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin: 1rem 0;
+    }
+
+    .cal-header {
+      background: var(--surface-alt);
+      padding: 0.4rem;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .cal-day {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.4rem;
+      min-height: 50px;
+      font-size: 0.7rem;
+    }
+
+    .cal-day .day-num {
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .cal-dots {
+      display: flex;
+      gap: 3px;
+      flex-wrap: wrap;
+    }
+
+    .cal-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .dot-li { background: #2563eb; }
+    .dot-fb { background: #4f46e5; }
+    .dot-ig { background: #db2777; }
+    .dot-scheduled { opacity: 0.4; }
+
+    /* Section nav */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .toc-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.4rem;
+    }
+
+    .toc-grid a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 0.25rem 0;
+    }
+
+    .toc-grid a:hover { text-decoration: underline; }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    /* File tree */
+    .file-tree {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.78rem;
+      line-height: 1.8;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .file-tree .new { color: var(--green); }
+    .file-tree .fork { color: var(--accent); }
+    .file-tree .muted { color: var(--text-light); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-badge">Pillar 1 — Implementation Plan</div>
+    <h1>Content & Auto-Posting System</h1>
+    <p>AI-generated content, campaign urgency phases, and automated multi-platform posting</p>
+    <div class="meta">
+      <span>March 18, 2026</span>
+      <span>Architecture v2</span>
+      <span>Vercel + Neon PG</span>
+    </div>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <div class="toc-title">Sections</div>
+    <div class="toc-grid">
+      <a href="#three-modes">Three Content Modes</a>
+      <a href="#database">Database Schema (5 Tables)</a>
+      <a href="#pipeline">Content Pipeline</a>
+      <a href="#scheduler">Scheduling Engine</a>
+      <a href="#ninja-fork">Fork from Ninja</a>
+      <a href="#admin">Admin Dashboard</a>
+      <a href="#build-order">Build Order (5 Phases)</a>
+      <a href="#files">Files to Create</a>
+      <a href="#decisions">Open Decisions</a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid-3">
+    <div class="stat-card">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Content Modes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Database Tables</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">25</div>
+      <div class="stat-label">Files to Create</div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top: 0.75rem;">
+    <div class="stat-card">
+      <div class="stat-number">12</div>
+      <div class="stat-label">API Endpoints</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Build Phases</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Platforms (LI, FB, IG)</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Section 1: Three Modes -->
+  <section id="three-modes">
+    <h2>Three Content Modes</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Evergreen Content</span>
+          <span class="badge badge-green">AI-Generated</span>
+        </div>
+        <p class="muted">Monthly batches of 20-30 posts. Claude generates respecting content mix (35% insight, 20% event, 15% social proof, etc.). Lia reviews in ~30 min. Auto-posts daily.</p>
+        <p class="muted"><strong>Priority:</strong> 0 (base level)</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Product Campaigns</span>
+          <span class="badge badge-red">Time-Bound</span>
+        </div>
+        <p class="muted">SME Programme, AI Service, Tender Compass. 4 urgency phases from awareness to final push. Posts interleaved with evergreen, higher priority.</p>
+        <p class="muted"><strong>Priority:</strong> 25-100 (by urgency phase)</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Newsletters & Articles</span>
+          <span class="badge badge-indigo">Service-Lead Written</span>
+        </div>
+        <p class="muted">Service leads write articles. Lia pastes into admin. Claude extracts 2-3 social excerpt posts. Cross-posted to social + sent as email (Graph API).</p>
+        <p class="muted"><strong>Priority:</strong> 10 (above evergreen)</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Event Promotion Arcs</span>
+          <span class="badge badge-purple">Date-Locked</span>
+        </div>
+        <p class="muted">8 posts at fixed offsets: -14d, -10d, -7d, -3d, -1d, event day, +1d, +3d. Auto-generated from event data. Highest priority — these override everything.</p>
+        <p class="muted"><strong>Priority:</strong> 200 (highest)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Campaign Urgency Phases -->
+  <section>
+    <h3>Campaign Urgency Phases</h3>
+    <div class="phase-timeline">
+      <div class="phase-block phase-awareness">
+        Awareness<br><small>60-45 days</small>
+      </div>
+      <div class="phase-block phase-interest">
+        Interest<br><small>44-20 days</small>
+      </div>
+      <div class="phase-block phase-urgency">
+        Urgency<br><small>19-7 days</small>
+      </div>
+      <div class="phase-block phase-final">
+        Final Push<br><small>6-0 days</small>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card" style="border-left: 3px solid var(--amber);">
+        <h4>SME Programme</h4>
+        <p class="muted">Cohort-based, limited spots, mentor showcase, ecosystem value</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--accent);">
+        <h4>AI Service</h4>
+        <p class="muted">Company-level assessment, ROI focus, case studies</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--purple);">
+        <h4>Tender Compass</h4>
+        <p class="muted">SaaS features, time savings, win-rate stats, demo CTA</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- Section 2: Database -->
+  <section id="database">
+    <h2>Database Schema</h2>
+    <p class="muted">5 tables in Neon PostgreSQL via Drizzle ORM. Replaces ninja's static arrays and Netlify Blobs.</p>
+
+    <!-- content_sources -->
+    <h3><code>content_sources</code> — Where content comes from</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Column</th><th>Type</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>id</code></td><td>serial PK</td><td></td></tr>
+          <tr><td><code>source_type</code></td><td>text</td><td>evergreen | campaign | event_arc | newsletter</td></tr>
+          <tr><td><code>name</code></td><td>text</td><td>e.g. "March 2026 Batch"</td></tr>
+          <tr><td><code>status</code></td><td>text</td><td>draft | active | paused | completed</td></tr>
+          <tr><td><code>starts_at / ends_at</code></td><td>timestamptz</td><td>Campaign date range</td></tr>
+          <tr><td><code>config_json</code></td><td>jsonb</td><td>Type-specific: urgency phases, arc offsets, etc.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- content_items -->
+    <h3><code>content_items</code> — Individual pieces of content</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Column</th><th>Type</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>source_id</code></td><td>FK</td><td>Links to content_sources</td></tr>
+          <tr><td><code>content_category</code></td><td>text</td><td>insight | event_promo | social_proof | assessment_teaser | behind_scenes | partner | campaign_post | newsletter_excerpt</td></tr>
+          <tr><td><code>copy_ka / copy_en</code></td><td>text</td><td>Georgian (primary) + English translation</td></tr>
+          <tr><td><code>hashtags / media_urls</code></td><td>jsonb</td><td>String arrays</td></tr>
+          <tr><td><code>priority</code></td><td>int</td><td>0=evergreen, 25-100=campaign, 200=event arc</td></tr>
+          <tr><td><code>review_status</code></td><td>text</td><td>pending | approved | rejected | needs_edit</td></tr>
+          <tr><td><code>ai_generation_meta</code></td><td>jsonb</td><td>Model, batch context</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- posting_schedule -->
+    <h3><code>posting_schedule</code> — The calendar</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Column</th><th>Type</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>content_item_id</code></td><td>FK</td><td>Links to content_items</td></tr>
+          <tr><td><code>platform</code></td><td>text</td><td>linkedin | facebook | instagram</td></tr>
+          <tr><td><code>scheduled_at</code></td><td>timestamptz</td><td>When to post</td></tr>
+          <tr><td><code>status</code></td><td>text</td><td>scheduled | posted | failed | skipped | manual_queue</td></tr>
+          <tr><td><code>retry_count</code></td><td>int</td><td>Max 3 retries, +1 hour spacing</td></tr>
+          <tr><td><code>engagement_json</code></td><td>jsonb</td><td>Likes, shares, comments (later)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted"><strong>Unique constraint:</strong> (content_item_id, platform). LinkedIn starts as <code>manual_queue</code> until API approved.</p>
+
+    <!-- newsletters + linkedin_tokens -->
+    <div class="grid-2">
+      <div>
+        <h3><code>newsletters</code></h3>
+        <p class="muted">author_name, title, body_html/text, service_type, status, email_sent, social_posts_generated. Links to content_sources when excerpts are generated.</p>
+      </div>
+      <div>
+        <h3><code>linkedin_tokens</code></h3>
+        <p class="muted">OAuth token storage. Replaces Netlify Blobs. Single-row table with access_token, refresh_token, expires_at, refresh_expires_at.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- Section 3: Pipeline -->
+  <section id="pipeline">
+    <h2>Content Pipeline</h2>
+
+    <h3>Evergreen Flow</h3>
+    <div class="flow"><span class="highlight">Lia clicks "Generate Batch"</span>
+  → /api/content/generate-batch
+  → <span class="green">Claude generates 20-30 posts</span> (respecting content mix)
+  → Stored as content_items with review_status='pending'
+  → <span class="highlight">Lia reviews in admin</span> (approve/reject/edit) — ~30 min
+  → Approved items fed to scheduler
+  → Scheduler places on calendar (active=daily, break=3x/week)
+  → <span class="green">Vercel cron posts at 9 AM Tbilisi</span></div>
+
+    <h3>Campaign Flow</h3>
+    <div class="flow"><span class="highlight">Lia creates campaign:</span> name, product, launch_date
+  → System generates posts in 4 urgency phases
+  → Posts get priority > evergreen, interleaved on calendar
+  → Same review flow: <span class="highlight">Lia approves</span> before posting
+  → <span class="amber">Higher-priority posts override</span> evergreen calendar slots</div>
+
+    <h3>Newsletter Flow</h3>
+    <div class="flow">Service lead writes article → sends to Lia
+  → <span class="highlight">Lia pastes into /admin/content/newsletters</span>
+  → On "Publish":
+    1. <span class="green">Claude extracts 2-3 social excerpt posts</span>
+    2. Excerpts enter normal review → schedule → post pipeline
+    3. Email newsletter via Microsoft Graph API <span class="amber">(stubbed until P4)</span></div>
+
+    <h3>Event Arc Flow</h3>
+    <div class="flow">Event created → System generates <span class="highlight">8 posts</span> at fixed offsets:
+  <span class="green">-14d</span> announcement    <span class="green">-10d</span> deep-dive     <span class="green">-7d</span> spotlight
+  <span class="amber">-3d</span> urgency         <span class="amber">-1d</span> reminder       0d  live
+  +1d  takeaway        +3d  gated recording
+  → Highest priority (200) — <span class="highlight">date-locked, override everything</span>
+  → If event rescheduled → linked posts auto-updated</div>
+  </section>
+
+  <hr>
+
+  <!-- Section 4: Scheduler -->
+  <section id="scheduler">
+    <h2>Scheduling Engine</h2>
+
+    <h3>GEC Calendar</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Period</th><th>Dates</th><th>Posting Frequency</th><th>Instagram</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="badge badge-green">Active</span></td><td>Mar 1 – Jun 15</td><td>Daily (7/week)</td><td>4x/week</td></tr>
+          <tr><td><span class="badge badge-amber">Break</span></td><td>Jun 16 – Sep 30</td><td>3x/week (Mon, Wed, Fri)</td><td>2x/week</td></tr>
+          <tr><td><span class="badge badge-green">Active</span></td><td>Oct 1 – Dec 15</td><td>Daily (7/week)</td><td>4x/week</td></tr>
+          <tr><td><span class="badge badge-amber">Break</span></td><td>Dec 16 – Feb 28</td><td>3x/week (Mon, Wed, Fri)</td><td>2x/week</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Weekly Content Calendar (Active Period)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Day</th><th>Default Type</th><th>Platforms</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday</td><td>Insight / Educational</td><td><span class="badge badge-blue">LI</span> <span class="badge badge-indigo">FB</span> <span class="badge badge-pink">IG</span></td></tr>
+          <tr><td>Tuesday</td><td>Assessment Teaser</td><td><span class="badge badge-blue">LI</span> <span class="badge badge-indigo">FB</span> <span class="badge badge-pink">IG</span></td></tr>
+          <tr><td>Wednesday</td><td>Event Promo / Partner</td><td><span class="badge badge-blue">LI</span> <span class="badge badge-indigo">FB</span></td></tr>
+          <tr><td>Thursday</td><td>Case Study / Social Proof</td><td><span class="badge badge-blue">LI</span> <span class="badge badge-indigo">FB</span> <span class="badge badge-pink">IG</span></td></tr>
+          <tr><td>Friday</td><td>Behind-the-Scenes</td><td><span class="badge badge-blue">LI</span> <span class="badge badge-indigo">FB</span> <span class="badge badge-pink">IG</span></td></tr>
+          <tr><td>Sat/Sun</td><td>Best performer reshare or rest</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Posting Times (Tbilisi / UTC)</h3>
+    <div class="grid-3">
+      <div class="card" style="text-align: center; border-left: 3px solid #2563eb;">
+        <div style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">9:00</div>
+        <div class="muted">LinkedIn (05:00 UTC)</div>
+      </div>
+      <div class="card" style="text-align: center; border-left: 3px solid #4f46e5;">
+        <div style="font-size: 1.5rem; font-weight: 700; color: #4f46e5;">10:00</div>
+        <div class="muted">Facebook (06:00 UTC)</div>
+      </div>
+      <div class="card" style="text-align: center; border-left: 3px solid #db2777;">
+        <div style="font-size: 1.5rem; font-weight: 700; color: #db2777;">11:00</div>
+        <div class="muted">Instagram (07:00 UTC)</div>
+      </div>
+    </div>
+
+    <h3>Slot Allocation Algorithm</h3>
+    <div class="flow">For each posting day:
+  1. Check if <span class="highlight">campaign/event_arc post claims this slot</span> (priority > 0)
+  2. If yes → that post gets the slot, evergreen shifts
+  3. If no → pick evergreen item that best fits <span class="green">weekly content mix target</span>
+  4. Create posting_schedule rows per platform with staggered times
+
+Content mix is a <span class="amber">soft constraint</span> — campaigns and events override it.</div>
+  </section>
+
+  <hr>
+
+  <!-- Section 5: Fork from Ninja -->
+  <section id="ninja-fork">
+    <h2>Fork from Ninja</h2>
+
+    <h3>Fork & Adapt</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Ninja File</th><th>GEC File</th><th>Changes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>lib/social-publisher.ts</code></td>
+            <td><code>src/lib/social-publisher.ts</code></td>
+            <td>Static arrays → DB queries. Blobs → PG. Keep all Meta/LinkedIn API code. Update branding.</td>
+          </tr>
+          <tr>
+            <td><code>lib/linkedin-tokens.ts</code></td>
+            <td><code>src/lib/linkedin-tokens.ts</code></td>
+            <td>Netlify Blobs → Drizzle queries to linkedin_tokens table</td>
+          </tr>
+          <tr>
+            <td><code>app/api/linkedin/*</code></td>
+            <td><code>src/app/api/linkedin/*</code></td>
+            <td>Update redirect URLs to app.gecbusiness.com</td>
+          </tr>
+          <tr>
+            <td><code>lib/auth.ts</code></td>
+            <td><code>src/lib/auth.ts</code></td>
+            <td>Direct fork, cookie name → gec-admin-session</td>
+          </tr>
+          <tr>
+            <td><code>middleware.ts</code></td>
+            <td><code>src/middleware.ts</code></td>
+            <td>Protected routes → /admin/*</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Don't Fork (Replace with DB)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Ninja File</th><th>Replaced By</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>lib/scheduler-data.ts</code> (static 44KB array)</td><td>DB-driven content_items table</td></tr>
+          <tr><td><code>lib/scheduler-blobs.ts</code> (Netlify Blobs)</td><td>PostgreSQL posting_schedule table</td></tr>
+          <tr><td><code>lib/asset-manifest.ts</code> (static registry)</td><td>media_urls column in content_items</td></tr>
+          <tr><td><code>netlify/functions/social-scheduler.ts</code></td><td>Vercel cron job (vercel.json)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- Section 6: Admin -->
+  <section id="admin">
+    <h2>Admin Dashboard</h2>
+    <p class="muted">All under <code>/admin/content/</code> — protected by iron-session. Lia's weekly review takes ~30 min.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Content Calendar</span>
+          <span class="badge badge-blue">/admin/content</span>
+        </div>
+        <p class="muted">Monthly grid with colored dots per platform. Hollow=scheduled, filled=posted, red=failed, gray=manual queue. Click day to expand. "Generate Batch" button.</p>
+        <!-- Mini calendar preview -->
+        <div class="cal-grid" style="margin-top: 0.75rem;">
+          <div class="cal-header">Mon</div>
+          <div class="cal-header">Tue</div>
+          <div class="cal-header">Wed</div>
+          <div class="cal-header">Thu</div>
+          <div class="cal-header">Fri</div>
+          <div class="cal-header">Sat</div>
+          <div class="cal-header">Sun</div>
+          <div class="cal-day"><div class="day-num">1</div><div class="cal-dots"><span class="cal-dot dot-li"></span><span class="cal-dot dot-fb"></span><span class="cal-dot dot-ig"></span></div></div>
+          <div class="cal-day"><div class="day-num">2</div><div class="cal-dots"><span class="cal-dot dot-li"></span><span class="cal-dot dot-fb"></span></div></div>
+          <div class="cal-day"><div class="day-num">3</div><div class="cal-dots"><span class="cal-dot dot-li"></span><span class="cal-dot dot-fb"></span><span class="cal-dot dot-ig"></span></div></div>
+          <div class="cal-day"><div class="day-num">4</div><div class="cal-dots"><span class="cal-dot dot-li"></span><span class="cal-dot dot-fb"></span></div></div>
+          <div class="cal-day"><div class="day-num">5</div><div class="cal-dots"><span class="cal-dot dot-li"></span><span class="cal-dot dot-fb"></span><span class="cal-dot dot-ig"></span></div></div>
+          <div class="cal-day"><div class="day-num">6</div></div>
+          <div class="cal-day"><div class="day-num">7</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Review Queue</span>
+          <span class="badge badge-amber">/admin/content/review</span>
+        </div>
+        <p class="muted">Pending items list. Georgian/English toggle. Approve / Reject / Edit actions. Batch approve for speed. Must be fast and mobile-friendly — this is Lia's 30-min weekly task.</p>
+        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
+          <span style="background: #d1fae5; color: #059669; padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Approve</span>
+          <span style="background: #fef3c7; color: #d97706; padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Edit</span>
+          <span style="background: #fee2e2; color: #dc2626; padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Reject</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Campaigns</span>
+          <span class="badge badge-red">/admin/content/campaigns</span>
+        </div>
+        <p class="muted">Create: name, product, launch date. System generates campaign posts → review queue. Dashboard shows progress bar, urgency phase timeline, pause toggle.</p>
+        <p class="muted">Active: <strong>SME Programme</strong>, <strong>AI Service</strong>, <strong>Tender Compass</strong></p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Newsletters</span>
+          <span class="badge badge-indigo">/admin/content/newsletters</span>
+        </div>
+        <p class="muted">Simple form: author, title, service area, body (paste). "Generate Social Posts" → Claude extracts excerpts. "Send as Email" → Graph API (stubbed).</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- Section 7: Build Order -->
+  <section id="build-order">
+    <h2>Build Order — 5 Phases</h2>
+
+    <div class="card" style="border-left: 4px solid #2563eb;">
+      <div class="card-header">
+        <span class="card-title">Phase 1: Foundation</span>
+        <span class="badge badge-blue">3 days</span>
+      </div>
+      <p class="muted"><strong>Goal:</strong> DB exists, publisher works, admin shell</p>
+      <ol>
+        <li>Drizzle schema — all 5 tables</li>
+        <li>Neon connection (<code>src/lib/db.ts</code>)</li>
+        <li><code>drizzle-kit push</code> to create tables</li>
+        <li>Fork <code>social-publisher.ts</code> — adapt to read from DB</li>
+        <li>Fork <code>linkedin-tokens.ts</code> — Blobs → PG</li>
+        <li>Fork <code>auth.ts</code> + middleware</li>
+        <li>Admin layout shell</li>
+        <li><code>vercel.json</code> with cron config</li>
+      </ol>
+    </div>
+
+    <div class="card" style="border-left: 4px solid #059669;">
+      <div class="card-header">
+        <span class="card-title">Phase 2: Content Generation + Review</span>
+        <span class="badge badge-green">3 days</span>
+      </div>
+      <p class="muted"><strong>Goal:</strong> AI generates content, Lia reviews</p>
+      <ol start="9">
+        <li>AI content generator — Claude API with GEC brand tone</li>
+        <li><code>/api/content/generate-batch</code> route</li>
+        <li>Review queue page with approve/reject/edit</li>
+        <li>Content detail view with GE/EN toggle</li>
+      </ol>
+    </div>
+
+    <div class="card" style="border-left: 4px solid #d97706;">
+      <div class="card-header">
+        <span class="card-title">Phase 3: Scheduling + Auto-Posting</span>
+        <span class="badge badge-amber">3 days</span>
+      </div>
+      <p class="muted"><strong>Goal:</strong> Approved content posts automatically</p>
+      <ol start="13">
+        <li>Scheduling engine (<code>src/lib/content-scheduler.ts</code>)</li>
+        <li><code>/api/cron/social-post</code> route</li>
+        <li>LinkedIn OAuth routes (fork)</li>
+        <li>"Post Now" manual posting</li>
+        <li>Test full pipeline: generate → review → schedule → post</li>
+      </ol>
+    </div>
+
+    <div class="card" style="border-left: 4px solid #7c3aed;">
+      <div class="card-header">
+        <span class="card-title">Phase 4: Campaigns + Events</span>
+        <span class="badge badge-purple">3 days</span>
+      </div>
+      <p class="muted"><strong>Goal:</strong> Product campaigns flow through system</p>
+      <ol start="18">
+        <li>Campaign creation UI + generator</li>
+        <li>Campaign urgency phase logic (4 phases)</li>
+        <li>Event arc generator (8-post template)</li>
+        <li>Priority-based scheduling</li>
+      </ol>
+    </div>
+
+    <div class="card" style="border-left: 4px solid #db2777;">
+      <div class="card-header">
+        <span class="card-title">Phase 5: Newsletters + Polish</span>
+        <span class="badge badge-pink">3 days</span>
+      </div>
+      <p class="muted"><strong>Goal:</strong> Full system operational</p>
+      <ol start="22">
+        <li>Newsletter form + excerpt generator</li>
+        <li>Full calendar view (monthly grid)</li>
+        <li>Engagement data fetching (Meta insights)</li>
+        <li>Failed post retry logic</li>
+        <li>Mobile responsiveness pass</li>
+      </ol>
+    </div>
+
+    <h3>Dependencies on Other Pillars</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Pillar</th><th>Dependency</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>P3 (CRM/Odoo)</td><td>None</td><td>Content posting works standalone</td></tr>
+          <tr><td>P4 (Nurture)</td><td>Email sending</td><td>Newsletter email stubbed until Graph API wired</td></tr>
+          <tr><td>P5 (Events)</td><td>Minimal events table</td><td>Can create in Phase 4 even if P5 not built</td></tr>
+          <tr><td>P8 (Analytics)</td><td>Engagement fetching</td><td>Nice-to-have, not blocking</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- Section 8: Files -->
+  <section id="files">
+    <h2>Files to Create</h2>
+
+    <div class="file-tree">
+<span class="muted">src/db/</span>
+  <span class="new">schema.ts</span>                          — Drizzle schema (5 tables)
+
+<span class="muted">src/lib/</span>
+  <span class="new">db.ts</span>                              — Neon connection
+  <span class="fork">social-publisher.ts</span>               — FORK: Meta/LinkedIn APIs, DB-driven
+  <span class="fork">linkedin-tokens.ts</span>                — FORK: Blobs → PG
+  <span class="fork">auth.ts</span>                           — FORK: iron-session
+  <span class="new">content-scheduler.ts</span>              — Scheduling engine
+  <span class="new">ai-content-generator.ts</span>           — Claude content generation
+
+<span class="muted">src/app/(admin)/</span>
+  <span class="new">layout.tsx</span>                         — Admin shell (sidebar, nav)
+  <span class="new">admin/content/page.tsx</span>            — Content calendar
+  <span class="new">admin/content/review/page.tsx</span>     — Review queue
+  <span class="new">admin/content/campaigns/page.tsx</span>  — Campaign management
+  <span class="new">admin/content/newsletters/page.tsx</span>— Newsletter management
+
+<span class="muted">src/app/api/</span>
+  <span class="new">auth/login/route.ts</span>               — Password auth
+  <span class="new">auth/logout/route.ts</span>              — Session destroy
+  <span class="new">content/generate-batch/route.ts</span>   — AI content generation
+  <span class="new">content/review/route.ts</span>           — Approve/reject/edit
+  <span class="new">content/schedule/route.ts</span>         — Schedule to calendar
+  <span class="new">content/post-now/route.ts</span>         — Manual post trigger
+  <span class="new">content/newsletters/route.ts</span>      — Save + excerpt generation
+  <span class="new">cron/social-post/route.ts</span>         — Vercel cron auto-posting
+  <span class="fork">linkedin/route.ts</span>                — FORK: OAuth redirect
+  <span class="fork">linkedin/callback/route.ts</span>       — FORK: Token exchange
+
+<span class="muted">root:</span>
+  <span class="new">vercel.json</span>                        — Cron config
+  <span class="new">drizzle.config.ts</span>                  — Drizzle Kit config
+  <span class="new">.env.example</span>                       — Environment variables
+  <span class="fork">src/middleware.ts</span>                  — FORK: Route protection
+  <span class="new">src/app/admin/login/page.tsx</span>       — Login page
+    </div>
+    <p class="muted">
+      <span class="new" style="font-family: monospace; font-size: 0.8rem;">Green</span> = new file &nbsp;&nbsp;
+      <span class="fork" style="font-family: monospace; font-size: 0.8rem;">Blue</span> = forked from ninja
+    </p>
+  </section>
+
+  <hr>
+
+  <!-- Section 9: Decisions -->
+  <section id="decisions">
+    <h2>Open Decisions</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Decision</th><th>Options</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>First content batch timing</td><td>Generate before or after Meta API setup</td><td><span class="badge badge-amber">TBD</span></td></tr>
+          <tr><td>2</td><td>Image generation / sourcing</td><td>Lia provides manually vs AI-generated</td><td><span class="badge badge-amber">TBD</span></td></tr>
+          <tr><td>3</td><td>LinkedIn API approval</td><td>Apply now vs start with manual_queue</td><td><span class="badge badge-green">Manual queue first</span></td></tr>
+          <tr><td>4</td><td>Content approval notifications</td><td>In-app only vs Slack/email notification</td><td><span class="badge badge-amber">TBD</span></td></tr>
+          <tr><td>5</td><td>Multi-language strategy</td><td>Georgian primary + English secondary vs dual</td><td><span class="badge badge-green">Georgian primary</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="text-align: center; padding: 2rem 0; color: var(--text-light); font-size: 0.8rem;">
+    GEC Digital Sales Ecosystem — Content & Auto-Posting Plan v1.0 — March 18, 2026
+  </div>
+
+</div>
+</body>
+</html>

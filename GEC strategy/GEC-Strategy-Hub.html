@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEC Strategy Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   SHARED / GLOBAL
+   ================================================================ */
+:root {
+  --hub-bg: #ffffff;
+  --hub-surface: #f8f9fb;
+  --hub-surface-2: #f0f1f5;
+  --hub-border: #e2e4ea;
+  --hub-text: #1a1a2e;
+  --hub-text-muted: #6b7085;
+  --hub-accent: #4f46e5;
+  --hub-accent-light: #4338ca;
+  --hub-green: #16a34a;
+  --hub-orange: #d97706;
+  --hub-red: #dc2626;
+  --hub-teal: #0d9488;
+  --hub-blue: #2563eb;
+  --hub-purple: #9333ea;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--hub-bg);
+  color: var(--hub-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================================================================
+   HUB TOP NAVIGATION
+   ================================================================ */
+.hub-topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  height: 52px;
+  background: rgba(15, 15, 35, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.hub-logo {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-right: 32px;
+  flex-shrink: 0;
+}
+
+.hub-logo span {
+  background: linear-gradient(135deg, #818cf8, #5eead4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hub-tabs {
+  display: flex;
+  gap: 0;
+  height: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hub-tabs::-webkit-scrollbar { display: none; }
+
+.hub-tab {
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.hub-tab:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.hub-tab.active {
+  color: #ffffff;
+  border-bottom-color: var(--hub-accent);
+}
+
+/* Page containers */
+.hub-page {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding-top: 52px;
+}
+
+.hub-page.active {
+  display: block;
+  opacity: 1;
+}
+
+/* ================================================================
+   PAGE 1: MASTER PLAN
+   ================================================================ */
+.page-masterplan {
+  --bg: #ffffff;
+  --surface: #f8f9fb;
+  --surface-2: #f0f1f5;
+  --border: #e2e4ea;
+  --text: #1a1a2e;
+  --text-muted: #6b7085;
+  --accent: #4f46e5;
+  --accent-light: #4338ca;
+  --green: #16a34a;
+  --green-dim: #15803d;
+  --orange: #d97706;
+  --red: #dc2626;
+  --blue: #2563eb;
+  --teal: #0d9488;
+  --purple: #9333ea;
+  --pink: #db2777;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.page-masterplan .sidebar {
+  position: fixed;
+  left: 0;
+  top: 52px;
+  width: 280px;
+  height: calc(100vh - 52px);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  padding: 24px 0;
+}
+
+.page-masterplan .sidebar-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.page-masterplan .sidebar-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-light);
+  letter-spacing: -0.02em;
+}
+
+.page-masterplan .sidebar-header .meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.page-masterplan .nav-item {
+  display: block;
+  padding: 8px 20px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.page-masterplan .nav-item:hover {
+  color: var(--text);
+  background: var(--surface-2);
+  border-left-color: var(--accent);
+}
+
+.page-masterplan .nav-item.active {
+  color: var(--accent);
+  background: rgba(79, 70, 229, 0.06);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+.page-masterplan .nav-number {
+  display: inline-block;
+  width: 22px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.page-masterplan .main {
+  margin-left: 280px;
+  padding: 40px 60px 100px;
+  max-width: 960px;
+}
+
+.page-masterplan .hero {
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-masterplan .hero h1 {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--accent), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+
+.page-masterplan .hero-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.page-masterplan .hero-meta .tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.page-masterplan .hero-meta .tag strong { color: var(--text); }
+
+.page-masterplan .section {
+  margin-bottom: 56px;
+  scroll-margin-top: 76px;
+}
+
+.page-masterplan .section-number {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.page-masterplan h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  color: #0f0f1a;
+}
+
+.page-masterplan h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0 16px;
+  color: #0f0f1a;
+  letter-spacing: -0.01em;
+}
+
+.page-masterplan h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  color: var(--accent-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.page-masterplan p { margin-bottom: 16px; color: var(--text); }
+.page-masterplan strong { color: #0f0f1a; font-weight: 600; }
+.page-masterplan ul, .page-masterplan ol { margin: 12px 0 20px 24px; }
+.page-masterplan li { margin-bottom: 8px; color: var(--text); }
+.page-masterplan li strong { color: var(--accent); }
+
+.page-masterplan .flow {
+  display: flex;
+  gap: 0;
+  margin: 24px 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.page-masterplan .flow-step {
+  flex: 1;
+  min-width: 140px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+}
+
+.page-masterplan .flow-step:first-child { border-radius: 10px 0 0 10px; }
+.page-masterplan .flow-step:last-child { border-radius: 0 10px 10px 0; }
+
+.page-masterplan .flow-step .step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-light);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.page-masterplan .flow-step .step-items {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.page-masterplan .flow-step::after {
+  content: '\2192';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--accent);
+  z-index: 1;
+  font-weight: 700;
+}
+
+.page-masterplan .flow-step:last-child::after { content: ''; }
+
+.page-masterplan .principle {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.07), rgba(13, 148, 136, 0.05));
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 20px 0 28px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f0f1a;
+  letter-spacing: 0.02em;
+}
+
+.page-masterplan .principle span { color: var(--accent-light); margin: 0 8px; }
+
+.page-masterplan table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-size: 13px;
+}
+
+.page-masterplan thead th {
+  background: var(--surface-2);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border);
+}
+
+.page-masterplan tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.page-masterplan tbody tr:hover { background: rgba(79, 70, 229, 0.03); }
+
+.page-masterplan .badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.page-masterplan .badge-live { background: rgba(22, 163, 74, 0.1); color: var(--green); }
+.page-masterplan .badge-planned { background: rgba(217, 119, 6, 0.1); color: var(--orange); }
+.page-masterplan .badge-tbd { background: rgba(107, 112, 133, 0.1); color: var(--text-muted); }
+.page-masterplan .badge-webinar { background: rgba(79, 70, 229, 0.1); color: var(--accent); }
+.page-masterplan .badge-sme { background: rgba(13, 148, 136, 0.1); color: var(--teal); }
+.page-masterplan .badge-bank { background: rgba(217, 119, 6, 0.1); color: var(--orange); }
+
+.page-masterplan .card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.page-masterplan .card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.page-masterplan .card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f0f1a;
+  margin-bottom: 8px;
+}
+
+.page-masterplan .card-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.page-masterplan .card p { font-size: 13px; color: var(--text-muted); margin-bottom: 0; }
+.page-masterplan .card.accent-border { border-left: 3px solid var(--accent); }
+.page-masterplan .card.green-border { border-left: 3px solid var(--green); }
+.page-masterplan .card.orange-border { border-left: 3px solid var(--orange); }
+.page-masterplan .card.teal-border { border-left: 3px solid var(--teal); }
+
+.page-masterplan .arch-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 20px 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.page-masterplan .arch-block .highlight { color: var(--accent); font-weight: 600; }
+.page-masterplan .arch-block .green { color: var(--green); }
+.page-masterplan .arch-block .muted { color: #9ca3af; }
+
+.page-masterplan .checklist {
+  list-style: none;
+  margin: 16px 0;
+  padding: 0;
+}
+
+.page-masterplan .checklist li {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.page-masterplan .checklist li::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border: 2px solid #c0c4cc;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.page-masterplan .info-box {
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.page-masterplan .info-box.note { background: rgba(79, 70, 229, 0.05); border: 1px solid rgba(79, 70, 229, 0.15); }
+.page-masterplan .info-box.tip { background: rgba(22, 163, 74, 0.05); border: 1px solid rgba(22, 163, 74, 0.15); }
+.page-masterplan .info-box.warning { background: rgba(217, 119, 6, 0.05); border: 1px solid rgba(217, 119, 6, 0.15); }
+
+.page-masterplan .info-box .label {
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.page-masterplan .info-box.note .label { color: var(--accent-light); }
+.page-masterplan .info-box.tip .label { color: var(--green); }
+.page-masterplan .info-box.warning .label { color: var(--orange); }
+
+.page-masterplan hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 48px 0;
+}
+
+.page-masterplan .vs-table td:nth-child(2) { color: var(--green); }
+.page-masterplan .vs-table td:nth-child(3) { color: var(--text-muted); }
+
+.page-masterplan .season-break {
+  text-align: center;
+  padding: 12px;
+  background: var(--surface-2);
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.page-masterplan .auto-level { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.page-masterplan .auto-dot { width: 8px; height: 8px; border-radius: 50%; }
+.page-masterplan .auto-dot.full { background: var(--green); }
+.page-masterplan .auto-dot.semi { background: var(--orange); }
+.page-masterplan .auto-dot.manual { background: var(--red); }
+
+@media (max-width: 900px) {
+  .page-masterplan .sidebar { display: none; }
+  .page-masterplan .main { margin-left: 0; padding: 24px 20px 60px; }
+  .page-masterplan .hero h1 { font-size: 26px; }
+  .page-masterplan .flow { flex-direction: column; }
+  .page-masterplan .flow-step { border-radius: 8px !important; }
+  .page-masterplan .flow-step::after { display: none; }
+}
+
+/* ================================================================
+   PAGE 2: ARCHITECTURE DECISIONS
+   ================================================================ */
+.page-archdecisions {
+  --bg: #ffffff;
+  --surface: #f8f9fb;
+  --surface-2: #f0f1f5;
+  --border: #e2e4ea;
+  --text: #1a1a2e;
+  --text-muted: #6b7085;
+  --accent: #4f46e5;
+  --accent-light: #4338ca;
+  --accent-bg: rgba(79, 70, 229, 0.05);
+  --green: #16a34a;
+  --green-bg: rgba(22, 163, 74, 0.08);
+  --orange: #d97706;
+  --orange-bg: rgba(217, 119, 6, 0.08);
+  --red: #dc2626;
+  --teal: #0d9488;
+  --blue: #2563eb;
+  --p-custom: #4f46e5;
+  --p-odoo: #0d9488;
+  --p-hybrid: #d97706;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.page-archdecisions .top-bar {
+  position: fixed; top: 52px; left: 0; right: 0; height: 56px;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border); z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.page-archdecisions .top-bar-left { display: flex; align-items: center; gap: 16px; }
+.page-archdecisions .top-bar-title { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+.page-archdecisions .progress-bar { display: flex; align-items: center; gap: 6px; }
+.page-archdecisions .progress-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: all 0.3s; }
+.page-archdecisions .progress-dot.done { background: var(--accent); box-shadow: 0 0 0 3px rgba(79,70,229,0.15); }
+.page-archdecisions .progress-text { font-size: 12px; color: var(--text-muted); margin-left: 8px; font-weight: 500; }
+.page-archdecisions .top-bar-actions { display: flex; gap: 8px; }
+
+.page-archdecisions .btn {
+  padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  font-family: inherit; cursor: pointer; border: none; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.page-archdecisions .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+.page-archdecisions .btn-ghost:hover { background: var(--surface); color: var(--text); }
+.page-archdecisions .btn-primary { background: var(--accent); color: white; }
+.page-archdecisions .btn-primary:hover { background: var(--accent-light); }
+.page-archdecisions .btn-success { background: var(--green); color: white; }
+
+.page-archdecisions .layout {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 0;
+  min-height: calc(100vh - 52px);
+  padding-top: 56px;
+}
+.page-archdecisions .left-panel { padding: 40px 40px 120px; max-width: 720px; }
+.page-archdecisions .right-panel {
+  position: sticky; top: 108px; height: calc(100vh - 108px);
+  background: var(--surface); border-left: 1px solid var(--border);
+  overflow-y: auto; padding: 24px;
+}
+
+.page-archdecisions .hero { padding: 20px 0 40px; }
+.page-archdecisions .hero h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+.page-archdecisions .hero h1 span { color: var(--accent); }
+.page-archdecisions .hero p { font-size: 15px; color: var(--text-muted); line-height: 1.6; max-width: 540px; }
+
+.page-archdecisions .decision-section { margin-bottom: 40px; }
+.page-archdecisions .decision-header { margin-bottom: 16px; }
+.page-archdecisions .decision-number { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 4px; }
+.page-archdecisions .decision-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.page-archdecisions .decision-title { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+.page-archdecisions .decision-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+.page-archdecisions .info-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--surface-2); border: 1px solid var(--border);
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  cursor: help; position: relative; flex-shrink: 0;
+  font-style: italic; font-family: Georgia, serif;
+}
+.page-archdecisions .info-icon:hover { background: var(--accent); color: white; border-color: var(--accent); }
+.page-archdecisions .info-tooltip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%); background: var(--text); color: white;
+  padding: 10px 14px; border-radius: 8px; font-size: 12px; font-weight: 400;
+  font-style: normal; font-family: 'Inter', sans-serif;
+  line-height: 1.5; width: 280px; z-index: 50;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.page-archdecisions .info-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--text);
+}
+.page-archdecisions .info-icon:hover .info-tooltip { display: block; }
+
+.page-archdecisions .recommendation {
+  background: var(--green-bg); border: 1px solid rgba(22,163,74,0.2);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 16px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.page-archdecisions .rec-icon {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--green);
+  color: white; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.page-archdecisions .rec-text { font-size: 13px; line-height: 1.5; }
+.page-archdecisions .rec-text strong { color: var(--green); }
+
+.page-archdecisions .options-row { display: grid; gap: 12px; margin-bottom: 12px; }
+.page-archdecisions .options-row.cols-2 { grid-template-columns: 1fr 1fr; }
+.page-archdecisions .options-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.page-archdecisions .option-card {
+  position: relative; background: white; border: 2px solid var(--border);
+  border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.2s;
+  display: flex; flex-direction: column;
+}
+.page-archdecisions .option-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(79,70,229,0.08); }
+.page-archdecisions .option-card.selected { border-color: var(--accent); background: var(--accent-bg); box-shadow: 0 4px 20px rgba(79,70,229,0.12); }
+.page-archdecisions .option-card.selected::after {
+  content: '\2713'; position: absolute; top: 10px; right: 12px;
+  width: 22px; height: 22px; background: var(--accent); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+}
+.page-archdecisions .option-card.is-recommended { border-color: rgba(22,163,74,0.3); }
+
+.page-archdecisions .option-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.page-archdecisions .option-letter {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--surface-2);
+  border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--text-muted); flex-shrink: 0;
+}
+.page-archdecisions .selected .option-letter { background: var(--accent); border-color: var(--accent); color: white; }
+.page-archdecisions .option-title { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; flex: 1; padding-right: 16px; }
+
+.page-archdecisions .badge-rec {
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 2px 7px; border-radius: 20px; background: var(--green-bg); color: var(--green);
+  margin-bottom: 10px; width: fit-content;
+}
+
+.page-archdecisions .option-points { list-style: none; margin-bottom: 8px; flex: 1; }
+.page-archdecisions .option-points li {
+  font-size: 12px; line-height: 1.5; padding: 2px 0 2px 18px;
+  position: relative; color: var(--text);
+}
+.page-archdecisions .option-points.pros li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: 13px; }
+.page-archdecisions .option-points.cons li::before { content: '-'; position: absolute; left: 2px; color: var(--orange); font-weight: 700; font-size: 13px; }
+
+.page-archdecisions .option-cost {
+  margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border);
+  font-size: 12px; font-weight: 600; color: var(--text-muted);
+}
+.page-archdecisions .option-cost span { color: var(--text); }
+
+.page-archdecisions .consequence {
+  background: var(--accent-bg); border: 1px solid rgba(79,70,229,0.12);
+  border-radius: 10px; padding: 14px 16px; margin-top: 4px; animation: adFadeIn 0.3s ease;
+}
+.page-archdecisions .consequence p { font-size: 13px; color: var(--text); line-height: 1.6; }
+.page-archdecisions .consequence .unlocks {
+  margin-top: 8px; padding: 6px 10px; background: rgba(79,70,229,0.06);
+  border-radius: 6px; font-size: 11px; font-weight: 600; color: var(--accent);
+}
+
+@keyframes adFadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+.page-archdecisions .decision-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 40px; }
+
+.page-archdecisions .right-tabs {
+  display: flex; gap: 0; margin-bottom: 20px;
+  border-bottom: 2px solid var(--border);
+}
+.page-archdecisions .right-tab {
+  padding: 10px 18px; font-size: 13px; font-weight: 600;
+  color: var(--text-muted); cursor: pointer; border: none; background: none;
+  font-family: inherit; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: all 0.2s;
+}
+.page-archdecisions .right-tab:hover { color: var(--text); }
+.page-archdecisions .right-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.page-archdecisions .tab-content { display: none; }
+.page-archdecisions .tab-content.active { display: block; animation: adFadeIn 0.3s ease; }
+
+.page-archdecisions .pillar-map { width: 100%; }
+.page-archdecisions .pillar-map svg { width: 100%; height: auto; }
+.page-archdecisions .pillar-legend { display: flex; gap: 16px; margin: 16px 0 8px; flex-wrap: wrap; }
+.page-archdecisions .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; }
+.page-archdecisions .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+.page-archdecisions .pillar-detail-panel {
+  background: white; border: 2px solid var(--border); border-radius: 10px;
+  padding: 16px; margin-top: 12px; animation: adFadeIn 0.2s ease;
+}
+.page-archdecisions .pillar-detail-panel h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.page-archdecisions .pillar-detail-panel .pd-where {
+  display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px; margin-bottom: 8px;
+}
+.page-archdecisions .pd-custom { background: rgba(79,70,229,0.1); color: var(--p-custom); }
+.page-archdecisions .pd-odoo { background: rgba(13,148,136,0.1); color: var(--p-odoo); }
+.page-archdecisions .pd-hybrid { background: rgba(217,119,6,0.1); color: var(--p-hybrid); }
+.page-archdecisions .pillar-detail-panel p { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 6px; }
+.page-archdecisions .pillar-detail-panel .pd-deps { font-size: 11px; color: var(--text); }
+.page-archdecisions .pillar-detail-panel .pd-deps strong { color: var(--accent); }
+
+.page-archdecisions .flow-node {
+  background: white; border: 2px solid var(--border); border-radius: 10px;
+  padding: 10px 12px; transition: all 0.3s; width: 100%;
+}
+.page-archdecisions .flow-node.active { border-color: var(--accent); box-shadow: 0 2px 12px rgba(79,70,229,0.1); }
+.page-archdecisions .flow-node.pending { opacity: 0.4; border-style: dashed; }
+.page-archdecisions .flow-node-header { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.page-archdecisions .flow-node-icon { font-size: 16px; }
+.page-archdecisions .flow-node-label { font-size: 12px; font-weight: 700; color: var(--text); }
+.page-archdecisions .flow-node-detail { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
+.page-archdecisions .flow-node-tech {
+  display: inline-block; margin-top: 4px; font-size: 9px; font-weight: 600;
+  padding: 1px 6px; border-radius: 3px; background: var(--surface-2); color: var(--text-muted);
+}
+.page-archdecisions .flow-connector {
+  display: flex; align-items: center; justify-content: center; height: 24px; position: relative;
+}
+.page-archdecisions .flow-connector::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--border);
+}
+.page-archdecisions .flow-connector-arrow {
+  font-size: 9px; color: var(--text-muted); background: var(--surface);
+  padding: 2px 6px; position: relative; z-index: 1; font-weight: 600;
+}
+.page-archdecisions .flow-connector.active::before { background: var(--accent); }
+.page-archdecisions .flow-connector.active .flow-connector-arrow { color: var(--accent); }
+.page-archdecisions .flow-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.page-archdecisions .flow-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.page-archdecisions .flow-section-label {
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); margin: 12px 0 6px; padding-top: 10px; border-top: 1px solid var(--border);
+}
+.page-archdecisions .flow-section-label:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+
+.page-archdecisions .flow-cost-summary {
+  margin-top: 16px; padding: 14px; background: white; border: 2px solid var(--border); border-radius: 10px;
+}
+.page-archdecisions .flow-cost-title { font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+.page-archdecisions .flow-cost-row {
+  display: flex; justify-content: space-between; font-size: 11px; padding: 3px 0; border-bottom: 1px solid var(--surface-2);
+}
+.page-archdecisions .flow-cost-row:last-child { border-bottom: none; font-weight: 700; padding-top: 6px; margin-top: 3px; border-top: 1px solid var(--border); }
+.page-archdecisions .flow-cost-label { color: var(--text-muted); }
+.page-archdecisions .flow-cost-value { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+
+.page-archdecisions .flow-export { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.page-archdecisions .flow-export .btn { width: 100%; justify-content: center; font-size: 12px; padding: 7px 12px; }
+
+@media (max-width: 1100px) {
+  .page-archdecisions .layout { grid-template-columns: 1fr; }
+  .page-archdecisions .right-panel { position: relative; top: 0; height: auto; border-left: none; border-top: 1px solid var(--border); }
+  .page-archdecisions .left-panel { max-width: 100%; padding: 32px 24px 40px; }
+}
+@media (max-width: 640px) {
+  .page-archdecisions .top-bar { padding: 0 16px; }
+  .page-archdecisions .top-bar-title { display: none; }
+  .page-archdecisions .left-panel { padding: 24px 16px 40px; }
+  .page-archdecisions .right-panel { padding: 20px 16px; }
+  .page-archdecisions .hero h1 { font-size: 22px; }
+  .page-archdecisions .options-row.cols-2, .page-archdecisions .options-row.cols-3 { grid-template-columns: 1fr; }
+  .page-archdecisions .flow-row, .page-archdecisions .flow-row-3 { grid-template-columns: 1fr; }
+}
+
+/* ================================================================
+   PAGE 3: PILLAR ARCHITECTURE
+   ================================================================ */
+.page-pillararch {
+  --accent: #4f46e5;
+  --teal: #0d9488;
+  --green: #16a34a;
+  --orange: #d97706;
+  --bg: #ffffff;
+  --surface: #f8f9fb;
+  --border: #e2e4ea;
+  --text: #1a1a2e;
+  --muted: #6b7085;
+  --radius: 12px;
+}
+
+.page-pillararch .hero {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+  position: relative; overflow: hidden; padding: 80px 24px 64px;
+}
+.page-pillararch .hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 60px);
+  pointer-events: none;
+}
+.page-pillararch .hero::after {
+  content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%); pointer-events: none;
+}
+.page-pillararch .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+.page-pillararch .hero-badge { display: inline-block; padding: 6px 16px; background: rgba(79,70,229,0.15); border: 1px solid rgba(79,70,229,0.3); border-radius: 100px; color: #a5b4fc; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
+.page-pillararch .hero h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; color: #ffffff; line-height: 1.1; margin-bottom: 16px; }
+.page-pillararch .hero h1 .gradient-text { background: linear-gradient(135deg, #818cf8, #5eead4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-pillararch .hero-subtitle { color: rgba(255,255,255,0.6); font-size: 17px; max-width: 640px; margin: 0 auto 48px; font-weight: 400; line-height: 1.7; }
+.page-pillararch .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 800px; margin: 0 auto; }
+.page-pillararch .hero-stat { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px 16px; text-align: center; }
+.page-pillararch .hero-stat-value { color: #ffffff; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.page-pillararch .hero-stat-label { color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.page-pillararch .tab-nav {
+  position: sticky; top: 52px; z-index: 100;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border); padding: 0 24px;
+}
+.page-pillararch .tab-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 0; }
+.page-pillararch .tab-btn { padding: 16px 24px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.page-pillararch .tab-btn:hover { color: var(--text); }
+.page-pillararch .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.page-pillararch .tab-content { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+.page-pillararch .tab-panel { display: none; }
+.page-pillararch .tab-panel.active { display: block; }
+
+.page-pillararch .option-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius); margin-bottom: 32px; overflow: hidden; transition: border-color 0.2s; }
+.page-pillararch .option-card:hover { border-color: #c7c9d3; }
+.page-pillararch .option-header { padding: 24px 28px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.page-pillararch .option-badge { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; color: #fff; flex-shrink: 0; }
+.page-pillararch .option-badge.a { background: var(--accent); }
+.page-pillararch .option-badge.b { background: var(--teal); }
+.page-pillararch .option-badge.c { background: var(--orange); }
+.page-pillararch .option-badge.d { background: #7c3aed; }
+.page-pillararch .option-title { font-size: 20px; font-weight: 700; flex: 1; min-width: 200px; }
+.page-pillararch .complexity-dots { display: flex; gap: 4px; align-items: center; }
+.page-pillararch .complexity-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+.page-pillararch .complexity-dots span.filled { background: var(--accent); }
+.page-pillararch .option-desc { padding: 0 28px 20px; color: var(--muted); font-size: 15px; }
+.page-pillararch .option-diagram { padding: 0 28px 24px; }
+.page-pillararch .option-diagram svg { width: 100%; border-radius: 10px; display: block; }
+.page-pillararch .option-body { padding: 0 28px 28px; }
+.page-pillararch .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+.page-pillararch .pros-cons h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.page-pillararch .pros h4 { color: var(--green); }
+.page-pillararch .cons h4 { color: var(--orange); }
+.page-pillararch .pros-cons li { list-style: none; font-size: 14px; padding: 4px 0 4px 20px; color: var(--text); position: relative; }
+.page-pillararch .pros li::before { content: '+'; position: absolute; left: 0; font-weight: 700; color: var(--green); }
+.page-pillararch .cons li::before { content: '-'; position: absolute; left: 2px; font-weight: 700; color: var(--orange); }
+.page-pillararch .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.page-pillararch .stat-box { background: var(--surface); border-radius: 8px; padding: 14px; text-align: center; }
+.page-pillararch .stat-box-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 4px; }
+.page-pillararch .stat-box-value { font-size: 15px; font-weight: 700; color: var(--text); }
+
+.page-pillararch .sbs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.page-pillararch .sbs-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.page-pillararch .sbs-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.page-pillararch .sbs-card-header .option-badge { width: 32px; height: 32px; font-size: 13px; }
+.page-pillararch .sbs-card-header h3 { font-size: 16px; font-weight: 700; }
+.page-pillararch .sbs-card svg { width: 100%; border-radius: 8px; display: block; margin-bottom: 16px; }
+.page-pillararch .sbs-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.page-pillararch .sbs-stat { background: var(--surface); border-radius: 6px; padding: 8px 10px; text-align: center; }
+.page-pillararch .sbs-stat-label { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+.page-pillararch .sbs-stat-value { font-size: 13px; font-weight: 700; }
+
+.page-pillararch .matrix-wrapper { overflow-x: auto; border: 2px solid var(--border); border-radius: var(--radius); }
+.page-pillararch .matrix-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 700px; }
+.page-pillararch .matrix-table thead { position: sticky; top: 0; z-index: 2; }
+.page-pillararch .matrix-table th { background: #f1f2f6; font-weight: 700; text-align: left; padding: 14px 16px; border-bottom: 2px solid var(--border); font-size: 13px; white-space: nowrap; }
+.page-pillararch .matrix-table th:first-child { min-width: 160px; }
+.page-pillararch .matrix-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.page-pillararch .matrix-table tr:last-child td { border-bottom: none; }
+.page-pillararch .matrix-table tbody tr:hover td { background: rgba(79,70,229,0.03); }
+.page-pillararch .matrix-table td.best { background: rgba(22,163,106,0.08); font-weight: 600; }
+.page-pillararch .dim-label { font-weight: 600; color: var(--text); }
+.page-pillararch .dot-rating { letter-spacing: 2px; font-size: 13px; }
+.page-pillararch .dot-filled { color: var(--accent); }
+.page-pillararch .dot-empty { color: #d4d6de; }
+
+.page-pillararch .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); max-width: 760px; margin-bottom: 40px; }
+.page-pillararch .summary-text p { margin-bottom: 16px; }
+.page-pillararch .summary-text strong { font-weight: 700; }
+.page-pillararch .selection-heading { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+.page-pillararch .selection-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.page-pillararch .selection-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.page-pillararch .selection-card:hover { border-color: #c7c9d3; }
+.page-pillararch .selection-card.selected { border-color: var(--green); background: rgba(22,163,106,0.04); }
+.page-pillararch .selection-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.page-pillararch .selection-card p { font-size: 13px; color: var(--muted); }
+.page-pillararch .copy-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.page-pillararch .copy-btn:hover { background: #4338ca; }
+.page-pillararch .copy-btn.copied { background: var(--green); }
+
+.page-pillararch .bottom-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 60px; }
+.page-pillararch .recommendation-box { background: linear-gradient(135deg, rgba(22,163,106,0.06), rgba(22,163,106,0.02)); border: 2px solid rgba(22,163,106,0.2); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 20px; }
+.page-pillararch .recommendation-box h3 { font-size: 16px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.page-pillararch .recommendation-box p { font-size: 15px; line-height: 1.7; color: var(--text); }
+.page-pillararch .page-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 600; font-size: 15px; text-decoration: none; transition: gap 0.2s; cursor: pointer; }
+.page-pillararch .page-link:hover { gap: 10px; }
+
+@media (max-width: 900px) {
+  .page-pillararch .hero-stats { grid-template-columns: 1fr 1fr; }
+  .page-pillararch .pros-cons, .page-pillararch .sbs-grid, .page-pillararch .selection-grid { grid-template-columns: 1fr; }
+  .page-pillararch .stat-row { grid-template-columns: 1fr 1fr; }
+  .page-pillararch .tab-btn { padding: 14px 16px; font-size: 13px; }
+}
+
+/* ================================================================
+   PAGE 4: BUSINESS MODEL
+   ================================================================ */
+.page-bizmodel {
+  --accent: #4f46e5;
+  --accent-light: #6366f1;
+  --teal: #0d9488;
+  --teal-light: #14b8a6;
+  --green: #16a34a;
+  --orange: #d97706;
+  --bg: #ffffff;
+  --surface: #f8f9fb;
+  --border: #e2e4ea;
+  --text: #1a1a2e;
+  --muted: #6b7085;
+  --dark-bg: #0f0f23;
+  --dark-surface: #1e1e2e;
+  --dark-border: rgba(255,255,255,0.08);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+.page-bizmodel .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.page-bizmodel .reveal.visible { opacity: 1; transform: translateY(0); }
+
+.page-bizmodel .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.page-bizmodel section { padding: 80px 0; }
+.page-bizmodel h2 { font-size: 2rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+.page-bizmodel h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; }
+.page-bizmodel .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 640px; margin-bottom: 48px; }
+.page-bizmodel .gradient-text { background: linear-gradient(135deg, var(--accent), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+.page-bizmodel .hero {
+  position: relative; min-height: 520px; display: flex; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden; background: linear-gradient(160deg, #0f0f23 0%, #1a1a3e 100%); padding: 100px 24px 80px;
+}
+.page-bizmodel .hero-mesh { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 600px 400px at 20% 30%, rgba(79,70,229,0.12) 0%, transparent 70%), radial-gradient(ellipse 500px 500px at 80% 60%, rgba(13,148,136,0.10) 0%, transparent 70%), radial-gradient(ellipse 400px 300px at 50% 80%, rgba(99,102,241,0.08) 0%, transparent 70%); animation: bmMeshShift 20s ease-in-out infinite alternate; }
+
+@keyframes bmMeshShift {
+  0% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  33% { background-position: 10% 20%, 90% 80%, 40% 60%; }
+  66% { background-position: 20% 10%, 80% 90%, 60% 40%; }
+  100% { background-position: 5% 15%, 95% 70%, 55% 45%; }
+}
+
+.page-bizmodel .hero-content { position: relative; z-index: 1; max-width: 720px; }
+.page-bizmodel .hero-badge { display: inline-block; padding: 6px 16px; border-radius: 20px; background: rgba(79,70,229,0.15); color: var(--accent-light); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 24px; border: 1px solid rgba(79,70,229,0.25); }
+.page-bizmodel .hero-title { font-size: 3.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+.page-bizmodel .hero-title .gradient-text { background: linear-gradient(135deg, var(--accent-light), var(--teal-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-bizmodel .hero-sub { color: rgba(255,255,255,0.65); font-size: 1.15rem; line-height: 1.7; margin-bottom: 32px; max-width: 580px; margin-left: auto; margin-right: auto; }
+.page-bizmodel .hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.page-bizmodel .glass-badge { padding: 10px 20px; border-radius: 10px; background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.02em; }
+
+.page-bizmodel .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.page-bizmodel .concept-features { list-style: none; margin-top: 20px; }
+.page-bizmodel .concept-features li { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; font-size: 0.95rem; color: var(--text); }
+.page-bizmodel .concept-features li::before { content: ''; display: inline-block; width: 10px; height: 10px; min-width: 10px; background: var(--teal); border-radius: 2px; margin-top: 6px; }
+
+.page-bizmodel .product-mockup { background: #1e1e2e; border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 0 60px rgba(79,70,229,0.12), 0 0 120px rgba(13,148,136,0.06); border: 1px solid rgba(255,255,255,0.06); }
+.page-bizmodel .mockup-header { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.page-bizmodel .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+.page-bizmodel .mockup-dot.r { background: #ef4444; }
+.page-bizmodel .mockup-dot.y { background: #eab308; }
+.page-bizmodel .mockup-dot.g { background: #22c55e; }
+.page-bizmodel .mockup-title { margin-left: 8px; color: rgba(255,255,255,0.4); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; }
+.page-bizmodel .mockup-post { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; margin-bottom: 14px; }
+.page-bizmodel .mockup-post-text { color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.5; margin-bottom: 14px; }
+.page-bizmodel .mockup-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.page-bizmodel .platform-icons { display: flex; gap: 6px; }
+.page-bizmodel .platform-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: #fff; }
+.page-bizmodel .platform-icon.li { background: #0a66c2; }
+.page-bizmodel .platform-icon.fb { background: #1877f2; }
+.page-bizmodel .platform-icon.ig { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); }
+.page-bizmodel .mockup-date { color: rgba(255,255,255,0.35); font-size: 0.78rem; }
+.page-bizmodel .mockup-actions { display: flex; gap: 8px; }
+.page-bizmodel .mockup-btn { padding: 5px 14px; border-radius: 6px; font-size: 0.78rem; font-weight: 500; border: 1px solid rgba(255,255,255,0.12); background: transparent; cursor: default; }
+.page-bizmodel .mockup-btn.approve { color: var(--teal-light); border-color: rgba(13,148,136,0.3); }
+.page-bizmodel .mockup-btn.edit { color: rgba(255,255,255,0.5); }
+.page-bizmodel .mockup-stats { display: flex; gap: 16px; padding-top: 4px; }
+.page-bizmodel .mockup-stat { color: rgba(255,255,255,0.4); font-size: 0.8rem; font-weight: 500; }
+.page-bizmodel .mockup-stat strong { color: rgba(255,255,255,0.7); font-weight: 600; }
+
+.page-bizmodel .dark-section { background: var(--dark-bg); color: #fff; }
+.page-bizmodel .dark-section h2 { color: #fff; }
+.page-bizmodel .dark-section .section-sub { color: rgba(255,255,255,0.5); }
+.page-bizmodel .arch-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.page-bizmodel .arch-svg { display: block; margin: 0 auto; max-width: 100%; }
+
+.page-bizmodel .flow-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; position: relative; }
+.page-bizmodel .flow-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 16px; text-align: center; position: relative; }
+.page-bizmodel .flow-card-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+.page-bizmodel .flow-icon { width: 40px; height: 40px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; }
+.page-bizmodel .flow-icon svg { width: 28px; height: 28px; stroke: var(--teal); stroke-width: 1.8; fill: none; }
+.page-bizmodel .flow-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+.page-bizmodel .flow-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+
+@media (min-width: 901px) {
+  .page-bizmodel .flow-card:not(:last-child)::after { content: ''; position: absolute; top: 50%; right: -12px; width: 8px; height: 8px; border-top: 2px solid var(--border); border-right: 2px solid var(--border); transform: translateY(-50%) rotate(45deg); z-index: 2; }
+}
+
+.page-bizmodel .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.page-bizmodel .tech-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: box-shadow 0.2s ease; }
+.page-bizmodel .tech-card:hover { box-shadow: var(--shadow-md); }
+.page-bizmodel .tech-category { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+.page-bizmodel .tech-name { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+.page-bizmodel .tech-purpose { font-size: 0.82rem; color: var(--muted); }
+
+.page-bizmodel .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+.page-bizmodel .price-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 28px; position: relative; transition: box-shadow 0.25s ease, transform 0.25s ease; }
+.page-bizmodel .price-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+.page-bizmodel .price-card.popular { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal), var(--shadow-md); }
+.page-bizmodel .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); padding: 4px 16px; background: var(--teal); color: #fff; font-size: 0.72rem; font-weight: 600; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
+.page-bizmodel .price-card h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+.page-bizmodel .price-amount { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 4px; }
+.page-bizmodel .price-period { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+.page-bizmodel .price-features { list-style: none; }
+.page-bizmodel .price-features li { padding: 6px 0; font-size: 0.88rem; color: var(--text); display: flex; align-items: center; gap: 10px; }
+.page-bizmodel .check-wrap { width: 16px; height: 16px; min-width: 16px; border-radius: 50%; background: rgba(13,148,136,0.12); display: flex; align-items: center; justify-content: center; }
+.page-bizmodel .check-wrap svg { width: 10px; height: 10px; stroke: var(--teal); stroke-width: 2.5; fill: none; }
+
+.page-bizmodel .gec-rel-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 32px; align-items: center; }
+.page-bizmodel .rel-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; }
+.page-bizmodel .rel-card h3 { margin-bottom: 16px; }
+.page-bizmodel .rel-card ul { list-style: none; }
+.page-bizmodel .rel-card li { padding: 6px 0; font-size: 0.9rem; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+.page-bizmodel .rel-card li .bullet { width: 6px; height: 6px; min-width: 6px; border-radius: 50%; background: var(--accent); margin-top: 8px; }
+.page-bizmodel .rel-svg-container { display: flex; align-items: center; justify-content: center; }
+
+.page-bizmodel .calc-container { max-width: 900px; margin: 0 auto; }
+.page-bizmodel .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+.page-bizmodel .calc-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.page-bizmodel .calc-group .range-label { display: flex; justify-content: space-between; align-items: center; }
+.page-bizmodel .calc-group .range-value { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+.page-bizmodel input[type="range"] { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: var(--border); outline: none; margin-top: 8px; }
+.page-bizmodel input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 2px 6px rgba(79,70,229,0.3); }
+.page-bizmodel input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; }
+.page-bizmodel .mix-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 8px; }
+.page-bizmodel .mix-input label { font-size: 0.75rem; color: var(--muted); font-weight: 500; display: block; margin-bottom: 4px; }
+.page-bizmodel .mix-input input { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; text-align: center; outline: none; transition: border-color 0.2s; }
+.page-bizmodel .mix-input input:focus { border-color: var(--accent); }
+.page-bizmodel .calc-results { background: var(--surface); border-radius: var(--radius-lg); padding: 32px; margin-bottom: 32px; }
+.page-bizmodel .calc-big-numbers { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+.page-bizmodel .calc-metric { text-align: center; }
+.page-bizmodel .calc-metric-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
+.page-bizmodel .calc-metric-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
+.page-bizmodel .calc-metric-value.mrr { color: var(--accent); }
+.page-bizmodel .calc-metric-value.arr { color: var(--teal); }
+.page-bizmodel .calc-metric-value.profit { color: var(--green); }
+.page-bizmodel .revenue-bar-container { margin-bottom: 20px; }
+.page-bizmodel .revenue-bar-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-bottom: 6px; }
+.page-bizmodel .revenue-bar { height: 28px; border-radius: 6px; overflow: hidden; display: flex; background: var(--border); }
+.page-bizmodel .bar-segment { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 600; color: #fff; transition: width 0.4s ease; min-width: 0; overflow: hidden; white-space: nowrap; }
+.page-bizmodel .bar-starter { background: var(--accent); }
+.page-bizmodel .bar-growth { background: var(--teal); }
+.page-bizmodel .bar-enterprise { background: var(--orange); }
+.page-bizmodel .cost-line { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); padding: 4px 0; }
+.page-bizmodel .cost-line strong { color: var(--text); font-weight: 600; }
+.page-bizmodel .milestones { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.page-bizmodel .milestone { text-align: center; padding: 16px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.page-bizmodel .milestone-count { font-size: 1.15rem; font-weight: 700; color: var(--accent); }
+.page-bizmodel .milestone-mrr { font-size: 0.82rem; font-weight: 600; color: var(--text); margin: 4px 0; }
+.page-bizmodel .milestone-label { font-size: 0.72rem; color: var(--muted); }
+
+.page-bizmodel .timeline-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.page-bizmodel .timeline-track::before { content: ''; position: absolute; top: 20px; left: 60px; right: 60px; height: 2px; background: rgba(255,255,255,0.12); }
+.page-bizmodel .timeline-phase { text-align: center; position: relative; padding: 0 12px; }
+.page-bizmodel .timeline-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--teal); margin: 14px auto 24px; position: relative; z-index: 1; box-shadow: 0 0 12px rgba(13,148,136,0.4); }
+.page-bizmodel .timeline-phase:first-child .timeline-dot { background: var(--accent-light); box-shadow: 0 0 12px rgba(79,70,229,0.4); }
+.page-bizmodel .timeline-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 20px 16px; text-align: left; }
+.page-bizmodel .timeline-card.active { border-color: var(--teal); background: rgba(13,148,136,0.06); }
+.page-bizmodel .timeline-phase-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal-light); margin-bottom: 4px; }
+.page-bizmodel .timeline-card h4 { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.page-bizmodel .timeline-card p { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+.page-bizmodel .page-footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; }
+.page-bizmodel .footer-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.page-bizmodel .footer-btn { padding: 10px 20px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--bg); color: var(--text); transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.page-bizmodel .footer-btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
+.page-bizmodel .footer-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.page-bizmodel .footer-btn.primary:hover { background: var(--accent-light); }
+.page-bizmodel .footer-date { color: var(--muted); font-size: 0.82rem; }
+
+.page-bizmodel .copy-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--dark-surface); color: #fff; padding: 12px 24px; border-radius: 10px; font-size: 0.85rem; font-weight: 500; opacity: 0; transition: all 0.3s ease; z-index: 100; pointer-events: none; }
+.page-bizmodel .copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+@media (max-width: 900px) {
+  .page-bizmodel .hero-title { font-size: 2.5rem; }
+  .page-bizmodel h2 { font-size: 1.6rem; }
+  .page-bizmodel .concept-grid { grid-template-columns: 1fr; }
+  .page-bizmodel .flow-grid { grid-template-columns: 1fr; gap: 12px; max-width: 400px; margin: 0 auto; }
+  .page-bizmodel .flow-card:not(:last-child)::after { display: none; }
+  .page-bizmodel .tech-grid { grid-template-columns: 1fr 1fr; }
+  .page-bizmodel .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .page-bizmodel .gec-rel-grid { grid-template-columns: 1fr; gap: 24px; }
+  .page-bizmodel .rel-svg-container { order: -1; }
+  .page-bizmodel .calc-inputs { grid-template-columns: 1fr; }
+  .page-bizmodel .calc-big-numbers { grid-template-columns: 1fr; gap: 16px; }
+  .page-bizmodel .milestones { grid-template-columns: repeat(3, 1fr); }
+  .page-bizmodel .timeline-track { grid-template-columns: 1fr; gap: 16px; padding-left: 32px; }
+  .page-bizmodel .timeline-track::before { top: 0; bottom: 0; left: 7px; right: auto; width: 2px; height: auto; }
+  .page-bizmodel .timeline-phase { text-align: left; }
+  .page-bizmodel .timeline-dot { position: absolute; left: -32px; top: 24px; margin: 0; }
+}
+
+@media (max-width: 600px) {
+  .page-bizmodel section { padding: 56px 0; }
+  .page-bizmodel .hero { padding: 80px 16px 60px; min-height: 420px; }
+  .page-bizmodel .hero-title { font-size: 2rem; }
+  .page-bizmodel .tech-grid { grid-template-columns: 1fr; }
+  .page-bizmodel .milestones { grid-template-columns: 1fr 1fr; }
+  .page-bizmodel .mix-inputs { grid-template-columns: 1fr; }
+}
+
+/* ================================================================
+   SCROLLBAR (global)
+   ================================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--hub-bg); }
+::-webkit-scrollbar-thumb { background: var(--hub-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #c0c4cc; }
+
+/* ================================================================
+   PRINT
+   ================================================================ */
+@media print {
+  .hub-topnav { display: none; }
+  .hub-page { display: block !important; opacity: 1 !important; padding-top: 0 !important; page-break-after: always; }
+  .page-masterplan .sidebar { display: none; }
+  .page-masterplan .main { margin-left: 0; }
+  .page-archdecisions .top-bar { display: none; }
+  .page-archdecisions .layout { display: block; padding-top: 0; }
+  .page-archdecisions .right-panel { position: relative; top: 0; height: auto; }
+}
+
+/* Mobile hub tabs */
+@media (max-width: 640px) {
+  .hub-tab { padding: 0 14px; font-size: 12px; }
+  .hub-logo { margin-right: 16px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     HUB NAVIGATION
+     ================================================================ -->
+<nav class="hub-topnav">
+  <div class="hub-logo">GEC <span>Strategy Hub</span></div>
+  <div class="hub-tabs">
+    <button class="hub-tab active" data-page="masterplan">Master Plan</button>
+    <button class="hub-tab" data-page="archdecisions">Architecture Decisions</button>
+    <button class="hub-tab" data-page="pillararch">Pillar Architecture</button>
+    <button class="hub-tab" data-page="bizmodel">Business Model</button>
+  </div>
+</nav>
+
+<!-- ================================================================
+     PAGE 1: MASTER PLAN
+     ================================================================ -->
+<div class="hub-page page-masterplan active" id="page-masterplan">
+
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h2>GEC Master Plan</h2>
+    <div class="meta">
+      v1.0 &middot; Feb 24, 2026<br>
+      Owner: Lia Kereselidze
+    </div>
+  </div>
+  <a href="#vision" class="nav-item"><span class="nav-number">01</span> Vision & Philosophy</a>
+  <a href="#reach" class="nav-item"><span class="nav-number">02</span> Reach Layer</a>
+  <a href="#calendar" class="nav-item"><span class="nav-number">03</span> Activity Calendar</a>
+  <a href="#partnerships" class="nav-item"><span class="nav-number">04</span> Partnership Strategy</a>
+  <a href="#assessments" class="nav-item"><span class="nav-number">05</span> Self-Assessments</a>
+  <a href="#crm" class="nav-item"><span class="nav-number">06</span> CRM & Architecture</a>
+  <a href="#intelligence" class="nav-item"><span class="nav-number">07</span> Contact Intelligence</a>
+  <a href="#communication" class="nav-item"><span class="nav-number">08</span> AI Communication</a>
+  <a href="#nurture" class="nav-item"><span class="nav-number">09</span> Nurture Flows</a>
+  <a href="#automation" class="nav-item"><span class="nav-number">10</span> Automation Levels</a>
+  <a href="#sme" class="nav-item"><span class="nav-number">11</span> SME Programme</a>
+  <a href="#tone" class="nav-item"><span class="nav-number">12</span> Brand Tone</a>
+  <a href="#tech" class="nav-item"><span class="nav-number">13</span> Tech Stack</a>
+  <a href="#roadmap" class="nav-item"><span class="nav-number">14</span> Roadmap</a>
+  <a href="#decisions" class="nav-item"><span class="nav-number">15</span> Open Decisions</a>
+</nav>
+
+<div class="main">
+  <div class="hero">
+    <h1>GEC Digital Sales Ecosystem</h1>
+    <div class="hero-meta">
+      <span class="tag"><strong>Version</strong> 1.0</span>
+      <span class="tag"><strong>Date</strong> February 24, 2026</span>
+      <span class="tag"><strong>Owner</strong> Lia Kereselidze</span>
+      <span class="tag"><strong>Positioning</strong> Tech & AI Oriented Business Growth</span>
+    </div>
+  </div>
+
+  <div class="section" id="vision">
+    <div class="section-number">Section 01</div>
+    <h2>Vision & Core Philosophy</h2>
+    <div class="principle">MEET them <span>&rarr;</span> GIVE them something <span>&rarr;</span> SOLVE their problem <span>&rarr;</span> They spread the word</div>
+    <p>Every interaction with GEC should provide value. Once a potential client enters the ecosystem, they continuously receive useful insights, tools, and connections &mdash; <strong>never aggressive pitches, never boring templates.</strong></p>
+    <h3>What We're Building</h3>
+    <p>A fully integrated digital sales machine that:</p>
+    <ul>
+      <li><strong>Attracts</strong> through automated content, partnerships, and live events</li>
+      <li><strong>Captures</strong> through self-assessments, webinars, and workshops</li>
+      <li><strong>Nurtures</strong> through AI-personalized communication (not generic drip sequences)</li>
+      <li><strong>Qualifies</strong> automatically through behavioral scoring and assessment data</li>
+      <li><strong>Converts</strong> by decreasing time-to-contract with pre-built diagnostic insights</li>
+      <li><strong>Retains</strong> through ongoing value delivery and community</li>
+    </ul>
+    <h3>The Full Funnel</h3>
+    <div class="flow">
+      <div class="flow-step"><div class="step-title">Attract</div><div class="step-items">Auto-posting<br>SEO content<br>Webinars<br>Workshops<br>Partner events</div></div>
+      <div class="flow-step"><div class="step-title">Capture</div><div class="step-items">Lead Magnets<br>Assessments<br>Gated PDFs<br>Event signups<br>Contact forms</div></div>
+      <div class="flow-step"><div class="step-title">Nurture</div><div class="step-items">AI-personalized<br>Email sequences<br>Behavior-based<br>Multi-channel<br>Value delivery</div></div>
+      <div class="flow-step"><div class="step-title">Qualify</div><div class="step-items">Self-Assessment<br>scoring + CRM<br>Pipeline auto-<br>moves in CRM<br>Alert to Lia</div></div>
+      <div class="flow-step"><div class="step-title">Close</div><div class="step-items">Auto-Proposal<br>Pre-filled<br>contracts +<br>booking links</div></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section" id="reach">
+    <div class="section-number">Section 02</div>
+    <h2>Reach Layer &mdash; Getting Close to the Customer</h2>
+    <h3>Always-On (Automated)</h3>
+    <table>
+      <thead><tr><th>Channel</th><th>Status</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Social media auto-posting</td><td><span class="badge badge-live">Live</span></td><td>Facebook + Instagram via Meta Graph API</td></tr>
+        <tr><td>LinkedIn posting</td><td><span class="badge badge-planned">Planned</span></td><td>API integration needed</td></tr>
+        <tr><td>SEO blog/insights on gec.ge</td><td><span class="badge badge-planned">Planned</span></td><td>Regular thought leadership content</td></tr>
+        <tr><td>Self-assessment ad campaigns</td><td><span class="badge badge-planned">Planned</span></td><td>Paid ads driving to lead magnets</td></tr>
+      </tbody>
+    </table>
+    <h3>Live Touchpoints &mdash; 24 per Year</h3>
+    <p>Three types of events, once per week during active periods:</p>
+    <div class="card-grid">
+      <div class="card accent-border"><div class="card-subtitle">8 per year</div><div class="card-title">Webinars</div><p>Thought leadership + lead gen. Online, limited seats to create urgency.</p></div>
+      <div class="card teal-border"><div class="card-subtitle">8 per year</div><div class="card-title">SME Programme Meetings</div><p>Mentor-SME workshops. In-person or hybrid format.</p></div>
+      <div class="card orange-border"><div class="card-subtitle">8 per year</div><div class="card-title">Bank / Partner Events</div><p>Co-hosted with BOG, TBC, Liberty. Pitch to partner audiences.</p></div>
+    </div>
+    <h3>Additional Touchpoint Ideas</h3>
+    <table>
+      <thead><tr><th>Touchpoint</th><th>Frequency</th><th>Description</th><th>Effort</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Office Hours</strong></td><td>Bi-weekly</td><td>Open Zoom, anyone joins with a question. Zero prep. Recordings become content.</td><td><span class="badge badge-live">Low</span></td></tr>
+        <tr><td><strong>CEO Roundtables</strong></td><td>Quarterly</td><td>Invite-only dinner/lunch with 6-8 decision makers. No pitch, just conversation.</td><td><span class="badge badge-planned">Medium</span></td></tr>
+        <tr><td><strong>Guest Expert Sessions</strong></td><td>Monthly</td><td>SME Programme mentors give 20-min talks. Shows ecosystem depth.</td><td><span class="badge badge-live">Low</span></td></tr>
+        <tr><td><strong>"Audit in a Box"</strong></td><td>Always available</td><td>Automated mini-consulting: 30 questions &rarr; 5-page PDF with real recommendations.</td><td><span class="badge badge-planned">Build once</span></td></tr>
+        <tr><td><strong>Co-branded Content</strong></td><td>Monthly</td><td>Insight piece co-authored with AmCham / AI Association.</td><td><span class="badge badge-planned">Medium</span></td></tr>
+        <tr><td><strong>Telegram / WhatsApp</strong></td><td>Always on</td><td>Private group for attendees + clients. Quick insights, Q&A.</td><td><span class="badge badge-live">Low</span></td></tr>
+      </tbody>
+    </table>
+    <h3>Incentives for Attendance</h3>
+    <p>Every event must offer at least two:</p>
+    <ul>
+      <li><strong>Knowledge</strong> &mdash; practical takeaways they can use immediately</li>
+      <li><strong>Customized insights</strong> &mdash; something specific to their business</li>
+      <li><strong>Networking</strong> &mdash; peers, mentors, bank representatives</li>
+      <li><strong>Tools / Templates</strong> &mdash; free resources only for attendees</li>
+      <li><strong>Access to experts</strong> &mdash; Q&A with mentors or industry leaders</li>
+      <li><strong>Early access</strong> &mdash; priority enrollment in programmes</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <div class="section" id="calendar"><div class="section-number">Section 03</div><h2>Annual Activity Calendar &mdash; 2026</h2><div class="card-grid"><div class="card green-border"><div class="card-title">Spring Session</div><p>March 1 &ndash; June 15 &middot; 14 events</p></div><div class="card orange-border"><div class="card-title">Autumn Session</div><p>October 1 &ndash; December 15 &middot; 10 events</p></div></div><div class="info-box note"><div class="label">Note</div>Auto-posting and nurture sequences continue during summer (Jun 16 &ndash; Sep 30) and winter (Dec 16 &ndash; Feb 28) breaks.</div><h3>Spring Session</h3><table><thead><tr><th>Week</th><th>Date Range</th><th>Type</th><th>Topic / Partner</th></tr></thead><tbody><tr><td>1</td><td>Mar 2&ndash;6</td><td><span class="badge badge-webinar">Webinar</span></td><td>"AI Readiness for Georgian SMEs"</td></tr><tr><td>2</td><td>Mar 9&ndash;13</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Kick-off (Cohort selection)</td></tr><tr><td>3</td><td>Mar 16&ndash;20</td><td><span class="badge badge-bank">Bank</span></td><td>BOG: "Financing Digital Transformation"</td></tr><tr><td>4</td><td>Mar 23&ndash;27</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Export Readiness: Are You Ready for EU?"</td></tr><tr><td>5</td><td>Mar 30&ndash;Apr 3</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #1</td></tr><tr><td>6</td><td>Apr 6&ndash;10</td><td><span class="badge badge-bank">Bank</span></td><td>TBC: "Banking Tools for Growing SMEs"</td></tr><tr><td>7</td><td>Apr 13&ndash;17</td><td><span class="badge badge-webinar">Webinar</span></td><td>"BPM: Why Your Processes Cost You Money"</td></tr><tr><td>8</td><td>Apr 20&ndash;24</td><td><span class="badge badge-bank">Bank</span></td><td>BOG Event (April milestone)</td></tr><tr><td>9</td><td>Apr 28&ndash;May 1</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #2</td></tr><tr><td>10</td><td>May 5&ndash;9</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Strategy Planning with AI Tools"</td></tr><tr><td>11</td><td>May 12&ndash;16</td><td><span class="badge badge-bank">Bank</span></td><td>Liberty: "Trade Finance for Exporters"</td></tr><tr><td>12</td><td>May 19&ndash;23</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #3</td></tr><tr><td>13</td><td>May 26&ndash;30</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Digital Transformation Roadmap"</td></tr><tr><td>14</td><td>Jun 1&ndash;5</td><td><span class="badge badge-bank">Bank</span></td><td>Joint: SME Association Summit</td></tr></tbody></table><div class="season-break">&#9728; Summer Break: June 16 &ndash; September 30</div><h3>Autumn Session</h3><table><thead><tr><th>Week</th><th>Date Range</th><th>Type</th><th>Topic / Partner</th></tr></thead><tbody><tr><td>15</td><td>Oct 6&ndash;10</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #4</td></tr><tr><td>16</td><td>Oct 13&ndash;17</td><td><span class="badge badge-webinar">Webinar</span></td><td>"AI Case Studies from Georgian SMEs"</td></tr><tr><td>17</td><td>Oct 20&ndash;24</td><td><span class="badge badge-bank">Bank</span></td><td>BOG: "Year-End Growth Financing"</td></tr><tr><td>18</td><td>Oct 27&ndash;31</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #5</td></tr><tr><td>19</td><td>Nov 3&ndash;7</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Export Success Stories 2026"</td></tr><tr><td>20</td><td>Nov 10&ndash;14</td><td><span class="badge badge-bank">Bank</span></td><td>TBC: "Digital Banking Integration"</td></tr><tr><td>21</td><td>Nov 17&ndash;21</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #6</td></tr><tr><td>22</td><td>Nov 24&ndash;28</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Planning 2027: AI-First Strategy"</td></tr><tr><td>23</td><td>Dec 1&ndash;5</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Year-End Review</td></tr><tr><td>24</td><td>Dec 8&ndash;12</td><td><span class="badge badge-bank">Bank</span></td><td>Joint: Year-End Business Mixer</td></tr></tbody></table><div class="season-break">&#127876; Winter Break: December 16 &ndash; February 28</div></div>
+
+  <hr>
+
+  <div class="section" id="partnerships"><div class="section-number">Section 04</div><h2>Partnership Strategy</h2><h3>Credibility Partners</h3><table><thead><tr><th>Partner</th><th>What They Give GEC</th><th>What GEC Gives Them</th></tr></thead><tbody><tr><td><strong>AmCham Georgia</strong></td><td>International business credibility, access to foreign companies</td><td>AI/digital content for their events, member value</td></tr><tr><td><strong>AI Association</strong></td><td>Tech authority positioning</td><td>Practical business cases for AI adoption</td></tr><tr><td><strong>SME Associations</strong></td><td>Market trust, direct SME pipeline</td><td>Training, assessments, mentorship access</td></tr></tbody></table><h3>Distribution / Financial Partners</h3><table><thead><tr><th>Partner</th><th>What They Give GEC</th><th>What GEC Gives Them</th></tr></thead><tbody><tr><td><strong>Bank of Georgia</strong></td><td>SME client audience, event venues, co-branding</td><td>Educational content for their SME clients, growth partner positioning</td></tr><tr><td><strong>TBC Bank</strong></td><td>Access to their SME customer base</td><td>Educational events that increase bank's value prop</td></tr><tr><td><strong>Liberty Bank</strong></td><td>Trade finance audience, export-focused businesses</td><td>Export readiness content, joint workshops</td></tr></tbody></table><h3>Partnership Activation Model</h3><p>Each bank/partner event follows this structure:</p><ol><li><strong>Partner provides:</strong> Venue + audience invitation + co-branding</li><li><strong>GEC provides:</strong> Content + speaker + assessment tool + follow-up</li><li><strong>Attendees get:</strong> Free assessment + actionable insights + networking</li><li><strong>GEC captures:</strong> All attendee data flows into intelligence system</li><li><strong>Partner gets:</strong> Event report showing engagement metrics</li></ol></div>
+
+  <hr>
+
+  <div class="section" id="assessments"><div class="section-number">Section 05</div><h2>Lead Magnets &mdash; Self-Assessment Surveys</h2><h3>Four Assessments Mapped to GEC Services</h3><div class="card-grid"><div class="card accent-border"><div class="card-subtitle">Strategy Consulting</div><div class="card-title">Strategy Readiness</div><p>12-15 questions &middot; 4 min &middot; Strategy maturity scorecard</p></div><div class="card teal-border"><div class="card-subtitle">Business Process Management</div><div class="card-title">BPM Maturity</div><p>10-12 questions &middot; 3 min &middot; Process maturity level + gap analysis</p></div><div class="card orange-border"><div class="card-subtitle">Export Consulting</div><div class="card-title">Export Readiness</div><p>12-15 questions &middot; 4 min &middot; Market-readiness score + checklist</p></div><div class="card green-border"><div class="card-subtitle">Digital Transformation / AI</div><div class="card-title">AI Readiness</div><p>10-12 questions &middot; 3 min &middot; AI adoption roadmap preview</p></div></div><h3>How Each Assessment Works</h3><ol><li>User lands on assessment page (from ad, social post, event, email, or website)</li><li>10-15 questions, 3-5 minutes, progress bar visible</li><li>Results are <strong>gated</strong> &mdash; "Enter your email to see your score"</li><li>They immediately receive: on-screen score summary + PDF scorecard via email</li><li>Behind the scenes: contact created in intelligence DB, score determines nurture track, Apollo.io enriches company data</li></ol><h3>Why This Solves the Conversion Time Problem</h3><ul><li>You already know their pain points before the first call</li><li>The assessment pre-educates them on why they need help</li><li>The PDF report creates perceived value before you quote anything</li><li>Score data auto-populates into proposals/diagnostics</li><li>Discovery calls are 50% shorter because you already know their situation</li></ul></div>
+
+  <hr>
+
+  <div class="section" id="crm"><div class="section-number">Section 06</div><h2>CRM & Sales Intelligence Architecture</h2><h3>Why Apollo.io over Monday.com</h3><table class="vs-table"><thead><tr><th>Factor</th><th>Apollo.io</th><th>Monday.com</th></tr></thead><tbody><tr><td>Built for</td><td>Sales + lead gen</td><td>Project management</td></tr><tr><td>Email sequences</td><td>Native, multi-step</td><td>Basic</td></tr><tr><td>Lead enrichment</td><td>Auto-enriches company data</td><td>None</td></tr><tr><td>Lead scoring</td><td>Built-in</td><td>Manual</td></tr><tr><td>B2B contact DB</td><td>275M+ contacts searchable</td><td>Only your own data</td></tr><tr><td>API quality</td><td>Excellent REST API + webhooks</td><td>CRM API is clunky</td></tr></tbody></table><div class="info-box tip"><div class="label">Recommendation</div>Apollo.io for sales pipeline. Monday.com for project delivery after close. They integrate with each other.</div><h3>System Architecture</h3><div class="arch-block"><span class="highlight">              YOUR CUSTOM PLATFORM (Next.js app)</span>
+              Assessment Engine  |  Webinar Registration
+              Event Management   |  Content Auto-Posting <span class="green">(built)</span>
+              Scorecard PDF Gen  |  Scheduling Engine
+              Analytics Dashboard
+                         | <span class="muted">webhooks + API</span>
+              <span class="highlight">CONTACT INTELLIGENCE DB</span>
+              PostgreSQL + pgvector
+
+              Contact profiles         | Company profiles
+              All interaction history  | Assessment answers + scores
+              Event attendance         | Email engagement metrics
+              Social activity tracking | AI-generated insights
+              Communication prefs      | Vector embeddings
+                         |
+            +------------+----------------+
+            v            v                v
+       <span class="green">Apollo.io</span>      <span class="green">Resend</span>          <span class="green">Cal.com</span>
+       enrich +      send           booking +
+       prospect      emails         scheduling</div></div>
+
+  <hr>
+
+  <div class="section" id="intelligence"><div class="section-number">Section 07</div><h2>Contact Intelligence Layer</h2><h4>Identity</h4><ul><li>Name, email, phone</li><li>Company, role, title</li><li>LinkedIn profile URL</li><li>Company size + revenue (Apollo enrichment)</li><li>Industry + sector, location</li><li>How they found us (UTM source)</li></ul><h4>Engagement History</h4><ul><li>Webinars attended (which topics)</li><li>Assessments taken (scores + individual answers)</li><li>Emails opened/clicked (which content)</li><li>Events attended (online + offline)</li><li>Content downloaded, website visits</li><li>Social interactions with GEC content</li></ul><h4>AI-Generated Intelligence</h4><ul><li>Communication style preference</li><li>Decision-making pattern (fast/slow, data-driven/intuition)</li><li>Best time and channel to reach them</li><li>Predicted needs based on behavior</li><li>Lead temperature (hot/warm/cold)</li><li>Risk of going cold</li><li>Recommended next action</li><li>Summary of all interactions (AI-written)</li></ul><h4>External Intelligence (Enriched)</h4><ul><li>Job changes (LinkedIn monitoring)</li><li>Company news and announcements</li><li>Funding rounds, industry trends</li><li>Competitor activity</li><li>Public posts/articles they publish</li></ul><h4>Vector Embeddings</h4><ul><li>All interactions embedded for semantic search</li><li>"Find me leads similar to [best client]"</li><li>"Which contacts are interested in [topic]?"</li><li>"Who should I invite to [event about X]?"</li></ul><h3>Company Intelligence</h3><p>For each company in the system:</p><ul><li>Revenue, employee count, founding year</li><li>Industry classification</li><li>Digital maturity indicators</li><li>Known pain points (from assessments + interactions)</li><li>Key decision makers mapped</li><li>Engagement timeline</li><li>Opportunity score</li></ul></div>
+
+  <hr>
+
+  <div class="section" id="communication"><div class="section-number">Section 08</div><h2>AI-Powered Personalized Communication</h2><h3>The Principle</h3><p>No two contacts receive the same communication. The AI decides:</p><ul><li><strong>What</strong> to send (insight, resource, invitation, or nothing)</li><li><strong>When</strong> to send it (optimal timing for that person)</li><li><strong>How</strong> to frame it (their communication style)</li><li><strong>Whether</strong> to send at all (sometimes silence is better)</li></ul><h3>How It Works</h3><div class="arch-block">FOR each contact, EVERY week:
+
+  1. <span class="highlight">GATHER</span> context:
+     - Last interaction date and type
+     - Assessment data and scores
+     - Recent company news (Apollo)
+     - Email engagement patterns
+     - Upcoming events matching their interests
+
+  2. <span class="highlight">AI EVALUATES</span> and recommends ONE of:
+     <span class="green">a.</span> Send personalized insight
+     <span class="green">b.</span> Share a relevant resource
+     <span class="green">c.</span> Invite to upcoming event
+     <span class="green">d.</span> Do nothing
+     <span class="green">e.</span> Alert Lia for personal outreach
+
+  3. <span class="highlight">LOG</span> the action -> feeds back into the profile</div><h3>What Makes This Not Aggressive</h3><ul><li>Triggered by <strong>their</strong> actions, not cold spam</li><li>Every touchpoint delivers genuine value</li><li>CTAs are always soft: "free diagnostic", "here's a resource"</li><li>Frequency adapts to engagement level</li><li>System knows when to stay quiet</li></ul><h3>What Makes This Not Boring</h3><ul><li>Content is personalized to their specific assessment results</li><li>Mix of formats: PDF, video, case study, checklist, invitation</li><li>Language matches preference (Georgian / English)</li><li>Each message has a "quick win" they can implement immediately</li><li>Timing and channel vary (not predictable patterns)</li></ul></div>
+
+  <hr>
+
+  <div class="section" id="nurture"><div class="section-number">Section 09</div><h2>Nurture Flow Design</h2><h3>Post-Assessment Sequence (Adaptive)</h3><table><thead><tr><th>Timing</th><th>Action</th><th>Condition</th></tr></thead><tbody><tr><td>Day 0</td><td>Assessment completed &rarr; PDF scorecard (instant)</td><td>Always</td></tr><tr><td>Day 1</td><td>"Here's what your score means" email</td><td>Always</td></tr><tr><td>Day 3</td><td>Micro-case study relevant to their weakest area</td><td>Score &lt; 7/10</td></tr><tr><td>Day 5</td><td>Free resource (template, checklist, mini-guide)</td><td>Always</td></tr><tr><td>Day 8</td><td>"Companies like yours typically..." (social proof)</td><td>Not yet engaged</td></tr><tr><td>Day 12</td><td>Invite to free 20-min diagnostic call</td><td>Score indicates need</td></tr><tr><td>Day 15</td><td>Personalized insight based on assessment data</td><td>Always</td></tr><tr><td>Day 20</td><td>Exclusive content or webinar invite</td><td>If upcoming event matches</td></tr><tr><td>Day 30</td><td>Check-in with new industry insight</td><td>Always</td></tr><tr><td>Day 30+</td><td>Moves to AI-personalized weekly cadence</td><td>Always</td></tr></tbody></table><h3>Post-Event Sequence</h3><table><thead><tr><th>Timing</th><th>Action</th></tr></thead><tbody><tr><td>Same day</td><td>"Thanks for attending" + recording link + slides</td></tr><tr><td>Day 2</td><td>Key takeaway summary + "What did you find most useful?" (micro-survey)</td></tr><tr><td>Day 5</td><td>Related assessment invitation (if not taken)</td></tr><tr><td>Day 10</td><td>Related resource or next event invitation</td></tr></tbody></table><h3>Re-engagement (Going Cold)</h3><table><thead><tr><th>Trigger</th><th>Action</th></tr></thead><tbody><tr><td>No interaction for 30 days</td><td>Share an industry insight (no CTA)</td></tr><tr><td>No interaction for 60 days</td><td>"Quick question" email about their industry</td></tr><tr><td>No interaction for 90 days</td><td>Move to quarterly newsletter only</td></tr></tbody></table></div>
+
+  <hr>
+
+  <div class="section" id="automation"><div class="section-number">Section 10</div><h2>Automation Levels</h2><h3><span class="auto-level"><span class="auto-dot full"></span> Fully Automated (No Human Input)</span></h3><ul><li>Social media posting (Facebook + Instagram)</li><li>Assessment scoring + PDF generation</li><li>Lead enrichment via Apollo API</li><li>Email sending via Resend (triggered by events)</li><li>Data collection + profile updates</li><li>Nurture sequence progression</li><li>Contact intelligence updates</li><li>Analytics and dashboard refreshes</li><li>Seat counting and availability</li></ul><h3><span class="auto-level"><span class="auto-dot semi"></span> Semi-Automated (AI Drafts, Lia Approves)</span></h3><ul><li>Webinar topic selection + description generation</li><li>Event scheduling (system proposes dates, Lia confirms)</li><li>Personalized outreach messages (AI writes, Lia reviews high-value)</li><li>Partnership outreach emails</li><li>SME Programme communications</li><li>Diagnostic preview / proposal generation</li><li>Social media content for events</li><li>LinkedIn posting (until API ready)</li><li>Weekly communication recommendations per contact</li></ul><h3><span class="auto-level"><span class="auto-dot manual"></span> Manual (High-Touch, High-Value)</span></h3><ul><li>Presenting at webinars and workshops</li><li>CEO roundtable hosting</li><li>Final contract negotiations</li><li>Mentor selection for SME Programme</li><li>Strategic partnership meetings</li><li>The "meet, give, solve" moments</li><li>Complex proposal customization</li><li>Key account relationship management</li></ul></div>
+
+  <hr>
+
+  <div class="section" id="sme"><div class="section-number">Section 11</div><h2>SME Development Programme</h2><div class="info-box warning"><div class="label">Awaiting Details</div>Lia will provide specifics on mentor profiles, SME selection criteria, and programme structure.</div><h3>Overview</h3><ul><li><strong>Duration:</strong> 1 year per cohort</li><li><strong>Mentors:</strong> 10+ experienced practitioners</li><li><strong>Model:</strong> Ecosystem approach &mdash; SMEs gain group access to mentors they could never hire individually</li><li><strong>Value Proposition:</strong> Shared access to premium expertise at a fraction of individual cost</li></ul><h3>How It Feeds the Ecosystem</h3><div class="arch-block">SME Programme participants
+  <span class="green">&rarr;</span> Take assessments (data into intelligence system)
+  <span class="green">&rarr;</span> Attend workshops (8 per year)
+  <span class="green">&rarr;</span> Their success stories become case studies
+  <span class="green">&rarr;</span> They refer other SMEs
+  <span class="green">&rarr;</span> Mentors become guest speakers at webinars
+  <span class="green">&rarr;</span> Banks see results <span class="green">&rarr;</span> co-fund next cohort</div><h3>Platform Needs (TBD)</h3><ul><li>Cohort management</li><li>Mentor-SME matching</li><li>Progress tracking</li><li>Knowledge sharing portal</li><li>Milestone reporting (for partner banks)</li></ul></div>
+
+  <hr>
+
+  <div class="section" id="tone"><div class="section-number">Section 12</div><h2>GEC Brand Tone & Messaging</h2><div class="principle" style="font-size: 15px;">GEC = Tech & AI Oriented Business Growth Services</div><p>We don't just advise on digital transformation &mdash; we run our entire operation on the same AI and digital tools we help clients implement.</p><h3>Tone Guidelines</h3><table><thead><tr><th>Instead of...</th><th>Say...</th></tr></thead><tbody><tr><td style="color:var(--red);text-decoration:line-through;">"We help businesses grow"</td><td style="color:var(--green);">"We engineer growth systems"</td></tr><tr><td style="color:var(--red);text-decoration:line-through;">"Our consultants will..."</td><td style="color:var(--green);">"Our AI-augmented methodology..."</td></tr><tr><td style="color:var(--red);text-decoration:line-through;">"Traditional approach"</td><td style="color:var(--green);">"Data-driven, tech-enabled approach"</td></tr><tr><td style="color:var(--red);text-decoration:line-through;">"Contact us for more info"</td><td style="color:var(--green);">"Take the 3-min AI Readiness scan"</td></tr><tr><td style="color:var(--red);text-decoration:line-through;">"We have experience in..."</td><td style="color:var(--green);">"Our algorithms + mentors have identified 47 growth patterns across 200+ Georgian SMEs"</td></tr><tr><td style="color:var(--red);text-decoration:line-through;">"Schedule a meeting"</td><td style="color:var(--green);">"Book a free diagnostic session"</td></tr><tr><td style="color:var(--red);text-decoration:line-through;">"Our team"</td><td style="color:var(--green);">"Our network of 10+ specialized mentors and AI-powered tools"</td></tr></tbody></table><h3>Content Pillars</h3><div class="card-grid"><div class="card accent-border"><div class="card-title">AI in Business</div><p>Practical, not hype. How real Georgian businesses use AI.</p></div><div class="card orange-border"><div class="card-title">Export & Growth</div><p>Market entry, readiness, compliance, success stories.</p></div><div class="card teal-border"><div class="card-title">Process Excellence</div><p>BPM, efficiency, digital workflows.</p></div><div class="card green-border"><div class="card-title">Strategic Thinking</div><p>Frameworks, planning tools, decision-making.</p></div><div class="card" style="border-left: 3px solid var(--purple);"><div class="card-title">SME Ecosystem</div><p>Community, mentorship, shared growth.</p></div></div></div>
+
+  <hr>
+
+  <div class="section" id="tech"><div class="section-number">Section 13</div><h2>Tech Stack & Infrastructure</h2><h3>Current (Built)</h3><table><thead><tr><th>Component</th><th>Technology</th><th>Status</th></tr></thead><tbody><tr><td>Web app</td><td>Next.js 16, React 19, TypeScript</td><td><span class="badge badge-live">Live</span></td></tr><tr><td>Hosting</td><td>Netlify</td><td><span class="badge badge-live">Live</span></td></tr><tr><td>Database</td><td>Netlify Blobs</td><td><span class="badge badge-live">Live</span></td></tr><tr><td>Email</td><td>Resend</td><td><span class="badge badge-live">Live</span></td></tr><tr><td>PDF generation</td><td>pdf-lib</td><td><span class="badge badge-live">Live</span></td></tr><tr><td>Social auto-posting</td><td>Meta Graph API v25.0</td><td><span class="badge badge-live">Live</span></td></tr><tr><td>Analytics</td><td>GA4 + Meta Pixel + LinkedIn Insight</td><td><span class="badge badge-live">Live</span></td></tr><tr><td>Admin panel</td><td>Custom (iron-session auth)</td><td><span class="badge badge-live">Live</span></td></tr></tbody></table><h3>To Build / Integrate</h3><table><thead><tr><th>Component</th><th>Technology</th><th>Purpose</th></tr></thead><tbody><tr><td>Intelligence DB</td><td>PostgreSQL + pgvector</td><td>Contact profiles, behavioral tracking, vector search</td></tr><tr><td>CRM / Prospecting</td><td>Apollo.io API</td><td>Lead enrichment, outbound sequences</td></tr><tr><td>Booking</td><td>Cal.com or Calendly</td><td>Diagnostic calls, meeting scheduling</td></tr><tr><td>AI Engine</td><td>Claude API</td><td>Personalized communication, scoring</td></tr><tr><td>Assessment Engine</td><td>Custom (Next.js)</td><td>Self-assessment surveys + scoring</td></tr><tr><td>Webinar platform</td><td>Zoom / Livestorm / Demio</td><td>Online events with limited seats</td></tr><tr><td>LinkedIn API</td><td>LinkedIn Marketing API</td><td>Auto-posting</td></tr><tr><td>Scheduling engine</td><td>Custom (Next.js + cron)</td><td>Annual calendar management</td></tr></tbody></table></div>
+
+  <hr>
+
+  <div class="section" id="roadmap"><div class="section-number">Section 14</div><h2>Implementation Roadmap</h2><h3>Phase 1: Foundation &mdash; March 2026</h3><ul class="checklist"><li>Build first self-assessment (AI Readiness &mdash; matches brand positioning)</li><li>Set up PostgreSQL + pgvector (Supabase or Neon)</li><li>Design contact intelligence schema</li><li>Apollo.io account setup + API integration</li><li>Annual calendar system with scheduling engine</li><li>First webinar: "AI Readiness for Georgian SMEs"</li></ul><h3>Phase 2: Lead Machine &mdash; April 2026</h3><ul class="checklist"><li>Build remaining 3 assessments (Export, BPM, Strategy)</li><li>PDF scorecard generator for all assessments</li><li>Webinar registration + auto-promotion system</li><li>AI communication engine v1 (Claude API)</li><li>First bank event with BOG</li><li>Booking integration (Cal.com or Calendly)</li></ul><h3>Phase 3: Intelligence &mdash; May&ndash;June 2026</h3><ul class="checklist"><li>Behavioral tracking across all touchpoints</li><li>AI-personalized email system (replace generic sequences)</li><li>Diagnostic preview auto-generator</li><li>SME Programme platform skeleton</li><li>Analytics dashboard with contact insights</li><li>Vector search: "find leads similar to best client"</li></ul><h3>Phase 4: Optimization &mdash; October&ndash;December 2026</h3><ul class="checklist"><li>Predictive lead scoring</li><li>Automated proposal drafts</li><li>Partnership reporting dashboards</li><li>Full retrospective + data analysis</li><li>2027 annual calendar generation</li><li>Scale assessment ad campaigns based on conversion data</li></ul></div>
+
+  <hr>
+
+  <div class="section" id="decisions"><div class="section-number">Section 15</div><h2>Open Decisions</h2><table><thead><tr><th>#</th><th>Decision</th><th>Options</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>Database hosting</td><td>Supabase vs Neon vs self-hosted</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>2</td><td>First assessment to build</td><td>AI Readiness (recommended) vs Export Readiness</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>3</td><td>Apollo.io plan</td><td>Free tier first vs paid</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>4</td><td>Webinar platform</td><td>Zoom vs Livestorm vs Demio</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>5</td><td>Booking tool</td><td>Cal.com (open source) vs Calendly</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>6</td><td>SME Programme details</td><td>Awaiting details from Lia</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>7</td><td>Assessment hosting domain</td><td>gec.ge subdomain vs saletool.ninja vs new domain</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>8</td><td>LinkedIn API access</td><td>Apply for Marketing API access</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>9</td><td>Contract/proposal tool</td><td>PandaDoc vs custom build</td><td><span class="badge badge-tbd">TBD</span></td></tr><tr><td>10</td><td>Migrate from Netlify Blobs</td><td>Full migration vs hybrid</td><td><span class="badge badge-tbd">TBD</span></td></tr></tbody></table></div>
+
+  <hr>
+
+  <p style="text-align:center; color:var(--text-muted); font-size:12px; margin-top:40px;">
+    This is a living document. Update as decisions are made and phases are completed.<br>
+    GEC Digital Sales Ecosystem &middot; v1.0 &middot; February 2026
+  </p>
+</div>
+
+</div><!-- end page-masterplan -->
+
+<!-- ================================================================
+     PAGE 2: ARCHITECTURE DECISIONS
+     ================================================================ -->
+<div class="hub-page page-archdecisions" id="page-archdecisions">
+
+<header class="top-bar">
+  <div class="top-bar-left">
+    <div class="top-bar-title">GEC Architecture</div>
+    <div class="progress-bar" id="ad-progressBar"></div>
+    <span class="progress-text" id="ad-progressText"></span>
+  </div>
+  <div class="top-bar-actions">
+    <button class="btn btn-ghost" onclick="adResetAll()">Reset</button>
+    <button class="btn btn-primary" onclick="adCopyDecisions()" id="ad-copyBtn">Copy Summary</button>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="left-panel">
+    <section class="hero">
+      <h1>GEC <span>Architecture</span> Navigator</h1>
+      <p>Select options for each decision. The pillar map and system diagram on the right update live. Hover <span class="info-icon" style="display:inline-flex;vertical-align:middle;width:16px;height:16px;font-size:10px;">i<span class="info-tooltip" style="width:220px;">Hover these icons to see plain-language explanations of technical terms.</span></span> icons for explanations.</p>
+    </section>
+    <div id="ad-decisionsContainer"></div>
+  </div>
+
+  <div class="right-panel">
+    <div class="right-tabs">
+      <button class="right-tab active" onclick="adSwitchTab('pillars')">Pillar Map</button>
+      <button class="right-tab" onclick="adSwitchTab('arch')">System Flow</button>
+      <button class="right-tab" onclick="adSwitchTab('cost')">Cost & Export</button>
+    </div>
+    <div class="tab-content active" id="ad-tab-pillars"><div id="ad-pillarMap"></div><div id="ad-pillarDetail"></div></div>
+    <div class="tab-content" id="ad-tab-arch"><div id="ad-flowDiagram"></div></div>
+    <div class="tab-content" id="ad-tab-cost"><div id="ad-flowCost"></div><div class="flow-export" id="ad-flowExport"></div></div>
+  </div>
+</div>
+
+</div><!-- end page-archdecisions -->
+
+<!-- ================================================================
+     PAGE 3: PILLAR ARCHITECTURE
+     ================================================================ -->
+<div class="hub-page page-pillararch" id="page-pillararch">
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">GEC Product Vision</div>
+    <h1>Pillar to <span class="gradient-text">Product</span></h1>
+    <p class="hero-subtitle">Four architecture approaches for extracting a GEC pillar into a standalone multi-tenant SaaS product</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value">4</div><div class="hero-stat-label">Approaches</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">1 &rarr; 5</div><div class="hero-stat-label">Complexity</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">2-12 mo</div><div class="hero-stat-label">Timeline</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">P1</div><div class="hero-stat-label">Content Engine Ref</div></div>
+    </div>
+  </div>
+</section>
+
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-pa-tab="overview">Overview</button>
+    <button class="tab-btn" data-pa-tab="side-by-side">Side-by-Side</button>
+    <button class="tab-btn" data-pa-tab="matrix">Decision Matrix</button>
+    <button class="tab-btn" data-pa-tab="summary">Summary</button>
+  </div>
+</nav>
+
+<div class="tab-content">
+
+<div class="tab-panel active" id="pa-panel-overview" data-print-title="Overview">
+  <div class="option-card"><div class="option-header"><div class="option-badge a">A</div><div class="option-title">Monolith</div><div class="complexity-dots"><span class="filled"></span><span></span><span></span><span></span><span></span></div></div><div class="option-desc">Everything in one codebase -- GEC and product share routes, libraries, and database.</div><div class="option-diagram"><svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg"><rect width="700" height="260" rx="12" fill="#1e1e2e"/><rect x="40" y="20" width="620" height="145" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><text x="60" y="44" fill="rgba(255,255,255,0.5)" font-size="11" font-weight="600" font-family="Inter,sans-serif">gec-ecosystem</text><rect x="60" y="58" width="180" height="48" rx="6" fill="rgba(79,70,229,0.2)"/><rect x="60" y="58" width="4" height="48" rx="2" fill="#818cf8"/><text x="96" y="86" fill="#ffffff" font-size="12" font-weight="600" font-family="Inter,sans-serif">GEC App Routes</text><rect x="260" y="58" width="180" height="48" rx="6" fill="rgba(13,148,136,0.2)"/><rect x="260" y="58" width="4" height="48" rx="2" fill="#5eead4"/><text x="296" y="86" fill="#ffffff" font-size="12" font-weight="600" font-family="Inter,sans-serif">Product Routes</text><rect x="460" y="58" width="180" height="48" rx="6" fill="rgba(217,119,6,0.2)"/><rect x="460" y="58" width="4" height="48" rx="2" fill="#fbbf24"/><text x="500" y="86" fill="#ffffff" font-size="12" font-weight="600" font-family="Inter,sans-serif">Shared Libs</text><rect x="60" y="118" width="580" height="36" rx="6" fill="rgba(255,255,255,0.05)"/><text x="280" y="141" fill="#94a3b8" font-size="12" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">Shared DB (tenant_id)</text><rect x="200" y="186" width="300" height="40" rx="6" fill="rgba(255,255,255,0.05)"/><text x="350" y="211" fill="#94a3b8" font-size="12" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">Single Deploy (Vercel)</text><defs><marker id="paArrowW" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="rgba(255,255,255,0.3)"/></marker></defs><line x1="350" y1="165" x2="350" y2="184" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#paArrowW)"/></svg></div><div class="option-body"><div class="pros-cons"><div class="pros"><h4>Pros</h4><ul><li>Fastest to ship</li><li>No infra duplication</li><li>Shared auth/data layer</li><li>Single deployment</li></ul></div><div class="cons"><h4>Cons</h4><ul><li>Tight coupling over time</li><li>Hard to scale independently</li><li>Bad deploy affects both</li><li>Tenant isolation harder</li></ul></div></div><div class="stat-row"><div class="stat-box"><div class="stat-box-label">Time to Build</div><div class="stat-box-value">2-3 months</div></div><div class="stat-box"><div class="stat-box-label">Monthly Cost</div><div class="stat-box-value">~$50/mo</div></div><div class="stat-box"><div class="stat-box-label">Risk</div><div class="stat-box-value">Medium</div></div><div class="stat-box"><div class="stat-box-label">Best For</div><div class="stat-box-value">MVP</div></div></div></div></div>
+
+  <div class="option-card"><div class="option-header"><div class="option-badge b">B</div><div class="option-title">Shared Core, Separate Frontends</div><div class="complexity-dots"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></div></div><div class="option-desc">Shared packages powering independent apps -- code reuse without tight coupling.</div><div class="option-diagram"><svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg"><rect width="700" height="280" rx="12" fill="#1e1e2e"/><defs><marker id="paArrowB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="rgba(255,255,255,0.3)"/></marker></defs><rect x="80" y="20" width="200" height="48" rx="6" fill="rgba(79,70,229,0.2)"/><rect x="80" y="20" width="4" height="48" rx="2" fill="#818cf8"/><text x="132" y="49" fill="#ffffff" font-size="12" font-weight="600" font-family="Inter,sans-serif">GEC App</text><rect x="420" y="20" width="200" height="48" rx="6" fill="rgba(13,148,136,0.2)"/><rect x="420" y="20" width="4" height="48" rx="2" fill="#5eead4"/><text x="470" y="49" fill="#ffffff" font-size="12" font-weight="600" font-family="Inter,sans-serif">Product App</text><line x1="180" y1="68" x2="250" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#paArrowB)"/><line x1="520" y1="68" x2="450" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#paArrowB)"/><rect x="100" y="100" width="500" height="80" rx="8" fill="rgba(217,119,6,0.1)" stroke="rgba(217,119,6,0.25)" stroke-width="1"/><text x="120" y="120" fill="#fbbf24" font-size="11" font-weight="600" font-family="Inter,sans-serif">@gec/core packages</text><rect x="120" y="130" width="100" height="34" rx="5" fill="rgba(217,119,6,0.2)"/><text x="136" y="151" fill="#ffffff" font-size="11" font-weight="600" font-family="Inter,sans-serif">AI Engine</text><rect x="234" y="130" width="110" height="34" rx="5" fill="rgba(217,119,6,0.2)"/><text x="244" y="151" fill="#ffffff" font-size="11" font-weight="600" font-family="Inter,sans-serif">Social Publisher</text><rect x="358" y="130" width="100" height="34" rx="5" fill="rgba(217,119,6,0.2)"/><text x="382" y="151" fill="#ffffff" font-size="11" font-weight="600" font-family="Inter,sans-serif">PDF Gen</text><rect x="472" y="130" width="110" height="34" rx="5" fill="rgba(217,119,6,0.2)"/><text x="504" y="151" fill="#ffffff" font-size="11" font-weight="600" font-family="Inter,sans-serif">Email</text><line x1="250" y1="180" x2="200" y2="210" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#paArrowB)"/><line x1="450" y1="180" x2="500" y2="210" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#paArrowB)"/><rect x="100" y="210" width="200" height="44" rx="6" fill="rgba(255,255,255,0.05)"/><text x="200" y="237" fill="#94a3b8" font-size="12" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">GEC DB</text><rect x="400" y="210" width="200" height="44" rx="6" fill="rgba(255,255,255,0.05)"/><text x="500" y="237" fill="#94a3b8" font-size="12" font-weight="600" font-family="Inter,sans-serif" text-anchor="middle">Product DB</text></svg></div><div class="option-body"><div class="pros-cons"><div class="pros"><h4>Pros</h4><ul><li>Code reuse without coupling</li><li>Independent deploys</li><li>Clear ownership</li><li>Separate scaling</li></ul></div><div class="cons"><h4>Cons</h4><ul><li>Package versioning overhead</li><li>Needs monorepo tooling</li><li>Shared libs can bottleneck</li><li>More CI/CD complexity</li></ul></div></div><div class="stat-row"><div class="stat-box"><div class="stat-box-label">Time to Build</div><div class="stat-box-value">4-6 months</div></div><div class="stat-box"><div class="stat-box-label">Monthly Cost</div><div class="stat-box-value">~$80/mo</div></div><div class="stat-box"><div class="stat-box-label">Risk</div><div class="stat-box-value">Low-Medium</div></div><div class="stat-box"><div class="stat-box-label">Best For</div><div class="stat-box-value">10-50 customers</div></div></div></div></div>
+
+  <div class="option-card"><div class="option-header"><div class="option-badge c">C</div><div class="option-title">Microservices / API-First</div><div class="complexity-dots"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span></div></div><div class="option-desc">Independent API services -- maximum flexibility for a platform play at scale.</div><div class="option-body"><div class="pros-cons"><div class="pros"><h4>Pros</h4><ul><li>Maximum flexibility</li><li>Independent scaling</li><li>Tech-agnostic services</li><li>API monetization potential</li></ul></div><div class="cons"><h4>Cons</h4><ul><li>Massive infra overhead</li><li>Distributed system complexity</li><li>Overkill for &lt;50 customers</li><li>Needs dedicated DevOps team</li></ul></div></div><div class="stat-row"><div class="stat-box"><div class="stat-box-label">Time to Build</div><div class="stat-box-value">8-12 months</div></div><div class="stat-box"><div class="stat-box-label">Monthly Cost</div><div class="stat-box-value">$200-400/mo</div></div><div class="stat-box"><div class="stat-box-label">Risk</div><div class="stat-box-value">High</div></div><div class="stat-box"><div class="stat-box-label">Best For</div><div class="stat-box-value">100+ customers</div></div></div></div></div>
+
+  <div class="option-card"><div class="option-header"><div class="option-badge d">D</div><div class="option-title">Full Separation</div><div class="complexity-dots"><span class="filled"></span><span class="filled"></span><span></span><span></span><span></span></div></div><div class="option-desc">Completely independent codebases -- zero coupling, clean mental model, easiest to spin off or sell.</div><div class="option-body"><div class="pros-cons"><div class="pros"><h4>Pros</h4><ul><li>Zero coupling</li><li>Independent evolution</li><li>Easiest to sell or spin off</li><li>Clean mental model</li></ul></div><div class="cons"><h4>Cons</h4><ul><li>Code duplication</li><li>Bugs fixed in two places</li><li>No shared learning</li><li>Higher initial effort</li></ul></div></div><div class="stat-row"><div class="stat-box"><div class="stat-box-label">Time to Build</div><div class="stat-box-value">5-7 months</div></div><div class="stat-box"><div class="stat-box-label">Monthly Cost</div><div class="stat-box-value">~$100/mo</div></div><div class="stat-box"><div class="stat-box-label">Risk</div><div class="stat-box-value">Low</div></div><div class="stat-box"><div class="stat-box-label">Best For</div><div class="stat-box-value">Clean exit</div></div></div></div></div>
+</div>
+
+<div class="tab-panel" id="pa-panel-side-by-side" data-print-title="Side-by-Side Comparison">
+  <div class="sbs-grid">
+    <div class="sbs-card"><div class="sbs-card-header"><div class="option-badge a">A</div><h3>Monolith</h3></div><div class="sbs-stats"><div class="sbs-stat"><div class="sbs-stat-label">Time</div><div class="sbs-stat-value">2-3 mo</div></div><div class="sbs-stat"><div class="sbs-stat-label">Cost</div><div class="sbs-stat-value">~$50/mo</div></div><div class="sbs-stat"><div class="sbs-stat-label">Risk</div><div class="sbs-stat-value">Medium</div></div><div class="sbs-stat"><div class="sbs-stat-label">Best For</div><div class="sbs-stat-value">MVP</div></div></div></div>
+    <div class="sbs-card"><div class="sbs-card-header"><div class="option-badge b">B</div><h3>Shared Core</h3></div><div class="sbs-stats"><div class="sbs-stat"><div class="sbs-stat-label">Time</div><div class="sbs-stat-value">4-6 mo</div></div><div class="sbs-stat"><div class="sbs-stat-label">Cost</div><div class="sbs-stat-value">~$80/mo</div></div><div class="sbs-stat"><div class="sbs-stat-label">Risk</div><div class="sbs-stat-value">Low-Med</div></div><div class="sbs-stat"><div class="sbs-stat-label">Best For</div><div class="sbs-stat-value">10-50 cust</div></div></div></div>
+    <div class="sbs-card"><div class="sbs-card-header"><div class="option-badge c">C</div><h3>Microservices</h3></div><div class="sbs-stats"><div class="sbs-stat"><div class="sbs-stat-label">Time</div><div class="sbs-stat-value">8-12 mo</div></div><div class="sbs-stat"><div class="sbs-stat-label">Cost</div><div class="sbs-stat-value">$200-400</div></div><div class="sbs-stat"><div class="sbs-stat-label">Risk</div><div class="sbs-stat-value">High</div></div><div class="sbs-stat"><div class="sbs-stat-label">Best For</div><div class="sbs-stat-value">100+ cust</div></div></div></div>
+    <div class="sbs-card"><div class="sbs-card-header"><div class="option-badge d">D</div><h3>Full Separation</h3></div><div class="sbs-stats"><div class="sbs-stat"><div class="sbs-stat-label">Time</div><div class="sbs-stat-value">5-7 mo</div></div><div class="sbs-stat"><div class="sbs-stat-label">Cost</div><div class="sbs-stat-value">~$100/mo</div></div><div class="sbs-stat"><div class="sbs-stat-label">Risk</div><div class="sbs-stat-value">Low</div></div><div class="sbs-stat"><div class="sbs-stat-label">Best For</div><div class="sbs-stat-value">Clean exit</div></div></div></div>
+  </div>
+</div>
+
+<div class="tab-panel" id="pa-panel-matrix" data-print-title="Decision Matrix">
+  <div class="matrix-wrapper"><table class="matrix-table"><thead><tr><th>Dimension</th><th>A: Monolith</th><th>B: Shared Core</th><th>C: Microservices</th><th>D: Full Separation</th></tr></thead><tbody><tr><td class="dim-label">Complexity</td><td class="best"><span class="dot-rating"><span class="dot-filled">&#9679;</span><span class="dot-empty">&#9679;&#9679;&#9679;&#9679;</span></span></td><td><span class="dot-rating"><span class="dot-filled">&#9679;&#9679;&#9679;</span><span class="dot-empty">&#9679;&#9679;</span></span></td><td><span class="dot-rating"><span class="dot-filled">&#9679;&#9679;&#9679;&#9679;&#9679;</span></span></td><td><span class="dot-rating"><span class="dot-filled">&#9679;&#9679;</span><span class="dot-empty">&#9679;&#9679;&#9679;</span></span></td></tr><tr><td class="dim-label">Time to build</td><td class="best">2-3 months</td><td>4-6 months</td><td>8-12 months</td><td>5-7 months</td></tr><tr><td class="dim-label">Monthly cost</td><td class="best">~$50</td><td>~$80</td><td>$200-400</td><td>~$100</td></tr><tr><td class="dim-label">Risk level</td><td>Medium</td><td>Low-Medium</td><td>High</td><td class="best">Low</td></tr><tr><td class="dim-label">Tenant isolation</td><td>Weak (shared DB)</td><td>Good (separate DBs)</td><td class="best">Strong (service-level)</td><td class="best">Complete</td></tr><tr><td class="dim-label">Code reuse</td><td class="best">Maximum</td><td class="best">High (via packages)</td><td>Medium (API contracts)</td><td>None</td></tr><tr><td class="dim-label">Team needed</td><td class="best">1 developer</td><td>1-2 developers</td><td>3-5 developers + DevOps</td><td>1-2 developers</td></tr><tr><td class="dim-label">Best customer count</td><td>1-10</td><td>10-50</td><td class="best">100+</td><td>1-50</td></tr><tr><td class="dim-label">Acquisition-ready</td><td>Difficult</td><td>Possible</td><td>Possible</td><td class="best">Ready from day one</td></tr></tbody></table></div>
+</div>
+
+<div class="tab-panel" id="pa-panel-summary" data-print-title="Summary and Decision">
+  <div class="summary-text"><p>Each of the four approaches represents a different trade-off between speed-to-market, long-term flexibility, and operational overhead.</p><p><strong>Option A (Monolith)</strong> is the fastest path to market. Ship a working multi-tenant product in 2-3 months.</p><p><strong>Option B (Shared Core)</strong> introduces a clean boundary while preserving code reuse through shared packages.</p><p><strong>Option C (Microservices)</strong> is the right architecture for 100+ customers and a dedicated engineering team.</p><p><strong>Option D (Full Separation)</strong> gives the cleanest mental model and the easiest path to selling or spinning off the product.</p></div>
+  <h3 class="selection-heading">Select preferred approach</h3>
+  <div class="selection-grid"><div class="selection-card" data-pa-option="A" onclick="paSelectOption(this)"><h4>A: Monolith</h4><p>Ship fast, refactor later</p></div><div class="selection-card" data-pa-option="B" onclick="paSelectOption(this)"><h4>B: Shared Core</h4><p>Balance reuse and independence</p></div><div class="selection-card" data-pa-option="C" onclick="paSelectOption(this)"><h4>C: Microservices</h4><p>Platform-scale architecture</p></div><div class="selection-card" data-pa-option="D" onclick="paSelectOption(this)"><h4>D: Full Separation</h4><p>Clean exit from day one</p></div></div>
+  <button class="copy-btn" id="pa-copyBtn" onclick="paCopyDecision()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy decision</button>
+</div>
+
+</div>
+
+<div class="bottom-section">
+  <div class="recommendation-box"><h3>Recommended path</h3><p>Start with <strong>Monolith (A)</strong> to validate demand in 2-3 months. Once you reach 10+ paying customers, extract to <strong>Shared Core (B)</strong>. This two-step approach minimizes upfront investment while keeping the door open for scale.</p></div>
+  <a class="page-link" onclick="switchHubPage('bizmodel')">See Page 2: Product Business Model & Architecture &rarr;</a>
+</div>
+
+</div><!-- end page-pillararch -->
+
+<!-- ================================================================
+     PAGE 4: BUSINESS MODEL
+     ================================================================ -->
+<div class="hub-page page-bizmodel" id="page-bizmodel">
+
+<section class="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-content reveal">
+    <div class="hero-badge">GEC Product Vision</div>
+    <h1 class="hero-title">Content<span class="gradient-text">Pilot</span></h1>
+    <p class="hero-sub">AI-powered content engine for B2B companies. Generate, review, and auto-publish across LinkedIn, Facebook, and Instagram.</p>
+    <div class="hero-badges"><span class="glass-badge">AI-Generated</span><span class="glass-badge">Multi-Platform</span><span class="glass-badge">Multi-Tenant SaaS</span></div>
+  </div>
+</section>
+
+<section id="bm-concept"><div class="container"><div class="concept-grid reveal"><div><h2>What is ContentPilot?</h2><p style="color:var(--muted); margin-top:12px; font-size:0.95rem; line-height:1.7;">An AI content generation engine built for B2B companies. Each tenant gets AI tuned to their brand voice, a full content calendar with team review workflow, and automated multi-platform publishing with performance analytics.</p><ul class="concept-features"><li>AI content generation tuned to brand voice</li><li>Multi-platform publishing (LinkedIn, Facebook, Instagram)</li><li>Content calendar with review workflow</li><li>Performance analytics per post</li><li>Brand voice learning (improves over time)</li><li>Team collaboration (approve / edit / reject)</li></ul></div><div class="product-mockup"><div class="mockup-header"><span class="mockup-dot r"></span><span class="mockup-dot y"></span><span class="mockup-dot g"></span><span class="mockup-title">CONTENTPILOT DASHBOARD</span></div><div class="mockup-post"><div class="mockup-post-text">5 signs your export strategy needs AI: From compliance automation to market intelligence, the companies winning in 2026 aren't just exporting &mdash; they're engineering growth systems...</div><div class="mockup-meta"><div class="platform-icons"><span class="platform-icon li">in</span><span class="platform-icon fb">f</span><span class="platform-icon ig">ig</span></div><span class="mockup-date">Mar 15, 2026 at 09:00</span><div class="mockup-actions"><span class="mockup-btn approve">Approve</span><span class="mockup-btn edit">Edit</span></div></div></div><div class="mockup-post" style="opacity:0.5"><div class="mockup-post-text" style="font-size:0.82rem">How BPM reduces operational costs by 30% &mdash; a case study from Georgia's manufacturing sector...</div><div class="mockup-meta"><div class="platform-icons"><span class="platform-icon li">in</span><span class="platform-icon fb">f</span></div><span class="mockup-date">Mar 16, 2026 at 10:00</span><div class="mockup-actions"><span class="mockup-btn approve">Approve</span><span class="mockup-btn edit">Edit</span></div></div></div><div class="mockup-stats"><span class="mockup-stat"><strong>12</strong> pending</span><span class="mockup-stat"><strong>8</strong> approved</span><span class="mockup-stat"><strong>2</strong> posted today</span></div></div></div></div></section>
+
+<section class="dark-section" id="bm-architecture"><div class="container"><h2 class="reveal">Multi-Tenant Architecture</h2><p class="section-sub reveal">Shared infrastructure, isolated data. Each tenant operates in complete isolation at the database level.</p><div class="arch-wrapper reveal"><svg class="arch-svg" viewBox="0 0 960 440" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><marker id="bmArrow" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-auto"><path d="M1 1 L7 4 L1 7 Z" fill="rgba(255,255,255,0.3)"/></marker><filter id="bmGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="960" height="440" rx="16" fill="#1e1e2e"/><text x="24" y="38" fill="rgba(255,255,255,0.3)" font-size="10" font-weight="600" letter-spacing="1.5" font-family="Inter, sans-serif">TENANT LAYER</text><text x="24" y="148" fill="rgba(255,255,255,0.3)" font-size="10" font-weight="600" letter-spacing="1.5" font-family="Inter, sans-serif">APPLICATION LAYER</text><text x="24" y="258" fill="rgba(255,255,255,0.3)" font-size="10" font-weight="600" letter-spacing="1.5" font-family="Inter, sans-serif">SERVICE LAYER</text><text x="24" y="358" fill="rgba(255,255,255,0.3)" font-size="10" font-weight="600" letter-spacing="1.5" font-family="Inter, sans-serif">DATA LAYER</text><rect x="60" y="48" width="200" height="56" rx="8" fill="rgba(79,70,229,0.08)" stroke="rgba(79,70,229,0.3)" stroke-width="1" filter="url(#bmGlow)"/><rect x="60" y="48" width="4" height="56" rx="2" fill="#4f46e5"/><text x="80" y="84" fill="rgba(255,255,255,0.85)" font-size="13" font-weight="600" font-family="Inter, sans-serif">GEC (Tenant 1)</text><rect x="280" y="48" width="200" height="56" rx="8" fill="rgba(13,148,136,0.06)" stroke="rgba(13,148,136,0.2)" stroke-width="1"/><rect x="280" y="48" width="4" height="56" rx="2" fill="#0d9488"/><text x="300" y="82" fill="rgba(255,255,255,0.85)" font-size="13" font-weight="600" font-family="Inter, sans-serif">Client A (Tenant 2)</text><rect x="500" y="48" width="200" height="56" rx="8" fill="rgba(13,148,136,0.06)" stroke="rgba(13,148,136,0.2)" stroke-width="1"/><rect x="500" y="48" width="4" height="56" rx="2" fill="#0d9488"/><text x="520" y="82" fill="rgba(255,255,255,0.85)" font-size="13" font-weight="600" font-family="Inter, sans-serif">Client B (Tenant 3)</text><rect x="720" y="48" width="200" height="56" rx="8" fill="rgba(13,148,136,0.04)" stroke="rgba(13,148,136,0.15)" stroke-width="1" stroke-dasharray="6 4"/><rect x="720" y="48" width="4" height="56" rx="2" fill="rgba(13,148,136,0.5)"/><text x="740" y="82" fill="rgba(255,255,255,0.5)" font-size="13" font-weight="600" font-family="Inter, sans-serif">Client N...</text><line x1="160" y1="104" x2="330" y2="158" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="380" y1="104" x2="430" y2="158" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="600" y1="104" x2="530" y2="158" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="820" y1="104" x2="630" y2="158" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><rect x="180" y="158" width="600" height="60" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><rect x="200" y="168" width="170" height="40" rx="6" fill="rgba(79,70,229,0.08)" stroke="rgba(79,70,229,0.15)" stroke-width="1"/><text x="244" y="193" fill="rgba(255,255,255,0.7)" font-size="12" font-weight="500" font-family="Inter, sans-serif">Next.js Frontend</text><rect x="390" y="168" width="170" height="40" rx="6" fill="rgba(79,70,229,0.08)" stroke="rgba(79,70,229,0.15)" stroke-width="1"/><text x="442" y="193" fill="rgba(255,255,255,0.7)" font-size="12" font-weight="500" font-family="Inter, sans-serif">API Routes</text><rect x="580" y="168" width="180" height="40" rx="6" fill="rgba(79,70,229,0.08)" stroke="rgba(79,70,229,0.15)" stroke-width="1"/><text x="618" y="193" fill="rgba(255,255,255,0.7)" font-size="12" font-weight="500" font-family="Inter, sans-serif">Worker Processes</text><line x1="360" y1="218" x2="200" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="430" y1="218" x2="400" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="530" y1="218" x2="590" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="660" y1="218" x2="780" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><rect x="100" y="268" width="190" height="50" rx="8" fill="rgba(13,148,136,0.06)" stroke="rgba(13,148,136,0.15)" stroke-width="1"/><text x="128" y="298" fill="rgba(255,255,255,0.7)" font-size="11.5" font-weight="500" font-family="Inter, sans-serif">AI Content Generator</text><rect x="310" y="268" width="190" height="50" rx="8" fill="rgba(13,148,136,0.06)" stroke="rgba(13,148,136,0.15)" stroke-width="1"/><text x="352" y="298" fill="rgba(255,255,255,0.7)" font-size="11.5" font-weight="500" font-family="Inter, sans-serif">Social Publisher</text><rect x="520" y="268" width="190" height="50" rx="8" fill="rgba(13,148,136,0.06)" stroke="rgba(13,148,136,0.15)" stroke-width="1"/><text x="553" y="298" fill="rgba(255,255,255,0.7)" font-size="11.5" font-weight="500" font-family="Inter, sans-serif">Analytics Engine</text><rect x="730" y="268" width="190" height="50" rx="8" fill="rgba(13,148,136,0.06)" stroke="rgba(13,148,136,0.15)" stroke-width="1"/><text x="770" y="298" fill="rgba(255,255,255,0.7)" font-size="11.5" font-weight="500" font-family="Inter, sans-serif">Auth &amp; Billing</text><line x1="195" y1="318" x2="300" y2="370" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="405" y1="318" x2="420" y2="370" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="615" y1="318" x2="550" y2="370" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><line x1="825" y1="318" x2="680" y2="370" stroke="rgba(255,255,255,0.12)" stroke-width="1" marker-end="url(#bmArrow)"/><rect x="180" y="370" width="600" height="54" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="310" y="390" fill="rgba(255,255,255,0.4)" font-size="10" font-weight="500" letter-spacing="0.5" font-family="Inter, sans-serif">PostgreSQL (Neon) -- Row Level Security</text><rect x="220" y="396" width="120" height="20" rx="4" fill="rgba(79,70,229,0.12)" stroke="rgba(79,70,229,0.2)" stroke-width="1"/><text x="247" y="410" fill="rgba(255,255,255,0.4)" font-size="8.5" font-weight="500" font-family="Inter, sans-serif">GEC Data</text><rect x="355" y="396" width="120" height="20" rx="4" fill="rgba(13,148,136,0.08)" stroke="rgba(13,148,136,0.15)" stroke-width="1"/><text x="376" y="410" fill="rgba(255,255,255,0.4)" font-size="8.5" font-weight="500" font-family="Inter, sans-serif">Client A Data</text><rect x="490" y="396" width="120" height="20" rx="4" fill="rgba(13,148,136,0.08)" stroke="rgba(13,148,136,0.15)" stroke-width="1"/><text x="511" y="410" fill="rgba(255,255,255,0.4)" font-size="8.5" font-weight="500" font-family="Inter, sans-serif">Client B Data</text><rect x="625" y="396" width="120" height="20" rx="4" fill="rgba(13,148,136,0.05)" stroke="rgba(13,148,136,0.1)" stroke-width="1" stroke-dasharray="4 3"/><text x="660" y="410" fill="rgba(255,255,255,0.3)" font-size="8.5" font-weight="500" font-family="Inter, sans-serif">Client N...</text></svg></div></div></section>
+
+<section id="bm-flow"><div class="container"><h2 class="reveal">How It Works</h2><p class="section-sub reveal">Six steps from signup to published content with engagement analytics.</p><div class="flow-grid reveal"><div class="flow-card"><div class="flow-card-num">1</div><div class="flow-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><h4>Signup</h4><p>Create account, choose plan, enter payment</p></div><div class="flow-card"><div class="flow-card-num">2</div><div class="flow-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><h4>Onboarding</h4><p>Connect social accounts, set brand voice, define topics</p></div><div class="flow-card"><div class="flow-card-num">3</div><div class="flow-icon"><svg viewBox="0 0 24 24"><path d="M12 2L9 9l-7 1 5 5-1.5 7L12 18l6.5 4L17 15l5-5-7-1z"/></svg></div><h4>AI Generation</h4><p>Claude generates 30 posts/month in your brand voice</p></div><div class="flow-card"><div class="flow-card-num">4</div><div class="flow-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h4>Review</h4><p>Calendar view. Approve, edit, or reject. Team collaboration.</p></div><div class="flow-card"><div class="flow-card-num">5</div><div class="flow-icon"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><h4>Auto-Publish</h4><p>Posts go live on schedule across all platforms</p></div><div class="flow-card"><div class="flow-card-num">6</div><div class="flow-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h4>Analytics</h4><p>Engagement tracking, best topics, monthly PDF report</p></div></div></div></section>
+
+<section style="background:var(--surface)" id="bm-tech"><div class="container"><h2 class="reveal">Technology Stack</h2><p class="section-sub reveal">Production-ready infrastructure designed for multi-tenant scale.</p><div class="tech-grid reveal"><div class="tech-card"><div class="tech-category">Frontend</div><div class="tech-name">Next.js 16</div><div class="tech-purpose">App Router, Server Components, React 19</div></div><div class="tech-card"><div class="tech-category">API</div><div class="tech-name">Next.js Routes</div><div class="tech-purpose">Type-safe API endpoints with Zod validation</div></div><div class="tech-card"><div class="tech-category">Database</div><div class="tech-name">Neon PostgreSQL</div><div class="tech-purpose">Serverless Postgres with pgvector + RLS</div></div><div class="tech-card"><div class="tech-category">AI</div><div class="tech-name">Claude API</div><div class="tech-purpose">Content generation, brand voice tuning</div></div><div class="tech-card"><div class="tech-category">Social</div><div class="tech-name">Meta Graph API</div><div class="tech-purpose">Facebook + Instagram auto-publishing</div></div><div class="tech-card"><div class="tech-category">Auth</div><div class="tech-name">NextAuth.js</div><div class="tech-purpose">Multi-tenant auth with role-based access</div></div><div class="tech-card"><div class="tech-category">Payments</div><div class="tech-name">Stripe</div><div class="tech-purpose">Subscriptions, metered billing, invoices</div></div><div class="tech-card"><div class="tech-category">Email</div><div class="tech-name">M365 Graph API</div><div class="tech-purpose">Transactional emails, notifications</div></div><div class="tech-card"><div class="tech-category">Storage</div><div class="tech-name">Cloudflare R2</div><div class="tech-purpose">Media assets, generated PDFs</div></div><div class="tech-card"><div class="tech-category">Hosting</div><div class="tech-name">Vercel</div><div class="tech-purpose">Edge deployment, auto-scaling</div></div><div class="tech-card"><div class="tech-category">Monitoring</div><div class="tech-name">Sentry</div><div class="tech-purpose">Error tracking, performance monitoring</div></div><div class="tech-card"><div class="tech-category">Queue</div><div class="tech-name">Inngest</div><div class="tech-purpose">Background jobs, scheduled publishing</div></div></div></div></section>
+
+<section id="bm-pricing"><div class="container"><h2 class="reveal">Pricing</h2><p class="section-sub reveal">Simple, transparent plans for B2B content teams of every size.</p><div class="pricing-grid reveal"><div class="price-card"><h3>Starter</h3><div class="price-amount">$49</div><div class="price-period">per month</div><ul class="price-features"><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>1 brand, 3 social accounts</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>20 AI posts / month</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Basic analytics</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>1 user</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Email support</li></ul></div><div class="price-card popular"><span class="popular-badge">Most Popular</span><h3>Growth</h3><div class="price-amount">$149</div><div class="price-period">per month</div><ul class="price-features"><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>3 brands, 9 social accounts</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>60 AI posts / month</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Advanced analytics + PDF reports</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Content calendar</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>3 team seats</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Priority support</li></ul></div><div class="price-card"><h3>Enterprise</h3><div class="price-amount">$399</div><div class="price-period">per month</div><ul class="price-features"><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited brands + accounts</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>200 AI posts / month</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom AI brand training</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>API access</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited team seats</li><li><span class="check-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Dedicated account manager</li></ul></div></div></div></section>
+
+<section style="background:var(--surface)" id="bm-gec-relationship"><div class="container"><h2 class="reveal">How GEC Benefits</h2><p class="section-sub reveal">GEC is both the product builder and the first customer &mdash; a dual advantage.</p><div class="gec-rel-grid reveal"><div class="rel-card"><h3>GEC as Tenant #1</h3><ul><li><span class="bullet"></span>GEC uses ContentPilot for its own content</li><li><span class="bullet"></span>Growth plan included (internal use)</li><li><span class="bullet"></span>Dogfooding ensures product quality</li><li><span class="bullet"></span>GEC content needs drive feature development</li></ul></div><div class="rel-svg-container"><svg width="200" height="240" viewBox="0 0 200 240" fill="none"><circle cx="100" cy="120" r="36" fill="rgba(79,70,229,0.08)" stroke="#4f46e5" stroke-width="1.5"/><text x="100" y="118" text-anchor="middle" fill="#4f46e5" font-size="14" font-weight="700" font-family="Inter, sans-serif">GEC</text><text x="100" y="132" text-anchor="middle" fill="var(--muted)" font-size="8" font-weight="500" font-family="Inter, sans-serif">Hub</text><line x1="100" y1="84" x2="100" y2="32" stroke="#4f46e5" stroke-width="1" opacity="0.3"/><rect x="56" y="10" width="88" height="24" rx="6" fill="rgba(79,70,229,0.08)" stroke="rgba(79,70,229,0.2)" stroke-width="1"/><text x="100" y="26" text-anchor="middle" fill="var(--text)" font-size="10" font-weight="500" font-family="Inter, sans-serif">Own Content</text><line x1="136" y1="120" x2="186" y2="120" stroke="#0d9488" stroke-width="1" opacity="0.3"/><rect x="128" y="108" width="72" height="24" rx="6" fill="rgba(13,148,136,0.08)" stroke="rgba(13,148,136,0.2)" stroke-width="1"/><text x="164" y="124" text-anchor="middle" fill="var(--text)" font-size="9" font-weight="500" font-family="Inter, sans-serif">SaaS Rev.</text><line x1="100" y1="156" x2="100" y2="204" stroke="#d97706" stroke-width="1" opacity="0.3"/><rect x="44" y="204" width="112" height="24" rx="6" fill="rgba(217,119,6,0.08)" stroke="rgba(217,119,6,0.2)" stroke-width="1"/><text x="100" y="220" text-anchor="middle" fill="var(--text)" font-size="10" font-weight="500" font-family="Inter, sans-serif">Partner Channel</text><line x1="64" y1="120" x2="14" y2="120" stroke="#16a34a" stroke-width="1" opacity="0.3"/><rect x="0" y="108" width="72" height="24" rx="6" fill="rgba(22,163,74,0.08)" stroke="rgba(22,163,74,0.2)" stroke-width="1"/><text x="36" y="124" text-anchor="middle" fill="var(--text)" font-size="9" font-weight="500" font-family="Inter, sans-serif">Setup Fee</text></svg></div><div class="rel-card"><h3>GEC as Service Provider</h3><ul><li><span class="bullet"></span>Consulting clients get ContentPilot as add-on</li><li><span class="bullet"></span>Done-for-you setup: GEC configures for client</li><li><span class="bullet"></span>Revenue: SaaS subscription + consulting setup fee</li><li><span class="bullet"></span>Bank partners (BOG, TBC) offer to their SME clients</li></ul></div></div></div></section>
+
+<section id="bm-calculator"><div class="container"><h2 class="reveal">Revenue Projections</h2><p class="section-sub reveal">Adjust the sliders to model your revenue at different customer levels.</p><div class="calc-container reveal"><div class="calc-inputs"><div class="calc-group"><div class="range-label"><label>Customer Count</label><span class="range-value" id="bm-custDisplay">30</span></div><input type="range" id="bm-custSlider" min="0" max="200" value="30"></div><div class="calc-group"><label>Plan Mix (%)</label><div class="mix-inputs"><div class="mix-input"><label>Starter</label><input type="number" id="bm-mixStarter" value="40" min="0" max="100"></div><div class="mix-input"><label>Growth</label><input type="number" id="bm-mixGrowth" value="40" min="0" max="100"></div><div class="mix-input"><label>Enterprise</label><input type="number" id="bm-mixEnterprise" value="20" min="0" max="100"></div></div></div></div><div class="calc-results"><div class="calc-big-numbers"><div class="calc-metric"><div class="calc-metric-label">Monthly Recurring Revenue</div><div class="calc-metric-value mrr" id="bm-mrrValue">$0</div></div><div class="calc-metric"><div class="calc-metric-label">Annual Recurring Revenue</div><div class="calc-metric-value arr" id="bm-arrValue">$0</div></div><div class="calc-metric"><div class="calc-metric-label">Est. Monthly Profit</div><div class="calc-metric-value profit" id="bm-profitValue">$0</div></div></div><div class="revenue-bar-container"><div class="revenue-bar-label">Revenue by tier</div><div class="revenue-bar"><div class="bar-segment bar-starter" id="bm-barStarter"></div><div class="bar-segment bar-growth" id="bm-barGrowth"></div><div class="bar-segment bar-enterprise" id="bm-barEnterprise"></div></div></div><div class="cost-line"><span>AI API cost (~$3/customer/mo)</span> <strong id="bm-costAI">$0</strong></div><div class="cost-line"><span>Vercel hosting</span> <strong>$20</strong></div><div class="cost-line"><span>Infrastructure (VPS, monitoring)</span> <strong>$10</strong></div><div class="cost-line" style="border-top:1px solid var(--border); padding-top:8px; margin-top:8px;"><span>Total cost</span> <strong id="bm-costTotal">$30</strong></div></div><div class="milestones"><div class="milestone"><div class="milestone-count">10</div><div class="milestone-mrr">~$1.2k MRR</div><div class="milestone-label">Covers costs</div></div><div class="milestone"><div class="milestone-count">25</div><div class="milestone-mrr">~$3k MRR</div><div class="milestone-label">Part-time dev</div></div><div class="milestone"><div class="milestone-count">50</div><div class="milestone-mrr">~$6k MRR</div><div class="milestone-label">Full-time dev</div></div><div class="milestone"><div class="milestone-count">100</div><div class="milestone-mrr">~$12k MRR</div><div class="milestone-label">Profitable</div></div><div class="milestone"><div class="milestone-count">200</div><div class="milestone-mrr">~$24k MRR</div><div class="milestone-label">Growth stage</div></div></div></div></div></section>
+
+<section class="dark-section" id="bm-timeline"><div class="container"><h2 class="reveal">Build Roadmap</h2><p class="section-sub reveal">From first line of code to growth-stage product in 12 months.</p><div class="timeline-track reveal"><div class="timeline-phase"><div class="timeline-dot"></div><div class="timeline-card active"><div class="timeline-phase-label">Phase 1 &mdash; Months 1-2</div><h4>Foundation</h4><p>Multi-tenant DB schema, auth system, basic AI content generation, admin skeleton. GEC onboarded as first tenant.</p></div></div><div class="timeline-phase"><div class="timeline-dot"></div><div class="timeline-card"><div class="timeline-phase-label">Phase 2 &mdash; Months 3-4</div><h4>Core Product</h4><p>Content calendar UI, social platform integrations, review workflow, engagement analytics, Stripe billing.</p></div></div><div class="timeline-phase"><div class="timeline-dot"></div><div class="timeline-card"><div class="timeline-phase-label">Phase 3 &mdash; Months 5-6</div><h4>Growth</h4><p>Brand voice AI training, team collaboration, advanced analytics, LinkedIn API integration, onboarding flow.</p></div></div><div class="timeline-phase"><div class="timeline-dot"></div><div class="timeline-card"><div class="timeline-phase-label">Phase 4 &mdash; Months 7-12</div><h4>Scale</h4><p>API for integrations, white-label option, enterprise features (SSO, audit logs), partner program launch.</p></div></div></div></div></section>
+
+<footer class="page-footer"><div class="container"><div class="footer-actions"><button class="footer-btn" onclick="switchHubPage('pillararch')">&larr; Back to Architecture Options</button><button class="footer-btn" onclick="bmCopySummary()">Copy summary</button><button class="footer-btn" onclick="window.print()">Print / PDF</button></div><div class="footer-date">GEC Product Business Model &mdash; March 2026</div></div></footer>
+<div class="copy-toast" id="bm-copyToast">Summary copied to clipboard</div>
+
+</div><!-- end page-bizmodel -->
+
+<!-- ================================================================
+     SCRIPTS
+     ================================================================ -->
+<script>
+// ================================================================
+// HUB NAVIGATION
+// ================================================================
+function switchHubPage(pageId) {
+  document.querySelectorAll('.hub-page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.hub-tab').forEach(function(t) { t.classList.remove('active'); });
+  var page = document.getElementById('page-' + pageId);
+  if (page) { page.classList.add('active'); }
+  var tab = document.querySelector('.hub-tab[data-page="' + pageId + '"]');
+  if (tab) { tab.classList.add('active'); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Re-trigger reveal animations for business model page
+  if (pageId === 'bizmodel') { bmInitReveal(); }
+}
+
+document.querySelectorAll('.hub-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    switchHubPage(this.getAttribute('data-page'));
+  });
+});
+
+// ================================================================
+// PAGE 1: MASTER PLAN — Sidebar scroll spy
+// ================================================================
+(function() {
+  var mpPage = document.getElementById('page-masterplan');
+  var sections = mpPage.querySelectorAll('.section');
+  var navItems = mpPage.querySelectorAll('.nav-item');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        navItems.forEach(function(item) { item.classList.remove('active'); });
+        var id = entry.target.id;
+        var activeNav = mpPage.querySelector('.nav-item[href="#' + id + '"]');
+        if (activeNav) activeNav.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(function(section) { observer.observe(section); });
+})();
+
+// ================================================================
+// PAGE 2: ARCHITECTURE DECISIONS
+// ================================================================
+(function() {
+var PILLARS = [
+  { id:'p1',num:'P1',name:'Content & Auto-Posting',short:'Content',icon:'\ud83d\udcdd',what:'AI generates social media posts. Auto-publishes daily.',where:'custom',whereFallback:'odoo-only',whyCustom:'Requires Claude AI + Meta Graph API. Odoo cannot do this.',deps:['p3'],feedsInto:['p2','p5'],depsLabel:'Gets data from P3. Drives traffic to P2 and P5.',examples:'Daily posts, event promotion arcs, assessment teasers'},
+  { id:'p2',num:'P2',name:'Self-Assessment Surveys',short:'Assessments',icon:'\ud83d\udcca',what:'4 lead magnet surveys with AI scoring and PDF scorecard.',where:'custom',whereFallback:'odoo-only',whyCustom:'AI scoring, custom UI, PDF generation need custom code.',deps:['p3'],feedsInto:['p3','p4'],depsLabel:'Captures leads into P3. Triggers P4 based on score.',examples:'AI Readiness Score -> PDF scorecard -> email sequence'},
+  { id:'p3',num:'P3',name:'CRM + Intelligence',short:'CRM',icon:'\ud83e\udde0',what:'Central nervous system. All contacts, deals, AI-powered intelligence.',where:'hybrid',whereFallback:'odoo-only',whyCustom:'Odoo handles contacts/pipeline. Custom layer adds AI scoring, vector embeddings.',deps:[],feedsInto:['p1','p4','p5','p8'],depsLabel:'Central hub. Feeds ALL other pillars.',examples:'Contact profiles, deal pipeline, lead scoring'},
+  { id:'p4',num:'P4',name:'Nurture & Communication',short:'Nurture',icon:'\ud83d\udcac',what:'AI-personalized email sequences. No two contacts get the same email.',where:'custom',whereFallback:'odoo-only',whyCustom:'AI personalization via Claude + M365 Graph API.',deps:['p3','p2'],feedsInto:['p5','p3'],depsLabel:'Reads from P3 and P2. Drives to P5. Updates P3.',examples:'Day 0: scorecard -> Day 3: case study -> Day 12: book call'},
+  { id:'p5',num:'P5',name:'Event Management',short:'Events',icon:'\ud83c\udf99\ufe0f',what:'Webinars, workshops, bank/partner events with auto-promotion.',where:'custom',whereFallback:'odoo-only',whyCustom:'Event promotion arc + registration flow need custom logic.',deps:['p3','p7'],feedsInto:['p3','p4'],depsLabel:'Gets attendees from P3. Co-hosted with P7.',examples:'24 events/year: webinars, SME workshops, bank events'},
+  { id:'p6',num:'P6',name:'SME Programme',short:'SME',icon:'\ud83c\udf93',what:'Year-long cohort mentorship with 10+ mentors.',where:'odoo',whereFallback:'odoo-only',whyCustom:'Cohort management fits Odoo project module.',deps:['p3'],feedsInto:['p3','p5','p8'],depsLabel:'Enrolled SMEs are P3 contacts.',examples:'Cohort dashboard, mentor profiles, progress tracking'},
+  { id:'p7',num:'P7',name:'Partnership Development',short:'Partners',icon:'\ud83e\udd1d',what:'Bank and association co-branding and events.',where:'odoo',whereFallback:'odoo-only',whyCustom:'Relationship tracking fits Odoo CRM.',deps:['p3'],feedsInto:['p5'],depsLabel:'Partner contacts in P3. Partners co-host P5.',examples:'BOG AI Readiness Workshop, TBC Export Masterclass'},
+  { id:'p8',num:'P8',name:'Analytics & Dashboard',short:'Analytics',icon:'\ud83d\udcc8',what:'Full visibility across all pillars.',where:'custom',whereFallback:'odoo-only',whyCustom:'Needs to aggregate data from Odoo + Neon + GA4 + Meta.',deps:['p3','p1','p2','p4','p5','p6'],feedsInto:['p1'],depsLabel:'Reads from everything. Feeds back to P1.',examples:'Conversion funnel, content ROI, pipeline velocity'}
+];
+
+var DECISIONS = [
+  { id:'crm',number:'01',title:'CRM Strategy',titleInfo:'CRM is where you track contacts, companies, deals.',desc:'Where should GEC manage contacts, companies, and deals?',recommendation:'We recommend <strong>Odoo CRM + Custom AI Layer</strong>.',cols:3,visibleWhen:function(){return true;},options:[{value:'odoo-ai',title:'Odoo CRM + Custom AI Layer',recommended:true,pros:['Full CRM out of the box','AI intelligence layer on top','Scalable when team grows'],cons:['Two systems to maintain','Data syncs needed'],cost:'$0 or ~$24/user/mo',consequence:'Odoo becomes the daily CRM tool. Custom AI layer handles automation.',unlocks:'Unlocks: Odoo Edition selection'},{value:'custom',title:'Fully Custom CRM',recommended:false,pros:['Total control','Single system','AI built-in from day one'],cons:['Must build from scratch','3-6 months extra dev','No mobile app'],cost:'~$0-25/mo',consequence:'Everything built from scratch.',unlocks:null},{value:'odoo-only',title:'Odoo Only',recommended:false,pros:['Fastest to deploy','One system','Built-in email marketing'],cons:['No AI personalization','No smart scoring','Generic assessments only'],cost:'$0 or ~$24/user/mo',consequence:'Simplest but no AI capabilities.',unlocks:'Unlocks: Odoo Edition selection'}]},
+  { id:'website',number:'02',title:'Website Strategy',titleInfo:'gecbusiness.com is currently on one.com.',desc:'Where should gecbusiness.com live?',recommendation:'We recommend <strong>Migrate to Odoo Website</strong>.',cols:3,visibleWhen:function(){return true;},options:[{value:'keep-onecom',title:'Keep one.com',recommended:false,pros:['No migration effort','No risk'],cons:['Separate from CRM','Limited customization'],cost:'Current cost',consequence:'gecbusiness.com stays on one.com.',unlocks:null},{value:'odoo-website',title:'Migrate to Odoo Website',recommended:true,pros:['Website + CRM unified','Built-in blog, SEO','Team can edit content'],cons:['Migration effort','Templates less flexible'],cost:'Included with Odoo',consequence:'gecbusiness.com moves to Odoo.',unlocks:null},{value:'custom-nextjs',title:'Custom-Built Website',recommended:false,pros:['Full design control','Best performance'],cons:['Developer needed for updates','More code to maintain'],cost:'Hosting included',consequence:'Maximum flexibility but needs developer.',unlocks:null}]},
+  { id:'email',number:'03',title:'Email System',titleInfo:'How GEC sends automated emails.',desc:'How should automated emails be sent?',recommendation:'We recommend <strong>Microsoft Graph API</strong>.',cols:3,visibleWhen:function(){return true;},options:[{value:'ms-graph',title:'Microsoft 365 (Graph API)',recommended:true,pros:['Send from real @gecbusiness.com','No extra cost','Emails appear in Sent folder'],cons:['One-time Azure setup','Need custom tracking'],cost:'$0 (included in M365)',consequence:'Automated emails from real GEC addresses.',unlocks:null},{value:'resend',title:'Resend (Email Service)',recommended:false,pros:['Easy for developers','Built-in tracking'],cons:['Not from @gecbusiness.com','3,000/mo free limit'],cost:'$0-20/mo',consequence:'Works but recipients see different sender.',unlocks:null},{value:'odoo-email',title:'Odoo Email Marketing',recommended:false,pros:['Integrated with Odoo CRM','Visual campaign builder'],cons:['Hard to trigger from AI layer','Less customizable'],cost:'Included with Odoo',consequence:'Good for manual campaigns.',unlocks:null}]},
+  { id:'hosting',number:'04',title:'App Hosting',titleInfo:'Where the custom app runs.',desc:'Where should the custom app run?',recommendation:'We recommend <strong>Vercel</strong>.',cols:3,visibleWhen:function(){return adState.crm!=='odoo-only';},options:[{value:'vercel',title:'Vercel',recommended:true,pros:['Optimized for Next.js','Auto-deploys','Preview URLs'],cons:['Free plan has limits'],cost:'$0 or $20/mo',consequence:'Auto-deploys on GitHub push.',unlocks:'Unlocks: Vercel Plan selection'},{value:'vps-only',title:'Self-Hosted (VPS)',recommended:false,pros:['Full control','Everything on one server'],cons:['Must manage server','No auto-scaling'],cost:'~$10-30/mo',consequence:'Everything on one machine.',unlocks:null},{value:'netlify',title:'Netlify',recommended:false,pros:['Good free tier','Currently used'],cons:['Not optimized for Next.js','Slower builds'],cost:'$0 or $19/mo',consequence:'Works but not best fit.',unlocks:null}]},
+  { id:'cron',number:'05',title:'Scheduled Tasks',titleInfo:'Automated actions on a timer.',desc:'How should automated tasks run?',recommendation:'We recommend <strong>Hybrid</strong>.',cols:3,visibleWhen:function(){return adState.crm!=='odoo-only';},options:[{value:'hybrid',title:'Hybrid (Best of Both)',recommended:true,pros:['Light tasks in cloud','Heavy AI on VPS'],cons:['Tasks in two places'],cost:'Included',consequence:'Simple crons in cloud, heavy AI on VPS.',unlocks:null},{value:'all-vps',title:'All on VPS',recommended:false,pros:['One place','No time limits'],cons:['Single point of failure'],cost:'Included in VPS',consequence:'All automation on VPS.',unlocks:null},{value:'all-serverless',title:'All in Cloud',recommended:false,pros:['No server to manage','Scales automatically'],cons:['Time limits (60-300s)','AI tasks may timeout'],cost:'Included',consequence:'Simpler but AI jobs risk timeouts.',unlocks:null}]},
+  { id:'vercelPlan',number:'06',title:'Vercel Plan',titleInfo:'Hobby is free. Pro is $20/mo.',desc:'Which Vercel tier?',recommendation:'We recommend <strong>Pro ($20/mo)</strong>.',cols:2,visibleWhen:function(){return adState.hosting==='vercel'&&adState.crm!=='odoo-only';},options:[{value:'hobby',title:'Hobby (Free)',recommended:false,pros:['No cost','Good for testing'],cons:['Non-commercial','Only 2 tasks','60s timeout'],cost:'$0/mo',consequence:'Very limited for production.',unlocks:null},{value:'pro',title:'Pro',recommended:true,pros:['Commercial use','40 scheduled tasks','300s timeout'],cons:['Monthly cost'],cost:'$20/mo',consequence:'Production-ready.',unlocks:null}]},
+  { id:'odooEdition',number:'07',title:'Odoo Edition',titleInfo:'Community is free. Enterprise adds modules.',desc:'Which Odoo version?',recommendation:'We recommend <strong>Community (Free)</strong> to start.',cols:2,visibleWhen:function(){return adState.crm==='odoo-ai'||adState.crm==='odoo-only';},options:[{value:'community',title:'Community (Free)',recommended:true,pros:['Free forever','Core CRM included','Open source'],cons:['No official support','Fewer modules'],cost:'$0/mo',consequence:'Zero licensing cost.',unlocks:null},{value:'enterprise',title:'Enterprise',recommended:false,pros:['All modules','Official support','Better mobile'],cons:['$24/user/month','Overkill now'],cost:'~$24/user/mo',consequence:'Worth at 3-5+ users.',unlocks:null}]},
+  { id:'vpsProvider',number:'08',title:'VPS Provider',titleInfo:'A server you rent to run software 24/7.',desc:'Which server for Odoo and background tasks?',recommendation:'We recommend <strong>Hetzner</strong> (~$4/mo).',cols:3,visibleWhen:function(){return adState.crm==='odoo-ai'||adState.crm==='odoo-only'||adState.hosting==='vps-only'||adState.cron==='hybrid'||adState.cron==='all-vps';},options:[{value:'hetzner',title:'Hetzner',recommended:true,pros:['Best price ($4-10/mo)','EU data centers'],cons:['No managed DB'],cost:'~$4-10/mo',consequence:'Hetzner CX22 handles Odoo + workers.',unlocks:null},{value:'digitalocean',title:'DigitalOcean',recommended:false,pros:['Great docs','Managed DBs'],cons:['More expensive'],cost:'~$6-24/mo',consequence:'Good alternative.',unlocks:null},{value:'existing',title:'Use Existing VPS',recommended:false,pros:['No extra cost','Already running'],cons:['May have resource limits'],cost:'$0',consequence:'Must verify 2GB+ RAM.',unlocks:null}]}
+];
+
+var adState={crm:null,website:null,email:null,hosting:null,cron:null,vercelPlan:null,odooEdition:null,vpsProvider:null};
+var adSelectedPillar='p3';
+var pageEl=document.getElementById('page-archdecisions');
+
+window.adSwitchTab=function(tab){
+  pageEl.querySelectorAll('.right-tab').forEach(function(t){t.classList.remove('active');});
+  pageEl.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  pageEl.querySelector('.right-tab[onclick*="'+tab+'"]').classList.add('active');
+  document.getElementById('ad-tab-'+tab).classList.add('active');
+};
+
+function adSelectOpt(id,val){
+  adState[id]=val;
+  if(id==='hosting'&&val!=='vercel')adState.vercelPlan=null;
+  if(id==='crm'){if(val!=='odoo-ai'&&val!=='odoo-only')adState.odooEdition=null;if(val==='odoo-only'){adState.hosting=null;adState.cron=null;adState.vercelPlan=null;}}
+  adRender();
+}
+window.adResetAll=function(){Object.keys(adState).forEach(function(k){adState[k]=null;});adRender();};
+
+function adRender(){adRenderDecisions();adRenderProgress();adRenderPillarMap();adRenderPillarDetail();adRenderFlow();adRenderFlowCost();adRenderFlowExport();}
+
+function adRenderDecisions(){
+  var c=document.getElementById('ad-decisionsContainer');var h='';
+  DECISIONS.forEach(function(dec){if(!dec.visibleWhen())return;var sel=adState[dec.id];var selOpt=dec.options.find(function(o){return o.value===sel;});
+  h+='<section class="decision-section"><div class="decision-header"><div class="decision-number">Decision '+dec.number+'</div><div class="decision-title-row"><h2 class="decision-title">'+dec.title+'</h2>';
+  if(dec.titleInfo)h+='<span class="info-icon">i<span class="info-tooltip">'+dec.titleInfo+'</span></span>';
+  h+='</div><p class="decision-desc">'+dec.desc+'</p></div>';
+  if(dec.recommendation)h+='<div class="recommendation"><div class="rec-icon">!</div><div class="rec-text">'+dec.recommendation+'</div></div>';
+  h+='<div class="options-row cols-'+dec.cols+'">';
+  dec.options.forEach(function(opt,oi){var isSel=sel===opt.value;
+  h+='<div class="option-card '+(isSel?'selected':'')+' '+(opt.recommended?'is-recommended':'')+'" onclick="adSelectOpt(\''+dec.id+'\',\''+opt.value+'\')">';
+  h+='<div class="option-top"><div class="option-letter">'+String.fromCharCode(65+oi)+'</div><div class="option-title">'+opt.title+'</div></div>';
+  if(opt.recommended)h+='<div class="badge-rec">Recommended</div>';
+  h+='<ul class="option-points pros">'+opt.pros.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>';
+  h+='<ul class="option-points cons">'+opt.cons.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul>';
+  h+='<div class="option-cost">Cost: <span>'+opt.cost+'</span></div></div>';});
+  h+='</div>';if(selOpt){h+='<div class="consequence"><p>'+selOpt.consequence+'</p>';if(selOpt.unlocks)h+='<div class="unlocks">'+selOpt.unlocks+'</div>';h+='</div>';}
+  h+='</section><hr class="decision-divider">';});c.innerHTML=h;
+}
+window.adSelectOpt=adSelectOpt;
+
+function adRenderProgress(){var vis=DECISIONS.filter(function(d){return d.visibleWhen();});var done=vis.filter(function(d){return adState[d.id]!==null;});document.getElementById('ad-progressBar').innerHTML=vis.map(function(d){return '<div class="progress-dot '+(adState[d.id]?'done':'')+'"></div>';}).join('');document.getElementById('ad-progressText').textContent=done.length+' / '+vis.length;}
+
+function adGetPillarWhere(p){if(!adState.crm)return p.where;if(adState.crm==='odoo-only')return 'odoo';if(adState.crm==='custom')return 'custom';return p.where;}
+function adGetPillarColor(w){if(w==='custom')return '#4f46e5';if(w==='odoo')return '#0d9488';if(w==='hybrid')return '#d97706';return '#9ca3af';}
+
+function adRenderPillarMap(){
+  var el=document.getElementById('ad-pillarMap');var bw=126,bh=48,gx=6,gy=20,colW=bw+gx,rowH=bh+gy;var W=3*bw+2*gx,H=3*rowH+14;
+  var pos={p1:{x:0,y:0},p2:{x:colW,y:0},p7:{x:colW*2,y:0},p5:{x:0,y:rowH},p3:{x:colW,y:rowH},p4:{x:colW*2,y:rowH},p6:{x:0,y:rowH*2},p8:{x:colW*2,y:rowH*2}};
+  var connections=[{from:'p1',to:'p2',label:'drives traffic'},{from:'p2',to:'p3',label:'captures leads'},{from:'p5',to:'p3',label:'attendees'},{from:'p3',to:'p4',label:'triggers'},{from:'p7',to:'p5',label:'co-hosts'},{from:'p6',to:'p3',label:'data'},{from:'p3',to:'p8',label:'reads'},{from:'p8',to:'p1',label:'optimizes'},{from:'p4',to:'p5',label:'invites'},{from:'p3',to:'p1',label:'feeds'}];
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="font-family:Inter,sans-serif;display:block;">';
+  connections.forEach(function(c){var f=pos[c.from],t=pos[c.to];var fx=f.x+bw/2,fy=f.y+bh/2,tx=t.x+bw/2,ty=t.y+bh/2;var a=Math.atan2(ty-fy,tx-fx);var clipOff=42;var sx=fx+Math.cos(a)*clipOff,sy=fy+Math.sin(a)*clipOff,ex=tx-Math.cos(a)*clipOff,ey=ty-Math.sin(a)*clipOff;var isS=adSelectedPillar===c.from||adSelectedPillar===c.to;var stroke=isS?'#4f46e5':'#cbd5e1',strokeW=isS?1.8:0.8,op=isS?1:0.35;
+  svg+='<path d="M'+sx+','+sy+' L'+ex+','+ey+'" fill="none" stroke="'+stroke+'" stroke-width="'+strokeW+'" opacity="'+op+'" marker-end="url(#adArr'+(isS?'A':'')+')""/>';
+  if(isS){var lx=(sx+ex)/2,ly=(sy+ey)/2-4;svg+='<rect x="'+(lx-c.label.length*2.5-3)+'" y="'+(ly-8)+'" width="'+(c.label.length*5+6)+'" height="11" rx="3" fill="white" opacity="0.9"/>';svg+='<text x="'+lx+'" y="'+ly+'" font-size="7" fill="#4f46e5" text-anchor="middle" font-weight="600">'+c.label+'</text>';}});
+  svg+='<defs><marker id="adArr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#d1d5db"/></marker><marker id="adArrA" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#4f46e5"/></marker></defs>';
+  PILLARS.forEach(function(p){var xy=pos[p.id];var w=adGetPillarWhere(p);var color=adGetPillarColor(w);var isS=adSelectedPillar===p.id;var sW=isS?2.5:1.5;
+  svg+='<g cursor="pointer" onclick="adSelectPillar(\''+p.id+'\')">';
+  svg+='<rect x="'+xy.x+'" y="'+xy.y+'" width="'+bw+'" height="'+bh+'" rx="10" fill="white" stroke="'+(isS?color:'#d1d5db')+'" stroke-width="'+sW+'"/>';
+  svg+='<rect x="'+xy.x+'" y="'+xy.y+'" width="'+bw+'" height="3" rx="1.5" fill="'+color+'" opacity="0.8"/>';
+  svg+='<text x="'+(xy.x+8)+'" y="'+(xy.y+19)+'" font-size="9" font-weight="800" fill="'+color+'">'+p.num+'</text>';
+  svg+='<text x="'+(xy.x+8)+'" y="'+(xy.y+33)+'" font-size="9" font-weight="600" fill="#1a1a2e">'+p.short+'</text>';
+  var wl=w==='custom'?'Custom':w==='odoo'?'Odoo':w==='hybrid'?'Hybrid':'?';
+  svg+='<rect x="'+(xy.x+bw-44)+'" y="'+(xy.y+bh-17)+'" width="36" height="12" rx="3" fill="'+color+'" opacity="0.12"/>';
+  svg+='<text x="'+(xy.x+bw-26)+'" y="'+(xy.y+bh-8)+'" font-size="7" font-weight="700" fill="'+color+'" text-anchor="middle">'+wl+'</text>';
+  svg+='</g>';});
+  svg+='<defs><filter id="adShadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#4f46e5" flood-opacity="0.15"/></filter></defs>';
+  svg+='<text x="'+(pos.p3.x+bw/2)+'" y="'+(pos.p3.y+bh+14)+'" font-size="8" fill="#d97706" text-anchor="middle" font-weight="700">CENTRAL HUB</text></svg>';
+  var legend='<div class="pillar-legend"><div class="legend-item"><div class="legend-dot" style="background:var(--p-custom)"></div>Custom</div><div class="legend-item"><div class="legend-dot" style="background:var(--p-odoo)"></div>Odoo</div><div class="legend-item"><div class="legend-dot" style="background:var(--p-hybrid)"></div>Hybrid</div></div><p style="font-size:10px;color:var(--text-muted);margin-top:4px;">Click a pillar to see details.</p>';
+  el.innerHTML=svg+legend;
+}
+window.adSelectPillar=function(id){adSelectedPillar=id;adRenderPillarMap();adRenderPillarDetail();};
+
+function adRenderPillarDetail(){var el=document.getElementById('ad-pillarDetail');var p=PILLARS.find(function(pp){return pp.id===adSelectedPillar;});if(!p){el.innerHTML='';return;}var w=adGetPillarWhere(p);var wl=w==='custom'?'Custom (Next.js + AI)':w==='odoo'?'Odoo':w==='hybrid'?'Hybrid':'TBD';var cls=w==='custom'?'pd-custom':w==='odoo'?'pd-odoo':'pd-hybrid';el.innerHTML='<div class="pillar-detail-panel"><h4>'+p.icon+' '+p.num+': '+p.name+'</h4><span class="pd-where '+cls+'">'+wl+'</span><p>'+p.what+'</p><div class="pd-deps">'+p.depsLabel+'</div><p style="margin-top:6px;font-size:11px;font-style:italic;color:var(--text-muted);">Examples: '+p.examples+'</p></div>';}
+
+function adRenderFlow(){var d=document.getElementById('ad-flowDiagram');if(!Object.values(adState).some(function(v){return v!==null;})){d.innerHTML='<div style="text-align:center;padding:60px 0;color:var(--text-muted);font-size:13px;">Start selecting options on the left to see your system flow here.</div>';return;}d.innerHTML='<div style="text-align:center;padding:40px 0;color:var(--text-muted);font-size:12px;">System flow diagram updates based on your selections.</div>';}
+function adRenderFlowCost(){var el=document.getElementById('ad-flowCost');var items=[];if(adState.crm==='odoo-ai'||adState.crm==='odoo-only')items.push(adState.odooEdition==='enterprise'?{l:'Odoo Enterprise',n:24,x:48}:{l:'Odoo Community',n:0,x:0});else if(adState.crm==='custom')items.push({l:'Custom CRM (Neon)',n:0,x:0});if(adState.hosting==='vercel')items.push(adState.vercelPlan==='pro'?{l:'Vercel Pro',n:20,x:20}:{l:'Vercel Hobby',n:0,x:0});if(adState.vpsProvider==='hetzner')items.push({l:'Hetzner VPS',n:4,x:10});else if(adState.vpsProvider==='digitalocean')items.push({l:'DigitalOcean',n:6,x:24});if(adState.email==='ms-graph')items.push({l:'Email (M365)',n:0,x:0});else if(adState.email==='resend')items.push({l:'Resend',n:0,x:20});if(adState.crm){items.push({l:'Database (Neon Free)',n:0,x:0});items.push({l:'AI (Claude API)',n:5,x:15});}
+if(!items.length){el.innerHTML='<div style="text-align:center;padding:40px 0;color:var(--text-muted);font-size:13px;">Make decisions to see cost estimates.</div>';return;}
+var tn=0,tx=0;var h='<div class="flow-cost-summary"><div class="flow-cost-title">Estimated Monthly Cost</div>';items.forEach(function(c){tn+=c.n;tx+=c.x;var v=c.n===c.x?(c.n===0?'$0':'$'+c.n):'$'+c.n+'-'+c.x;h+='<div class="flow-cost-row"><span class="flow-cost-label">'+c.l+'</span><span class="flow-cost-value">'+v+'</span></div>';});
+h+='<div class="flow-cost-row"><span class="flow-cost-label">Total</span><span class="flow-cost-value">'+(tn===tx?'$'+tn+'/mo':'$'+tn+'-'+tx+'/mo')+'</span></div></div>';el.innerHTML=h;}
+
+function adRenderFlowExport(){var el=document.getElementById('ad-flowExport');if(!Object.values(adState).some(function(v){return v;})){el.innerHTML='';return;}el.innerHTML='<button class="btn btn-primary" onclick="adCopyDecisions()">Copy Summary</button>';}
+
+window.adCopyDecisions=function(){
+  var lines=['GEC Architecture Decisions',''];
+  DECISIONS.filter(function(d){return d.visibleWhen();}).forEach(function(dec){var v=adState[dec.id];if(!v)return;var opt=dec.options.find(function(o){return o.value===v;});if(opt)lines.push(dec.number+'. '+dec.title+': '+opt.title+(opt.recommended?' (Recommended)':''));});
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){var b=document.getElementById('ad-copyBtn');var o=b.textContent;b.textContent='Copied!';b.classList.replace('btn-primary','btn-success');setTimeout(function(){b.textContent=o;b.classList.replace('btn-success','btn-primary');},2000);});
+};
+
+adRender();
+})();
+
+// ================================================================
+// PAGE 3: PILLAR ARCHITECTURE
+// ================================================================
+(function() {
+  var paPage = document.getElementById('page-pillararch');
+  var tabBtns = paPage.querySelectorAll('.tab-btn');
+  var panels = paPage.querySelectorAll('.tab-panel');
+  var tabMap = {'overview':'pa-panel-overview','side-by-side':'pa-panel-side-by-side','matrix':'pa-panel-matrix','summary':'pa-panel-summary'};
+
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tabBtns.forEach(function(b) { b.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      var panelId = tabMap[btn.getAttribute('data-pa-tab')];
+      document.getElementById(panelId).classList.add('active');
+    });
+  });
+})();
+
+var paSelectedOption = null;
+function paSelectOption(card) {
+  var paPage = document.getElementById('page-pillararch');
+  paPage.querySelectorAll('.selection-card').forEach(function(c) { c.classList.remove('selected'); });
+  card.classList.add('selected');
+  paSelectedOption = card.getAttribute('data-pa-option');
+}
+
+function paCopyDecision() {
+  if (!paSelectedOption) { var btn = document.getElementById('pa-copyBtn'); btn.textContent = 'Select an option first'; setTimeout(function() { btn.innerHTML = 'Copy decision'; }, 2000); return; }
+  var labels = {'A':'Monolith','B':'Shared Core','C':'Microservices','D':'Full Separation'};
+  var text = 'GEC Pillar-to-Product Architecture Decision\n\nSelected: Option ' + paSelectedOption + ' - ' + labels[paSelectedOption];
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById('pa-copyBtn'); btn.classList.add('copied'); btn.innerHTML = 'Copied';
+    setTimeout(function() { btn.classList.remove('copied'); btn.innerHTML = 'Copy decision'; }, 2000);
+  });
+}
+
+// ================================================================
+// PAGE 4: BUSINESS MODEL
+// ================================================================
+function bmInitReveal() {
+  var bmPage = document.getElementById('page-bizmodel');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  bmPage.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+}
+
+(function() {
+  var custSlider = document.getElementById('bm-custSlider');
+  var custDisplay = document.getElementById('bm-custDisplay');
+  var mixStarter = document.getElementById('bm-mixStarter');
+  var mixGrowth = document.getElementById('bm-mixGrowth');
+  var mixEnterprise = document.getElementById('bm-mixEnterprise');
+
+  function formatCurrency(n) { return n >= 1000 ? '$' + n.toLocaleString('en-US', {maximumFractionDigits:0}) : '$' + n.toFixed(0); }
+
+  function calculate() {
+    var customers = parseInt(custSlider.value) || 0;
+    var sP = parseInt(mixStarter.value) || 0, gP = parseInt(mixGrowth.value) || 0, eP = parseInt(mixEnterprise.value) || 0;
+    var total = sP + gP + eP; if (total === 0) { sP = 34; gP = 33; eP = 33; total = 100; }
+    var sF = sP / total, gF = gP / total, eF = eP / total;
+    var sCount = Math.round(customers * sF), gCount = Math.round(customers * gF), eCount = customers - sCount - gCount;
+    if (eCount < 0) eCount = 0;
+    var sRev = sCount * 49, gRev = gCount * 149, eRev = eCount * 399, mrr = sRev + gRev + eRev, arr = mrr * 12;
+    var aiCost = customers * 3, totalCost = aiCost + 20 + 10, profit = mrr - totalCost;
+
+    custDisplay.textContent = customers;
+    document.getElementById('bm-mrrValue').textContent = formatCurrency(mrr);
+    document.getElementById('bm-arrValue').textContent = formatCurrency(arr);
+    document.getElementById('bm-profitValue').textContent = formatCurrency(profit);
+    document.getElementById('bm-costAI').textContent = formatCurrency(aiCost);
+    document.getElementById('bm-costTotal').textContent = formatCurrency(totalCost);
+
+    var barS = document.getElementById('bm-barStarter'), barG = document.getElementById('bm-barGrowth'), barE = document.getElementById('bm-barEnterprise');
+    if (mrr > 0) {
+      barS.style.width = ((sRev/mrr)*100)+'%'; barG.style.width = ((gRev/mrr)*100)+'%'; barE.style.width = ((eRev/mrr)*100)+'%';
+      barS.textContent = sRev > 0 ? '$'+sRev : ''; barG.textContent = gRev > 0 ? '$'+gRev : ''; barE.textContent = eRev > 0 ? '$'+eRev : '';
+    } else { barS.style.width='33%';barG.style.width='34%';barE.style.width='33%';barS.textContent='';barG.textContent='';barE.textContent=''; }
+  }
+
+  custSlider.addEventListener('input', calculate);
+  mixStarter.addEventListener('input', calculate);
+  mixGrowth.addEventListener('input', calculate);
+  mixEnterprise.addEventListener('input', calculate);
+  calculate();
+})();
+
+function bmCopySummary() {
+  var summary = ['ContentPilot - GEC Product Business Model Summary','','Product: AI-powered content engine for B2B companies','Model: Multi-tenant SaaS','','Pricing:','  Starter: $49/mo','  Growth: $149/mo','  Enterprise: $399/mo','','Generated: March 2026'].join('\n');
+  navigator.clipboard.writeText(summary).then(function() {
+    var toast = document.getElementById('bm-copyToast'); toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2200);
+  });
+}
+
+// Initialize reveal for business model if it's the first page shown
+bmInitReveal();
+</script>
+
+</body>
+</html>

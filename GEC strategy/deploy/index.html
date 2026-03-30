@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEC Digital Sales Ecosystem — Master Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --surface: #f8f9fb;
+    --surface-2: #f0f1f5;
+    --border: #e2e4ea;
+    --text: #1a1a2e;
+    --text-muted: #6b7085;
+    --accent: #4f46e5;
+    --accent-light: #4338ca;
+    --green: #16a34a;
+    --green-dim: #15803d;
+    --orange: #d97706;
+    --red: #dc2626;
+    --blue: #2563eb;
+    --teal: #0d9488;
+    --purple: #9333ea;
+    --pink: #db2777;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* Sidebar Navigation */
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 24px 0;
+  }
+
+  .sidebar-header {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .sidebar-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-light);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header .meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 8px 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-item:hover {
+    color: var(--text);
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+
+  .nav-item.active {
+    color: var(--accent);
+    background: rgba(79, 70, 229, 0.06);
+    border-left-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .nav-number {
+    display: inline-block;
+    width: 22px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* Main Content */
+  .main {
+    margin-left: 280px;
+    padding: 40px 60px 100px;
+    max-width: 960px;
+  }
+
+  /* Hero */
+  .hero {
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .hero-meta .tag strong {
+    color: var(--text);
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: #0f0f1a;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 32px 0 16px;
+    color: #0f0f1a;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--accent-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  strong { color: #0f0f1a; font-weight: 600; }
+
+  ul, ol {
+    margin: 12px 0 20px 24px;
+  }
+
+  li {
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  li strong { color: var(--accent); }
+
+  /* Flow Diagram */
+  .flow {
+    display: flex;
+    gap: 0;
+    margin: 24px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .flow-step {
+    flex: 1;
+    min-width: 140px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+  }
+
+  .flow-step:first-child { border-radius: 10px 0 0 10px; }
+  .flow-step:last-child { border-radius: 0 10px 10px 0; }
+
+  .flow-step .step-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .flow-step .step-items {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: var(--accent);
+    z-index: 1;
+    font-weight: 700;
+  }
+
+  .flow-step:last-child::after { content: ''; }
+
+  /* Principle Banner */
+  .principle {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.07), rgba(13, 148, 136, 0.05));
+    border: 1px solid rgba(79, 70, 229, 0.2);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 20px 0 28px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f0f1a;
+    letter-spacing: 0.02em;
+  }
+
+  .principle span {
+    color: var(--accent-light);
+    margin: 0 8px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 13px;
+  }
+
+  thead th {
+    background: var(--surface-2);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+  }
+
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:hover { background: rgba(79, 70, 229, 0.03); }
+
+  /* Status Badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .badge-live { background: rgba(22, 163, 74, 0.1); color: var(--green); }
+  .badge-planned { background: rgba(217, 119, 6, 0.1); color: var(--orange); }
+  .badge-tbd { background: rgba(107, 112, 133, 0.1); color: var(--text-muted); }
+  .badge-webinar { background: rgba(79, 70, 229, 0.1); color: var(--accent); }
+  .badge-sme { background: rgba(13, 148, 136, 0.1); color: var(--teal); }
+  .badge-bank { background: rgba(217, 119, 6, 0.1); color: var(--orange); }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f0f1a;
+    margin-bottom: 8px;
+  }
+
+  .card-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .card.accent-border { border-left: 3px solid var(--accent); }
+  .card.green-border { border-left: 3px solid var(--green); }
+  .card.orange-border { border-left: 3px solid var(--orange); }
+  .card.teal-border { border-left: 3px solid var(--teal); }
+
+  /* Code / Architecture blocks */
+  .arch-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 20px 0;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .arch-block .highlight { color: var(--accent); font-weight: 600; }
+  .arch-block .green { color: var(--green); }
+  .arch-block .muted { color: #9ca3af; }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
+  }
+
+  .checklist li {
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .checklist li::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    border: 2px solid #c0c4cc;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Info boxes */
+  .info-box {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  .info-box.note {
+    background: rgba(79, 70, 229, 0.05);
+    border: 1px solid rgba(79, 70, 229, 0.15);
+  }
+
+  .info-box.tip {
+    background: rgba(22, 163, 74, 0.05);
+    border: 1px solid rgba(22, 163, 74, 0.15);
+  }
+
+  .info-box.warning {
+    background: rgba(217, 119, 6, 0.05);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+  }
+
+  .info-box .label {
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .info-box.note .label { color: var(--accent-light); }
+  .info-box.tip .label { color: var(--green); }
+  .info-box.warning .label { color: var(--orange); }
+
+  /* Separator */
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* Comparison highlight */
+  .vs-table td:nth-child(2) { color: var(--green); }
+  .vs-table td:nth-child(3) { color: var(--text-muted); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 24px 20px 60px; }
+    .hero h1 { font-size: 26px; }
+    .flow { flex-direction: column; }
+    .flow-step { border-radius: 8px !important; }
+    .flow-step::after { display: none; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #c0c4cc; }
+
+  /* Calendar season labels */
+  .season-break {
+    text-align: center;
+    padding: 12px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Automation level indicator */
+  .auto-level {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .auto-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .auto-dot.full { background: var(--green); }
+  .auto-dot.semi { background: var(--orange); }
+  .auto-dot.manual { background: var(--red); }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h2>GEC Master Plan</h2>
+    <div class="meta">
+      v1.0 &middot; Feb 24, 2026<br>
+      Owner: Lia Kereselidze
+    </div>
+  </div>
+  <a href="#vision" class="nav-item"><span class="nav-number">01</span> Vision & Philosophy</a>
+  <a href="#reach" class="nav-item"><span class="nav-number">02</span> Reach Layer</a>
+  <a href="#calendar" class="nav-item"><span class="nav-number">03</span> Activity Calendar</a>
+  <a href="#partnerships" class="nav-item"><span class="nav-number">04</span> Partnership Strategy</a>
+  <a href="#assessments" class="nav-item"><span class="nav-number">05</span> Self-Assessments</a>
+  <a href="#crm" class="nav-item"><span class="nav-number">06</span> CRM & Architecture</a>
+  <a href="#intelligence" class="nav-item"><span class="nav-number">07</span> Contact Intelligence</a>
+  <a href="#communication" class="nav-item"><span class="nav-number">08</span> AI Communication</a>
+  <a href="#nurture" class="nav-item"><span class="nav-number">09</span> Nurture Flows</a>
+  <a href="#automation" class="nav-item"><span class="nav-number">10</span> Automation Levels</a>
+  <a href="#sme" class="nav-item"><span class="nav-number">11</span> SME Programme</a>
+  <a href="#tone" class="nav-item"><span class="nav-number">12</span> Brand Tone</a>
+  <a href="#tech" class="nav-item"><span class="nav-number">13</span> Tech Stack</a>
+  <a href="#roadmap" class="nav-item"><span class="nav-number">14</span> Roadmap</a>
+  <a href="#decisions" class="nav-item"><span class="nav-number">15</span> Open Decisions</a>
+</nav>
+
+<!-- Main Content -->
+<div class="main">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>GEC Digital Sales Ecosystem</h1>
+    <div class="hero-meta">
+      <span class="tag"><strong>Version</strong> 1.0</span>
+      <span class="tag"><strong>Date</strong> February 24, 2026</span>
+      <span class="tag"><strong>Owner</strong> Lia Kereselidze</span>
+      <span class="tag"><strong>Positioning</strong> Tech & AI Oriented Business Growth</span>
+    </div>
+  </div>
+
+  <!-- 1. Vision -->
+  <div class="section" id="vision">
+    <div class="section-number">Section 01</div>
+    <h2>Vision & Core Philosophy</h2>
+
+    <div class="principle">
+      MEET them <span>→</span> GIVE them something <span>→</span> SOLVE their problem <span>→</span> They spread the word
+    </div>
+
+    <p>Every interaction with GEC should provide value. Once a potential client enters the ecosystem, they continuously receive useful insights, tools, and connections — <strong>never aggressive pitches, never boring templates.</strong></p>
+
+    <h3>What We're Building</h3>
+    <p>A fully integrated digital sales machine that:</p>
+    <ul>
+      <li><strong>Attracts</strong> through automated content, partnerships, and live events</li>
+      <li><strong>Captures</strong> through self-assessments, webinars, and workshops</li>
+      <li><strong>Nurtures</strong> through AI-personalized communication (not generic drip sequences)</li>
+      <li><strong>Qualifies</strong> automatically through behavioral scoring and assessment data</li>
+      <li><strong>Converts</strong> by decreasing time-to-contract with pre-built diagnostic insights</li>
+      <li><strong>Retains</strong> through ongoing value delivery and community</li>
+    </ul>
+
+    <h3>The Full Funnel</h3>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="step-title">Attract</div>
+        <div class="step-items">Auto-posting<br>SEO content<br>Webinars<br>Workshops<br>Partner events</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-title">Capture</div>
+        <div class="step-items">Lead Magnets<br>Assessments<br>Gated PDFs<br>Event signups<br>Contact forms</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-title">Nurture</div>
+        <div class="step-items">AI-personalized<br>Email sequences<br>Behavior-based<br>Multi-channel<br>Value delivery</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-title">Qualify</div>
+        <div class="step-items">Self-Assessment<br>scoring + CRM<br>Pipeline auto-<br>moves in CRM<br>Alert to Lia</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-title">Close</div>
+        <div class="step-items">Auto-Proposal<br>Pre-filled<br>contracts +<br>booking links</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 2. Reach Layer -->
+  <div class="section" id="reach">
+    <div class="section-number">Section 02</div>
+    <h2>Reach Layer — Getting Close to the Customer</h2>
+
+    <h3>Always-On (Automated)</h3>
+    <table>
+      <thead><tr><th>Channel</th><th>Status</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Social media auto-posting</td><td><span class="badge badge-live">Live</span></td><td>Facebook + Instagram via Meta Graph API</td></tr>
+        <tr><td>LinkedIn posting</td><td><span class="badge badge-planned">Planned</span></td><td>API integration needed</td></tr>
+        <tr><td>SEO blog/insights on gec.ge</td><td><span class="badge badge-planned">Planned</span></td><td>Regular thought leadership content</td></tr>
+        <tr><td>Self-assessment ad campaigns</td><td><span class="badge badge-planned">Planned</span></td><td>Paid ads driving to lead magnets</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Live Touchpoints — 24 per Year</h3>
+    <p>Three types of events, once per week during active periods:</p>
+    <div class="card-grid">
+      <div class="card accent-border">
+        <div class="card-subtitle">8 per year</div>
+        <div class="card-title">Webinars</div>
+        <p>Thought leadership + lead gen. Online, limited seats to create urgency.</p>
+      </div>
+      <div class="card teal-border">
+        <div class="card-subtitle">8 per year</div>
+        <div class="card-title">SME Programme Meetings</div>
+        <p>Mentor-SME workshops. In-person or hybrid format.</p>
+      </div>
+      <div class="card orange-border">
+        <div class="card-subtitle">8 per year</div>
+        <div class="card-title">Bank / Partner Events</div>
+        <p>Co-hosted with BOG, TBC, Liberty. Pitch to partner audiences.</p>
+      </div>
+    </div>
+
+    <h3>Additional Touchpoint Ideas</h3>
+    <table>
+      <thead><tr><th>Touchpoint</th><th>Frequency</th><th>Description</th><th>Effort</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Office Hours</strong></td><td>Bi-weekly</td><td>Open Zoom, anyone joins with a question. Zero prep. Recordings become content.</td><td><span class="badge badge-live">Low</span></td></tr>
+        <tr><td><strong>CEO Roundtables</strong></td><td>Quarterly</td><td>Invite-only dinner/lunch with 6-8 decision makers. No pitch, just conversation.</td><td><span class="badge badge-planned">Medium</span></td></tr>
+        <tr><td><strong>Guest Expert Sessions</strong></td><td>Monthly</td><td>SME Programme mentors give 20-min talks. Shows ecosystem depth.</td><td><span class="badge badge-live">Low</span></td></tr>
+        <tr><td><strong>"Audit in a Box"</strong></td><td>Always available</td><td>Automated mini-consulting: 30 questions &rarr; 5-page PDF with real recommendations.</td><td><span class="badge badge-planned">Build once</span></td></tr>
+        <tr><td><strong>Co-branded Content</strong></td><td>Monthly</td><td>Insight piece co-authored with AmCham / AI Association.</td><td><span class="badge badge-planned">Medium</span></td></tr>
+        <tr><td><strong>Telegram / WhatsApp</strong></td><td>Always on</td><td>Private group for attendees + clients. Quick insights, Q&A.</td><td><span class="badge badge-live">Low</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Incentives for Attendance</h3>
+    <p>Every event must offer at least two:</p>
+    <ul>
+      <li><strong>Knowledge</strong> — practical takeaways they can use immediately</li>
+      <li><strong>Customized insights</strong> — something specific to their business</li>
+      <li><strong>Networking</strong> — peers, mentors, bank representatives</li>
+      <li><strong>Tools / Templates</strong> — free resources only for attendees</li>
+      <li><strong>Access to experts</strong> — Q&A with mentors or industry leaders</li>
+      <li><strong>Early access</strong> — priority enrollment in programmes</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 3. Calendar -->
+  <div class="section" id="calendar">
+    <div class="section-number">Section 03</div>
+    <h2>Annual Activity Calendar — 2026</h2>
+
+    <div class="card-grid">
+      <div class="card green-border">
+        <div class="card-title">Spring Session</div>
+        <p>March 1 – June 15 &middot; 14 events</p>
+      </div>
+      <div class="card orange-border">
+        <div class="card-title">Autumn Session</div>
+        <p>October 1 – December 15 &middot; 10 events</p>
+      </div>
+    </div>
+
+    <div class="info-box note">
+      <div class="label">Note</div>
+      Auto-posting and nurture sequences continue during summer (Jun 16 – Sep 30) and winter (Dec 16 – Feb 28) breaks.
+    </div>
+
+    <h3>Spring Session</h3>
+    <table>
+      <thead><tr><th>Week</th><th>Date Range</th><th>Type</th><th>Topic / Partner</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Mar 2–6</td><td><span class="badge badge-webinar">Webinar</span></td><td>"AI Readiness for Georgian SMEs"</td></tr>
+        <tr><td>2</td><td>Mar 9–13</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Kick-off (Cohort selection)</td></tr>
+        <tr><td>3</td><td>Mar 16–20</td><td><span class="badge badge-bank">Bank</span></td><td>BOG: "Financing Digital Transformation"</td></tr>
+        <tr><td>4</td><td>Mar 23–27</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Export Readiness: Are You Ready for EU?"</td></tr>
+        <tr><td>5</td><td>Mar 30–Apr 3</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #1</td></tr>
+        <tr><td>6</td><td>Apr 6–10</td><td><span class="badge badge-bank">Bank</span></td><td>TBC: "Banking Tools for Growing SMEs"</td></tr>
+        <tr><td>7</td><td>Apr 13–17</td><td><span class="badge badge-webinar">Webinar</span></td><td>"BPM: Why Your Processes Cost You Money"</td></tr>
+        <tr><td>8</td><td>Apr 20–24</td><td><span class="badge badge-bank">Bank</span></td><td>BOG Event (April milestone)</td></tr>
+        <tr><td>9</td><td>Apr 28–May 1</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #2</td></tr>
+        <tr><td>10</td><td>May 5–9</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Strategy Planning with AI Tools"</td></tr>
+        <tr><td>11</td><td>May 12–16</td><td><span class="badge badge-bank">Bank</span></td><td>Liberty: "Trade Finance for Exporters"</td></tr>
+        <tr><td>12</td><td>May 19–23</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #3</td></tr>
+        <tr><td>13</td><td>May 26–30</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Digital Transformation Roadmap"</td></tr>
+        <tr><td>14</td><td>Jun 1–5</td><td><span class="badge badge-bank">Bank</span></td><td>Joint: SME Association Summit</td></tr>
+      </tbody>
+    </table>
+
+    <div class="season-break">&#9728; Summer Break: June 16 – September 30</div>
+
+    <h3>Autumn Session</h3>
+    <table>
+      <thead><tr><th>Week</th><th>Date Range</th><th>Type</th><th>Topic / Partner</th></tr></thead>
+      <tbody>
+        <tr><td>15</td><td>Oct 6–10</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #4</td></tr>
+        <tr><td>16</td><td>Oct 13–17</td><td><span class="badge badge-webinar">Webinar</span></td><td>"AI Case Studies from Georgian SMEs"</td></tr>
+        <tr><td>17</td><td>Oct 20–24</td><td><span class="badge badge-bank">Bank</span></td><td>BOG: "Year-End Growth Financing"</td></tr>
+        <tr><td>18</td><td>Oct 27–31</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #5</td></tr>
+        <tr><td>19</td><td>Nov 3–7</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Export Success Stories 2026"</td></tr>
+        <tr><td>20</td><td>Nov 10–14</td><td><span class="badge badge-bank">Bank</span></td><td>TBC: "Digital Banking Integration"</td></tr>
+        <tr><td>21</td><td>Nov 17–21</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Workshop #6</td></tr>
+        <tr><td>22</td><td>Nov 24–28</td><td><span class="badge badge-webinar">Webinar</span></td><td>"Planning 2027: AI-First Strategy"</td></tr>
+        <tr><td>23</td><td>Dec 1–5</td><td><span class="badge badge-sme">SME Meet</span></td><td>SME Programme Year-End Review</td></tr>
+        <tr><td>24</td><td>Dec 8–12</td><td><span class="badge badge-bank">Bank</span></td><td>Joint: Year-End Business Mixer</td></tr>
+      </tbody>
+    </table>
+
+    <div class="season-break">&#127876; Winter Break: December 16 – February 28</div>
+  </div>
+
+  <hr>
+
+  <!-- 4. Partnerships -->
+  <div class="section" id="partnerships">
+    <div class="section-number">Section 04</div>
+    <h2>Partnership Strategy</h2>
+
+    <h3>Credibility Partners</h3>
+    <table>
+      <thead><tr><th>Partner</th><th>What They Give GEC</th><th>What GEC Gives Them</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AmCham Georgia</strong></td><td>International business credibility, access to foreign companies</td><td>AI/digital content for their events, member value</td></tr>
+        <tr><td><strong>AI Association</strong></td><td>Tech authority positioning</td><td>Practical business cases for AI adoption</td></tr>
+        <tr><td><strong>SME Associations</strong></td><td>Market trust, direct SME pipeline</td><td>Training, assessments, mentorship access</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Distribution / Financial Partners</h3>
+    <table>
+      <thead><tr><th>Partner</th><th>What They Give GEC</th><th>What GEC Gives Them</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bank of Georgia</strong></td><td>SME client audience, event venues, co-branding</td><td>Educational content for their SME clients, growth partner positioning</td></tr>
+        <tr><td><strong>TBC Bank</strong></td><td>Access to their SME customer base</td><td>Educational events that increase bank's value prop</td></tr>
+        <tr><td><strong>Liberty Bank</strong></td><td>Trade finance audience, export-focused businesses</td><td>Export readiness content, joint workshops</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Partnership Activation Model</h3>
+    <p>Each bank/partner event follows this structure:</p>
+    <ol>
+      <li><strong>Partner provides:</strong> Venue + audience invitation + co-branding</li>
+      <li><strong>GEC provides:</strong> Content + speaker + assessment tool + follow-up</li>
+      <li><strong>Attendees get:</strong> Free assessment + actionable insights + networking</li>
+      <li><strong>GEC captures:</strong> All attendee data flows into intelligence system</li>
+      <li><strong>Partner gets:</strong> Event report showing engagement metrics</li>
+    </ol>
+  </div>
+
+  <hr>
+
+  <!-- 5. Self-Assessments -->
+  <div class="section" id="assessments">
+    <div class="section-number">Section 05</div>
+    <h2>Lead Magnets — Self-Assessment Surveys</h2>
+
+    <h3>Four Assessments Mapped to GEC Services</h3>
+    <div class="card-grid">
+      <div class="card accent-border">
+        <div class="card-subtitle">Strategy Consulting</div>
+        <div class="card-title">Strategy Readiness</div>
+        <p>12-15 questions &middot; 4 min &middot; Strategy maturity scorecard</p>
+      </div>
+      <div class="card teal-border">
+        <div class="card-subtitle">Business Process Management</div>
+        <div class="card-title">BPM Maturity</div>
+        <p>10-12 questions &middot; 3 min &middot; Process maturity level + gap analysis</p>
+      </div>
+      <div class="card orange-border">
+        <div class="card-subtitle">Export Consulting</div>
+        <div class="card-title">Export Readiness</div>
+        <p>12-15 questions &middot; 4 min &middot; Market-readiness score + checklist</p>
+      </div>
+      <div class="card green-border">
+        <div class="card-subtitle">Digital Transformation / AI</div>
+        <div class="card-title">AI Readiness</div>
+        <p>10-12 questions &middot; 3 min &middot; AI adoption roadmap preview</p>
+      </div>
+    </div>
+
+    <h3>How Each Assessment Works</h3>
+    <ol>
+      <li>User lands on assessment page (from ad, social post, event, email, or website)</li>
+      <li>10-15 questions, 3-5 minutes, progress bar visible</li>
+      <li>Results are <strong>gated</strong> — "Enter your email to see your score"</li>
+      <li>They immediately receive: on-screen score summary + PDF scorecard via email</li>
+      <li>Behind the scenes: contact created in intelligence DB, score determines nurture track, Apollo.io enriches company data</li>
+    </ol>
+
+    <h3>Why This Solves the Conversion Time Problem</h3>
+    <ul>
+      <li>You already know their pain points before the first call</li>
+      <li>The assessment pre-educates them on why they need help</li>
+      <li>The PDF report creates perceived value before you quote anything</li>
+      <li>Score data auto-populates into proposals/diagnostics</li>
+      <li>Discovery calls are 50% shorter because you already know their situation</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 6. CRM -->
+  <div class="section" id="crm">
+    <div class="section-number">Section 06</div>
+    <h2>CRM & Sales Intelligence Architecture</h2>
+
+    <h3>Why Apollo.io over Monday.com</h3>
+    <table class="vs-table">
+      <thead><tr><th>Factor</th><th>Apollo.io</th><th>Monday.com</th></tr></thead>
+      <tbody>
+        <tr><td>Built for</td><td>Sales + lead gen</td><td>Project management</td></tr>
+        <tr><td>Email sequences</td><td>Native, multi-step</td><td>Basic</td></tr>
+        <tr><td>Lead enrichment</td><td>Auto-enriches company data</td><td>None</td></tr>
+        <tr><td>Lead scoring</td><td>Built-in</td><td>Manual</td></tr>
+        <tr><td>B2B contact DB</td><td>275M+ contacts searchable</td><td>Only your own data</td></tr>
+        <tr><td>API quality</td><td>Excellent REST API + webhooks</td><td>CRM API is clunky</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box tip">
+      <div class="label">Recommendation</div>
+      Apollo.io for sales pipeline. Monday.com for project delivery after close. They integrate with each other.
+    </div>
+
+    <h3>System Architecture</h3>
+    <div class="arch-block"><span class="highlight">              YOUR CUSTOM PLATFORM (Next.js app)</span>
+              Assessment Engine  |  Webinar Registration
+              Event Management   |  Content Auto-Posting <span class="green">(built)</span>
+              Scorecard PDF Gen  |  Scheduling Engine
+              Analytics Dashboard
+                         │ <span class="muted">webhooks + API</span>
+              <span class="highlight">CONTACT INTELLIGENCE DB</span>
+              PostgreSQL + pgvector
+
+              Contact profiles         | Company profiles
+              All interaction history  | Assessment answers + scores
+              Event attendance         | Email engagement metrics
+              Social activity tracking | AI-generated insights
+              Communication prefs      | Vector embeddings
+                         │
+            ┌────────────┼────────────────┐
+            ▼            ▼                ▼
+       <span class="green">Apollo.io</span>      <span class="green">Resend</span>          <span class="green">Cal.com</span>
+       enrich +      send           booking +
+       prospect      emails         scheduling</div>
+  </div>
+
+  <hr>
+
+  <!-- 7. Intelligence -->
+  <div class="section" id="intelligence">
+    <div class="section-number">Section 07</div>
+    <h2>Contact Intelligence Layer</h2>
+
+    <h4>Identity</h4>
+    <ul>
+      <li>Name, email, phone</li>
+      <li>Company, role, title</li>
+      <li>LinkedIn profile URL</li>
+      <li>Company size + revenue (Apollo enrichment)</li>
+      <li>Industry + sector, location</li>
+      <li>How they found us (UTM source)</li>
+    </ul>
+
+    <h4>Engagement History</h4>
+    <ul>
+      <li>Webinars attended (which topics)</li>
+      <li>Assessments taken (scores + individual answers)</li>
+      <li>Emails opened/clicked (which content)</li>
+      <li>Events attended (online + offline)</li>
+      <li>Content downloaded, website visits</li>
+      <li>Social interactions with GEC content</li>
+    </ul>
+
+    <h4>AI-Generated Intelligence</h4>
+    <ul>
+      <li>Communication style preference</li>
+      <li>Decision-making pattern (fast/slow, data-driven/intuition)</li>
+      <li>Best time and channel to reach them</li>
+      <li>Predicted needs based on behavior</li>
+      <li>Lead temperature (hot/warm/cold)</li>
+      <li>Risk of going cold</li>
+      <li>Recommended next action</li>
+      <li>Summary of all interactions (AI-written)</li>
+    </ul>
+
+    <h4>External Intelligence (Enriched)</h4>
+    <ul>
+      <li>Job changes (LinkedIn monitoring)</li>
+      <li>Company news and announcements</li>
+      <li>Funding rounds, industry trends</li>
+      <li>Competitor activity</li>
+      <li>Public posts/articles they publish</li>
+    </ul>
+
+    <h4>Vector Embeddings</h4>
+    <ul>
+      <li>All interactions embedded for semantic search</li>
+      <li>"Find me leads similar to [best client]"</li>
+      <li>"Which contacts are interested in [topic]?"</li>
+      <li>"Who should I invite to [event about X]?"</li>
+    </ul>
+
+    <h3>Company Intelligence</h3>
+    <p>For each company in the system:</p>
+    <ul>
+      <li>Revenue, employee count, founding year</li>
+      <li>Industry classification</li>
+      <li>Digital maturity indicators</li>
+      <li>Known pain points (from assessments + interactions)</li>
+      <li>Key decision makers mapped</li>
+      <li>Engagement timeline</li>
+      <li>Opportunity score</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 8. AI Communication -->
+  <div class="section" id="communication">
+    <div class="section-number">Section 08</div>
+    <h2>AI-Powered Personalized Communication</h2>
+
+    <h3>The Principle</h3>
+    <p>No two contacts receive the same communication. The AI decides:</p>
+    <ul>
+      <li><strong>What</strong> to send (insight, resource, invitation, or nothing)</li>
+      <li><strong>When</strong> to send it (optimal timing for that person)</li>
+      <li><strong>How</strong> to frame it (their communication style)</li>
+      <li><strong>Whether</strong> to send at all (sometimes silence is better)</li>
+    </ul>
+
+    <h3>How It Works</h3>
+    <div class="arch-block">FOR each contact, EVERY week:
+
+  1. <span class="highlight">GATHER</span> context:
+     - Last interaction date and type
+     - Assessment data and scores
+     - Recent company news (Apollo)
+     - Email engagement patterns
+     - Upcoming events matching their interests
+
+  2. <span class="highlight">AI EVALUATES</span> and recommends ONE of:
+     <span class="green">a.</span> Send personalized insight
+        ("I noticed your company just expanded to...")
+     <span class="green">b.</span> Share a relevant resource
+        (template, guide, case study matching their weak area)
+     <span class="green">c.</span> Invite to upcoming event
+        (only if it matches their interests)
+     <span class="green">d.</span> Do nothing
+        (they're engaged enough, don't over-communicate)
+     <span class="green">e.</span> Alert Lia for personal outreach
+        (high-value moment detected — job change, funding, etc.)
+
+  3. <span class="highlight">LOG</span> the action → feeds back into the profile</div>
+
+    <h3>What Makes This Not Aggressive</h3>
+    <ul>
+      <li>Triggered by <strong>their</strong> actions, not cold spam</li>
+      <li>Every touchpoint delivers genuine value</li>
+      <li>CTAs are always soft: "free diagnostic", "here's a resource"</li>
+      <li>Frequency adapts to engagement level</li>
+      <li>System knows when to stay quiet</li>
+    </ul>
+
+    <h3>What Makes This Not Boring</h3>
+    <ul>
+      <li>Content is personalized to their specific assessment results</li>
+      <li>Mix of formats: PDF, video, case study, checklist, invitation</li>
+      <li>Language matches preference (Georgian / English)</li>
+      <li>Each message has a "quick win" they can implement immediately</li>
+      <li>Timing and channel vary (not predictable patterns)</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 9. Nurture -->
+  <div class="section" id="nurture">
+    <div class="section-number">Section 09</div>
+    <h2>Nurture Flow Design</h2>
+
+    <h3>Post-Assessment Sequence (Adaptive)</h3>
+    <table>
+      <thead><tr><th>Timing</th><th>Action</th><th>Condition</th></tr></thead>
+      <tbody>
+        <tr><td>Day 0</td><td>Assessment completed &rarr; PDF scorecard (instant)</td><td>Always</td></tr>
+        <tr><td>Day 1</td><td>"Here's what your score means" email</td><td>Always</td></tr>
+        <tr><td>Day 3</td><td>Micro-case study relevant to their weakest area</td><td>Score &lt; 7/10</td></tr>
+        <tr><td>Day 5</td><td>Free resource (template, checklist, mini-guide)</td><td>Always</td></tr>
+        <tr><td>Day 8</td><td>"Companies like yours typically..." (social proof)</td><td>Not yet engaged</td></tr>
+        <tr><td>Day 12</td><td>Invite to free 20-min diagnostic call</td><td>Score indicates need</td></tr>
+        <tr><td>Day 15</td><td>Personalized insight based on assessment data</td><td>Always</td></tr>
+        <tr><td>Day 20</td><td>Exclusive content or webinar invite</td><td>If upcoming event matches</td></tr>
+        <tr><td>Day 30</td><td>Check-in with new industry insight</td><td>Always</td></tr>
+        <tr><td>Day 30+</td><td>Moves to AI-personalized weekly cadence</td><td>Always</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Post-Event Sequence</h3>
+    <table>
+      <thead><tr><th>Timing</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>Same day</td><td>"Thanks for attending" + recording link + slides</td></tr>
+        <tr><td>Day 2</td><td>Key takeaway summary + "What did you find most useful?" (micro-survey)</td></tr>
+        <tr><td>Day 5</td><td>Related assessment invitation (if not taken)</td></tr>
+        <tr><td>Day 10</td><td>Related resource or next event invitation</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Re-engagement (Going Cold)</h3>
+    <table>
+      <thead><tr><th>Trigger</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>No interaction for 30 days</td><td>Share an industry insight (no CTA)</td></tr>
+        <tr><td>No interaction for 60 days</td><td>"Quick question" email about their industry</td></tr>
+        <tr><td>No interaction for 90 days</td><td>Move to quarterly newsletter only</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- 10. Automation -->
+  <div class="section" id="automation">
+    <div class="section-number">Section 10</div>
+    <h2>Automation Levels</h2>
+
+    <h3><span class="auto-level"><span class="auto-dot full"></span> Fully Automated (No Human Input)</span></h3>
+    <ul>
+      <li>Social media posting (Facebook + Instagram)</li>
+      <li>Assessment scoring + PDF generation</li>
+      <li>Lead enrichment via Apollo API</li>
+      <li>Email sending via Resend (triggered by events)</li>
+      <li>Data collection + profile updates</li>
+      <li>Nurture sequence progression</li>
+      <li>Contact intelligence updates</li>
+      <li>Analytics and dashboard refreshes</li>
+      <li>Seat counting and availability</li>
+    </ul>
+
+    <h3><span class="auto-level"><span class="auto-dot semi"></span> Semi-Automated (AI Drafts, Lia Approves)</span></h3>
+    <ul>
+      <li>Webinar topic selection + description generation</li>
+      <li>Event scheduling (system proposes dates, Lia confirms)</li>
+      <li>Personalized outreach messages (AI writes, Lia reviews high-value)</li>
+      <li>Partnership outreach emails</li>
+      <li>SME Programme communications</li>
+      <li>Diagnostic preview / proposal generation</li>
+      <li>Social media content for events</li>
+      <li>LinkedIn posting (until API ready)</li>
+      <li>Weekly communication recommendations per contact</li>
+    </ul>
+
+    <h3><span class="auto-level"><span class="auto-dot manual"></span> Manual (High-Touch, High-Value)</span></h3>
+    <ul>
+      <li>Presenting at webinars and workshops</li>
+      <li>CEO roundtable hosting</li>
+      <li>Final contract negotiations</li>
+      <li>Mentor selection for SME Programme</li>
+      <li>Strategic partnership meetings</li>
+      <li>The "meet, give, solve" moments</li>
+      <li>Complex proposal customization</li>
+      <li>Key account relationship management</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 11. SME -->
+  <div class="section" id="sme">
+    <div class="section-number">Section 11</div>
+    <h2>SME Development Programme</h2>
+
+    <div class="info-box warning">
+      <div class="label">Awaiting Details</div>
+      Lia will provide specifics on mentor profiles, SME selection criteria, and programme structure.
+    </div>
+
+    <h3>Overview</h3>
+    <ul>
+      <li><strong>Duration:</strong> 1 year per cohort</li>
+      <li><strong>Mentors:</strong> 10+ experienced practitioners</li>
+      <li><strong>Model:</strong> Ecosystem approach — SMEs gain group access to mentors they could never hire individually</li>
+      <li><strong>Value Proposition:</strong> Shared access to premium expertise at a fraction of individual cost</li>
+    </ul>
+
+    <h3>How It Feeds the Ecosystem</h3>
+    <div class="arch-block">SME Programme participants
+  <span class="green">→</span> Take assessments (data into intelligence system)
+  <span class="green">→</span> Attend workshops (8 per year)
+  <span class="green">→</span> Their success stories become case studies
+  <span class="green">→</span> They refer other SMEs
+  <span class="green">→</span> Mentors become guest speakers at webinars
+  <span class="green">→</span> Banks see results <span class="green">→</span> co-fund next cohort</div>
+
+    <h3>Platform Needs (TBD)</h3>
+    <ul>
+      <li>Cohort management</li>
+      <li>Mentor-SME matching</li>
+      <li>Progress tracking</li>
+      <li>Knowledge sharing portal</li>
+      <li>Milestone reporting (for partner banks)</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 12. Tone -->
+  <div class="section" id="tone">
+    <div class="section-number">Section 12</div>
+    <h2>GEC Brand Tone & Messaging</h2>
+
+    <div class="principle" style="font-size: 15px;">
+      GEC = Tech & AI Oriented Business Growth Services
+    </div>
+
+    <p>We don't just advise on digital transformation — we run our entire operation on the same AI and digital tools we help clients implement.</p>
+
+    <h3>Tone Guidelines</h3>
+    <table>
+      <thead><tr><th>Instead of...</th><th>Say...</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--red);text-decoration:line-through;">"We help businesses grow"</td><td style="color:var(--green);">"We engineer growth systems"</td></tr>
+        <tr><td style="color:var(--red);text-decoration:line-through;">"Our consultants will..."</td><td style="color:var(--green);">"Our AI-augmented methodology..."</td></tr>
+        <tr><td style="color:var(--red);text-decoration:line-through;">"Traditional approach"</td><td style="color:var(--green);">"Data-driven, tech-enabled approach"</td></tr>
+        <tr><td style="color:var(--red);text-decoration:line-through;">"Contact us for more info"</td><td style="color:var(--green);">"Take the 3-min AI Readiness scan"</td></tr>
+        <tr><td style="color:var(--red);text-decoration:line-through;">"We have experience in..."</td><td style="color:var(--green);">"Our algorithms + mentors have identified 47 growth patterns across 200+ Georgian SMEs"</td></tr>
+        <tr><td style="color:var(--red);text-decoration:line-through;">"Schedule a meeting"</td><td style="color:var(--green);">"Book a free diagnostic session"</td></tr>
+        <tr><td style="color:var(--red);text-decoration:line-through;">"Our team"</td><td style="color:var(--green);">"Our network of 10+ specialized mentors and AI-powered tools"</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Content Pillars</h3>
+    <div class="card-grid">
+      <div class="card accent-border">
+        <div class="card-title">AI in Business</div>
+        <p>Practical, not hype. How real Georgian businesses use AI.</p>
+      </div>
+      <div class="card orange-border">
+        <div class="card-title">Export & Growth</div>
+        <p>Market entry, readiness, compliance, success stories.</p>
+      </div>
+      <div class="card teal-border">
+        <div class="card-title">Process Excellence</div>
+        <p>BPM, efficiency, digital workflows.</p>
+      </div>
+      <div class="card green-border">
+        <div class="card-title">Strategic Thinking</div>
+        <p>Frameworks, planning tools, decision-making.</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--purple);">
+        <div class="card-title">SME Ecosystem</div>
+        <p>Community, mentorship, shared growth.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 13. Tech Stack -->
+  <div class="section" id="tech">
+    <div class="section-number">Section 13</div>
+    <h2>Tech Stack & Infrastructure</h2>
+
+    <h3>Current (Built)</h3>
+    <table>
+      <thead><tr><th>Component</th><th>Technology</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Web app</td><td>Next.js 16, React 19, TypeScript</td><td><span class="badge badge-live">Live</span></td></tr>
+        <tr><td>Hosting</td><td>Netlify</td><td><span class="badge badge-live">Live</span></td></tr>
+        <tr><td>Database</td><td>Netlify Blobs</td><td><span class="badge badge-live">Live</span></td></tr>
+        <tr><td>Email</td><td>Resend</td><td><span class="badge badge-live">Live</span></td></tr>
+        <tr><td>PDF generation</td><td>pdf-lib</td><td><span class="badge badge-live">Live</span></td></tr>
+        <tr><td>Social auto-posting</td><td>Meta Graph API v25.0</td><td><span class="badge badge-live">Live</span></td></tr>
+        <tr><td>Analytics</td><td>GA4 + Meta Pixel + LinkedIn Insight</td><td><span class="badge badge-live">Live</span></td></tr>
+        <tr><td>Admin panel</td><td>Custom (iron-session auth)</td><td><span class="badge badge-live">Live</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>To Build / Integrate</h3>
+    <table>
+      <thead><tr><th>Component</th><th>Technology</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Intelligence DB</td><td>PostgreSQL + pgvector</td><td>Contact profiles, behavioral tracking, vector search</td></tr>
+        <tr><td>CRM / Prospecting</td><td>Apollo.io API</td><td>Lead enrichment, outbound sequences</td></tr>
+        <tr><td>Booking</td><td>Cal.com or Calendly</td><td>Diagnostic calls, meeting scheduling</td></tr>
+        <tr><td>AI Engine</td><td>Claude API</td><td>Personalized communication, scoring</td></tr>
+        <tr><td>Assessment Engine</td><td>Custom (Next.js)</td><td>Self-assessment surveys + scoring</td></tr>
+        <tr><td>Webinar platform</td><td>Zoom / Livestorm / Demio</td><td>Online events with limited seats</td></tr>
+        <tr><td>LinkedIn API</td><td>LinkedIn Marketing API</td><td>Auto-posting</td></tr>
+        <tr><td>Scheduling engine</td><td>Custom (Next.js + cron)</td><td>Annual calendar management</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- 14. Roadmap -->
+  <div class="section" id="roadmap">
+    <div class="section-number">Section 14</div>
+    <h2>Implementation Roadmap</h2>
+
+    <h3>Phase 1: Foundation — March 2026</h3>
+    <ul class="checklist">
+      <li>Build first self-assessment (AI Readiness — matches brand positioning)</li>
+      <li>Set up PostgreSQL + pgvector (Supabase or Neon)</li>
+      <li>Design contact intelligence schema</li>
+      <li>Apollo.io account setup + API integration</li>
+      <li>Annual calendar system with scheduling engine</li>
+      <li>First webinar: "AI Readiness for Georgian SMEs"</li>
+    </ul>
+
+    <h3>Phase 2: Lead Machine — April 2026</h3>
+    <ul class="checklist">
+      <li>Build remaining 3 assessments (Export, BPM, Strategy)</li>
+      <li>PDF scorecard generator for all assessments</li>
+      <li>Webinar registration + auto-promotion system</li>
+      <li>AI communication engine v1 (Claude API)</li>
+      <li>First bank event with BOG</li>
+      <li>Booking integration (Cal.com or Calendly)</li>
+    </ul>
+
+    <h3>Phase 3: Intelligence — May–June 2026</h3>
+    <ul class="checklist">
+      <li>Behavioral tracking across all touchpoints</li>
+      <li>AI-personalized email system (replace generic sequences)</li>
+      <li>Diagnostic preview auto-generator</li>
+      <li>SME Programme platform skeleton</li>
+      <li>Analytics dashboard with contact insights</li>
+      <li>Vector search: "find leads similar to best client"</li>
+    </ul>
+
+    <h3>Phase 4: Optimization — October–December 2026</h3>
+    <ul class="checklist">
+      <li>Predictive lead scoring</li>
+      <li>Automated proposal drafts</li>
+      <li>Partnership reporting dashboards</li>
+      <li>Full retrospective + data analysis</li>
+      <li>2027 annual calendar generation</li>
+      <li>Scale assessment ad campaigns based on conversion data</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 15. Decisions -->
+  <div class="section" id="decisions">
+    <div class="section-number">Section 15</div>
+    <h2>Open Decisions</h2>
+
+    <table>
+      <thead><tr><th>#</th><th>Decision</th><th>Options</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Database hosting</td><td>Supabase vs Neon vs self-hosted</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>2</td><td>First assessment to build</td><td>AI Readiness (recommended) vs Export Readiness</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>3</td><td>Apollo.io plan</td><td>Free tier first vs paid</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>4</td><td>Webinar platform</td><td>Zoom vs Livestorm vs Demio</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>5</td><td>Booking tool</td><td>Cal.com (open source) vs Calendly</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>6</td><td>SME Programme details</td><td>Awaiting details from Lia</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>7</td><td>Assessment hosting domain</td><td>gec.ge subdomain vs saletool.ninja vs new domain</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>8</td><td>LinkedIn API access</td><td>Apply for Marketing API access</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>9</td><td>Contract/proposal tool</td><td>PandaDoc vs custom build</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+        <tr><td>10</td><td>Migrate from Netlify Blobs</td><td>Full migration vs hybrid</td><td><span class="badge badge-tbd">TBD</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <p style="text-align:center; color:var(--text-muted); font-size:12px; margin-top:40px;">
+    This is a living document. Update as decisions are made and phases are completed.<br>
+    GEC Digital Sales Ecosystem &middot; v1.0 &middot; February 2026
+  </p>
+
+</div>
+
+<!-- Sidebar active state on scroll -->
+<script>
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(item => item.classList.remove('active'));
+        const id = entry.target.id;
+        const activeNav = document.querySelector(`.nav-item[href="#${id}"]`);
+        if (activeNav) activeNav.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>

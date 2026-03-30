@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEC Social Auto-Poster — Discussion Questions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #1a1a2e;
+    background: #f8f9fb;
+    line-height: 1.7;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  .header {
+    background: #0f4c81;
+    color: white;
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .header .subtitle {
+    font-size: 15px;
+    opacity: 0.85;
+  }
+
+  .header .meta {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 8px;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar button {
+    padding: 10px 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #374151;
+    transition: all 0.15s;
+  }
+
+  .toolbar button:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+
+  .toolbar button.primary {
+    background: #0f4c81;
+    color: white;
+    border-color: #0f4c81;
+  }
+
+  .toolbar button.primary:hover {
+    background: #0d3f6b;
+  }
+
+  .toolbar .status {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #6b7280;
+    margin-left: auto;
+  }
+
+  .toolbar .status .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+
+  .toolbar .status .dot.saved { background: #22c55e; }
+  .toolbar .status .dot.unsaved { background: #f59e0b; }
+
+  .progress-bar {
+    background: #e5e7eb;
+    height: 6px;
+    border-radius: 3px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+
+  .progress-bar .fill {
+    background: #0f4c81;
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .intro {
+    background: white;
+    border-left: 4px solid #0f4c81;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 14px;
+    color: #334155;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .section {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .section-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f4c81;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f4c81;
+  }
+
+  .context {
+    font-size: 13px;
+    color: #64748b;
+    font-style: italic;
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .question {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .question:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .question-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0f4c81;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .question .q-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+
+  .question .q-hint {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 12px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1e293b;
+    resize: vertical;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    background: #fafbfc;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: #0f4c81;
+    box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1);
+    background: white;
+  }
+
+  textarea::placeholder {
+    color: #94a3b8;
+  }
+
+  .radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .radio-group label, .checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+    transition: all 0.15s;
+    background: #fafbfc;
+  }
+
+  .radio-group label:hover, .checkbox-group label:hover {
+    border-color: #0f4c81;
+    background: #f0f7ff;
+  }
+
+  .radio-group input:checked + span,
+  .checkbox-group input:checked + span {
+    color: #0f4c81;
+    font-weight: 500;
+  }
+
+  .radio-group label:has(input:checked),
+  .checkbox-group label:has(input:checked) {
+    border-color: #0f4c81;
+    background: #f0f7ff;
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: #0f4c81;
+    flex-shrink: 0;
+  }
+
+  .other-input {
+    margin-top: 8px;
+    display: none;
+  }
+
+  .other-input.visible {
+    display: block;
+  }
+
+  .role-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .role-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .role-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    width: 160px;
+    flex-shrink: 0;
+  }
+
+  .role-row textarea {
+    min-height: 44px;
+    flex: 1;
+  }
+
+  .steps-list {
+    counter-reset: step;
+    padding-left: 0;
+    list-style: none;
+    margin: 12px 0;
+  }
+
+  .steps-list li {
+    counter-increment: step;
+    font-size: 14px;
+    color: #475569;
+    padding: 4px 0 4px 28px;
+    position: relative;
+  }
+
+  .steps-list li::before {
+    content: counter(step) ".";
+    position: absolute;
+    left: 0;
+    font-weight: 600;
+    color: #0f4c81;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #0f4c81;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 100;
+  }
+
+  .toast.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 16px 16px 80px; }
+    .header { padding: 20px; }
+    .section { padding: 20px; }
+    .role-row { flex-direction: column; align-items: flex-start; }
+    .role-label { width: auto; }
+    .toolbar { flex-direction: column; }
+    .toolbar .status { margin-left: 0; }
+  }
+
+  @media print {
+    body { background: white; }
+    .toolbar, .progress-bar, .progress-label, .toast { display: none; }
+    .container { padding: 24px; max-width: none; }
+    .section { box-shadow: none; border: 1px solid #e5e7eb; break-inside: avoid; }
+    .header { background: white; color: #0f4c81; border: 2px solid #0f4c81; }
+    textarea { border: 1px solid #ccc; min-height: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>GEC Social Auto-Poster</h1>
+    <div class="subtitle">Discussion Questions for Tea (Inteligo) & GEC Management</div>
+    <div class="meta">Prepared: March 2026 &nbsp;|&nbsp; Pre-Planning Phase &nbsp;|&nbsp; Prepared by: Lia Kereselidze</div>
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" onclick="saveToLocal()">Save Progress</button>
+    <button onclick="exportAsText()">Export as Text</button>
+    <button onclick="window.print()">Print / PDF</button>
+    <button onclick="clearAll()">Clear All</button>
+    <div class="status">
+      <span class="dot saved" id="statusDot"></span>
+      <span id="statusText">No saved data</span>
+    </div>
+  </div>
+
+  <div class="progress-label"><span id="progressCount">0</span> of 30 questions answered</div>
+  <div class="progress-bar"><div class="fill" id="progressFill" style="width: 0%"></div></div>
+
+  <div class="intro">
+    <strong>Purpose:</strong> We are planning to build an AI-powered social media content system that replaces the manual work of copywriter, social media manager, designer, and content manager. This document collects the answers we need before architecture and development begin. Please answer honestly — wrong assumptions now are expensive later.
+    <br><br>
+    <strong>How to use:</strong> Type your answers directly in the fields below. Click <strong>Save Progress</strong> to save locally in your browser. Use <strong>Export as Text</strong> to copy all answers. You can close and reopen this page — your progress is saved.
+  </div>
+
+  <!-- ===== SECTION 1 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">1</span>
+      <h2>Inteligo's Current Process</h2>
+    </div>
+    <div class="context">We need to fully understand how things work today before we can automate them. These questions map Tea's team workflow so we know exactly what the system must replace.</div>
+
+    <div class="question">
+      <div class="question-label">Q1.1</div>
+      <div class="q-title">Walk us through a typical month of content creation for one client, from start to finish.</div>
+      <div class="q-hint">Who initiates? Who briefs whom? What gets produced? What tools are used? When does the client see it? How is approval handled?</div>
+      <textarea data-q="q1_1" placeholder="Describe the full monthly workflow..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q1.2</div>
+      <div class="q-title">What does each team member do daily?</div>
+      <div class="q-hint">Describe the daily responsibilities of each role.</div>
+      <div class="role-grid">
+        <div class="role-row">
+          <span class="role-label">Content Manager:</span>
+          <textarea data-q="q1_2_cm" placeholder="Daily tasks..."></textarea>
+        </div>
+        <div class="role-row">
+          <span class="role-label">Copywriter:</span>
+          <textarea data-q="q1_2_cw" placeholder="Daily tasks..."></textarea>
+        </div>
+        <div class="role-row">
+          <span class="role-label">Social Media Manager:</span>
+          <textarea data-q="q1_2_sm" placeholder="Daily tasks..."></textarea>
+        </div>
+        <div class="role-row">
+          <span class="role-label">Designer:</span>
+          <textarea data-q="q1_2_ds" placeholder="Daily tasks..."></textarea>
+        </div>
+        <div class="role-row">
+          <span class="role-label">Videographer:</span>
+          <textarea data-q="q1_2_vg" placeholder="Daily tasks..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q1.3</div>
+      <div class="q-title">What tools does the team currently use?</div>
+      <div class="q-hint">Content calendar (Google Sheets? Trello? ClickUp?), design (Canva? Figma? Photoshop?), scheduling (Meta Business Suite? Buffer? Later?), communication with clients (email? WhatsApp? Slack?), file sharing (Google Drive? Dropbox?)</div>
+      <textarea data-q="q1_3" placeholder="List the tools and what each is used for..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q1.4</div>
+      <div class="q-title">How many posts per month does Inteligo produce per client?</div>
+      <div class="q-hint">Break down by platform (Facebook, Instagram, LinkedIn) and content type (image posts, carousels, reels/videos, stories).</div>
+      <textarea data-q="q1_4" placeholder="e.g., Facebook: 20 image posts, 4 carousels. Instagram: 15 posts, 8 reels, daily stories..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q1.5</div>
+      <div class="q-title">How does the client approval process work today?</div>
+      <div class="q-hint">Does Tea send a batch for approval? Individual posts? Via what channel? How quickly do clients typically respond? What happens when a client wants changes?</div>
+      <textarea data-q="q1_5" placeholder="Describe the current approval flow..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q1.6</div>
+      <div class="q-title">What are the biggest pain points / time wasters in the current process?</div>
+      <div class="q-hint">What takes the most time? What causes the most back-and-forth? Where do things get stuck?</div>
+      <textarea data-q="q1_6" placeholder="List the top frustrations and bottlenecks..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q1.7</div>
+      <div class="q-title">What does Tea personally spend her time on?</div>
+      <div class="q-hint">Managing team? Client communication? Quality control? Strategy? We need to know what stays manual vs. what the system handles.</div>
+      <textarea data-q="q1_7" placeholder="Tea's typical week breakdown..."></textarea>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">2</span>
+      <h2>Client Management & Multi-Account</h2>
+    </div>
+    <div class="context">The system will serve multiple clients through one admin panel. We need to understand how client accounts should be separated and managed.</div>
+
+    <div class="question">
+      <div class="question-label">Q2.1</div>
+      <div class="q-title">How many clients does Inteligo currently serve?</div>
+      <div class="q-hint">And realistically, how many could Tea handle with the automated system? (3 clients vs 20 is very different architecturally.)</div>
+      <textarea data-q="q2_1" placeholder="Current number and projected capacity..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q2.2</div>
+      <div class="q-title">Are all clients similar or do some have very different needs?</div>
+      <div class="q-hint">Some might need only Facebook, others need all platforms. Some might need reels, others only image posts. How much variation exists?</div>
+      <textarea data-q="q2_2" placeholder="Describe the range of client needs..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q2.3</div>
+      <div class="q-title">Who provides the brand guidelines for each client?</div>
+      <div class="q-hint">Colors, fonts, tone of voice, do's and don'ts — does each client give this to Tea? Is it documented or informal? The AI needs this to generate content that matches each brand.</div>
+      <textarea data-q="q2_3" placeholder="How brand info is provided and stored..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q2.4</div>
+      <div class="q-title">Who provides the social media account credentials for each client?</div>
+      <div class="q-hint">Does Tea have admin access to each client's Facebook Page, Instagram Business Account, LinkedIn Company Page? Or does the client post manually from Tea's drafts?</div>
+      <textarea data-q="q2_4" placeholder="Account access and credential management..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q2.5</div>
+      <div class="q-title">Does each client have different posting frequency and platforms?</div>
+      <div class="q-hint">For example: Client A wants daily posts on FB+IG, Client B wants 3x/week on LinkedIn only.</div>
+      <textarea data-q="q2_5" placeholder="How customized is each client's schedule..."></textarea>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 3 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">3</span>
+      <h2>Content Generation & AI</h2>
+    </div>
+    <div class="context">The system will use AI (Claude) to generate social media content. We need to understand what quality bar Tea expects and how much human oversight is needed.</div>
+
+    <div class="question">
+      <div class="question-label">Q3.1</div>
+      <div class="q-title">What inputs does the copywriter currently use to write posts?</div>
+      <div class="q-hint">Client brief? Content calendar with topics? Brand book? Previous posts? Industry news? Understanding the inputs tells us what to feed the AI.</div>
+      <textarea data-q="q3_1" placeholder="What information goes into creating each post..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q3.2</div>
+      <div class="q-title">How are visual assets (images, graphics) currently created?</div>
+      <div class="q-hint">From scratch in Photoshop? Canva templates? Does each client have a visual template/style? How many unique visuals per month per client?</div>
+      <textarea data-q="q3_2" placeholder="Design process and tools..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q3.3</div>
+      <div class="q-title">Would Tea trust AI-generated copy if she reviews it before it goes to the client?</div>
+      <div class="radio-group">
+        <label><input type="radio" name="q3_3" value="trust_fully" data-q="q3_3"><span>Yes, if it's good quality I'll approve quickly</span></label>
+        <label><input type="radio" name="q3_3" value="edit_most" data-q="q3_3"><span>I'd need to edit most of it, but it saves time vs writing from scratch</span></label>
+        <label><input type="radio" name="q3_3" value="pilot_first" data-q="q3_3"><span>I'd want to see it working for GEC first before using it for other clients</span></label>
+        <label><input type="radio" name="q3_3" value="skeptical" data-q="q3_3"><span>I'm skeptical — the copy needs to be very good for my clients</span></label>
+      </div>
+      <textarea data-q="q3_3_notes" placeholder="Additional thoughts (optional)..." style="margin-top: 10px; min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q3.4</div>
+      <div class="q-title">What about AI-generated images?</div>
+      <div class="q-hint">Would Tea accept AI-generated social media graphics? Or does each client require human-designed visuals? Is there a mix?</div>
+      <textarea data-q="q3_4" placeholder="Position on AI-generated visuals..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q3.5</div>
+      <div class="q-title">What languages are needed?</div>
+      <div class="q-hint">Georgian only? Georgian + English? Does it vary per client?</div>
+      <textarea data-q="q3_5" placeholder="Language requirements..." style="min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q3.6</div>
+      <div class="q-title">How important are hashtags, and who decides them?</div>
+      <div class="q-hint">Does the client provide hashtags? Does Tea's team research them? Same every month or change per post?</div>
+      <textarea data-q="q3_6" placeholder="Hashtag strategy..." style="min-height: 50px;"></textarea>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">4</span>
+      <h2>Approval Workflow</h2>
+    </div>
+    <div class="context">We're planning a system where clients get a simple link + passcode to review and approve their monthly content. These questions define exactly how that works.</div>
+
+    <div class="question">
+      <div class="question-label">Q4.1</div>
+      <div class="q-title">Monthly batch flow — does this sequence make sense?</div>
+      <ol class="steps-list">
+        <li>AI generates a month of posts for a client</li>
+        <li>Tea reviews in her admin panel (edits, adjusts, regenerates as needed)</li>
+        <li>Tea marks batch "ready for client review"</li>
+        <li>Client receives a link + passcode, reviews all posts</li>
+        <li>Client approves/rejects individual posts, leaves comments</li>
+        <li>Tea addresses rejections, resubmits</li>
+        <li>Once all approved, posts are locked and scheduled for auto-posting</li>
+      </ol>
+      <div class="q-hint" style="margin-top: 12px;">Does this match how Tea would want to work? What would she change?</div>
+      <textarea data-q="q4_1" placeholder="Feedback on the proposed workflow..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q4.2</div>
+      <div class="q-title">When a client rejects a post, what information does Tea need?</div>
+      <div class="q-hint">Just "rejected" or a comment explaining why? Should the client be able to suggest specific edits?</div>
+      <textarea data-q="q4_2" placeholder="What rejection feedback should look like..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q4.3</div>
+      <div class="q-title">How many review rounds are realistic?</div>
+      <div class="q-hint">One round? Multiple until everyone is happy? Is there a deadline after which unapproved posts just don't get posted?</div>
+      <textarea data-q="q4_3" placeholder="Review round expectations..." style="min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q4.4</div>
+      <div class="q-title">Should clients be able to see posting history / past months?</div>
+      <textarea data-q="q4_4" placeholder="Yes / No / Only current batch..." style="min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q4.5</div>
+      <div class="q-title">Should clients see engagement metrics (likes, comments, shares) for posted content?</div>
+      <div class="radio-group">
+        <label><input type="radio" name="q4_5" value="yes_same_page" data-q="q4_5"><span>Yes, in the same review page</span></label>
+        <label><input type="radio" name="q4_5" value="no_separate" data-q="q4_5"><span>No, Tea sends reports separately</span></label>
+        <label><input type="radio" name="q4_5" value="later" data-q="q4_5"><span>Nice to have later, not for v1</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 5 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">5</span>
+      <h2>Business Model & Commercials</h2>
+    </div>
+    <div class="context">These questions affect the system's architecture. Billing, limits, and pricing determine what we need to track and enforce.</div>
+
+    <div class="question">
+      <div class="question-label">Q5.1</div>
+      <div class="q-title">How does GEC charge Tea / Inteligo for the system?</div>
+      <div class="radio-group">
+        <label><input type="radio" name="q5_1" value="flat_fee" data-q="q5_1"><span>Monthly flat fee (regardless of number of clients)</span></label>
+        <label><input type="radio" name="q5_1" value="per_client" data-q="q5_1"><span>Per-client monthly fee (e.g., $X per client account)</span></label>
+        <label><input type="radio" name="q5_1" value="revenue_share" data-q="q5_1"><span>Revenue share (% of what Tea charges her clients)</span></label>
+        <label><input type="radio" name="q5_1" value="setup_plus_maintenance" data-q="q5_1"><span>One-time setup + monthly maintenance fee</span></label>
+        <label><input type="radio" name="q5_1" value="other" data-q="q5_1"><span>Other</span></label>
+      </div>
+      <textarea data-q="q5_1_notes" class="other-input" placeholder="Describe the pricing model..." style="min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q5.2</div>
+      <div class="q-title">How does Tea charge her clients?</div>
+      <div class="q-hint">Monthly retainer? Per-post? Package pricing? Does this change with the new system?</div>
+      <textarea data-q="q5_2" placeholder="Tea's pricing model for her clients..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q5.3</div>
+      <div class="q-title">What's the expected cost saving for Inteligo?</div>
+      <div class="q-hint">If Tea can let go of 3-4 team members, what's her monthly salary savings? This sets the ceiling for what GEC can charge.</div>
+      <textarea data-q="q5_3" placeholder="Estimated monthly savings..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q5.4</div>
+      <div class="q-title">Is GEC the first/only customer, or do we plan to sell to other agencies?</div>
+      <div class="radio-group">
+        <label><input type="radio" name="q5_4" value="inteligo_only" data-q="q5_4"><span>Inteligo only (GEC's outsourced marketing partner)</span></label>
+        <label><input type="radio" name="q5_4" value="maybe_others" data-q="q5_4"><span>We might offer it to other agencies later</span></label>
+        <label><input type="radio" name="q5_4" value="standalone_product" data-q="q5_4"><span>This should become a standalone product</span></label>
+      </div>
+      <textarea data-q="q5_4_notes" placeholder="Additional context (optional)..." style="margin-top: 10px; min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q5.5</div>
+      <div class="q-title">Who owns the system and the data?</div>
+      <div class="q-hint">GEC builds and hosts it. Tea uses it. If Tea stops working with GEC, does she lose access? Can she export her data?</div>
+      <textarea data-q="q5_5" placeholder="Ownership and data rights..."></textarea>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 6 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">6</span>
+      <h2>Video & Media</h2>
+    </div>
+    <div class="context">The videographer stays. We need to understand how video content enters the system.</div>
+
+    <div class="question">
+      <div class="question-label">Q6.1</div>
+      <div class="q-title">How are videos currently produced and delivered?</div>
+      <div class="q-hint">Does the videographer shoot and edit? How are finished videos shared (Google Drive, WeTransfer, USB)? What formats and sizes?</div>
+      <textarea data-q="q6_1" placeholder="Video production and delivery process..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q6.2</div>
+      <div class="q-title">How many videos per month per client?</div>
+      <div class="q-hint">What types — Reels (short, vertical), longer brand videos, behind-the-scenes, interviews?</div>
+      <textarea data-q="q6_2" placeholder="Video volume and types..." style="min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q6.3</div>
+      <div class="q-title">Who writes the video captions / descriptions for social media?</div>
+      <div class="q-hint">The copywriter? The videographer? Tea? Can AI generate these based on a topic/brief?</div>
+      <textarea data-q="q6_3" placeholder="Video caption responsibility..." style="min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q6.4</div>
+      <div class="q-title">Should videos go through the same approval flow as other content?</div>
+      <textarea data-q="q6_4" placeholder="Same flow or separate process for videos..." style="min-height: 50px;"></textarea>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 7 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">7</span>
+      <h2>Timeline & Priorities</h2>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q7.1</div>
+      <div class="q-title">How urgent is this?</div>
+      <div class="radio-group">
+        <label><input type="radio" name="q7_1" value="asap" data-q="q7_1"><span>Tea is paying staff now and wants to reduce ASAP</span></label>
+        <label><input type="radio" name="q7_1" value="few_months" data-q="q7_1"><span>We have a few months — let's build it right</span></label>
+        <label><input type="radio" name="q7_1" value="pilot_first" data-q="q7_1"><span>Let's pilot with GEC first, then onboard other clients</span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q7.2</div>
+      <div class="q-title">What's the minimum Tea needs to see before she'll use the system?</div>
+      <div class="q-hint">Generate content for one client and post it? Show the admin panel? Run one full month on the system for GEC? What proves it works?</div>
+      <textarea data-q="q7_2" placeholder="MVP acceptance criteria for Tea..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q7.3</div>
+      <div class="q-title">Which team member would Tea let go first, and which last?</div>
+      <div class="q-hint">This tells us which role to automate first in the system.</div>
+      <textarea data-q="q7_3" placeholder="Priority order for role replacement..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q7.4</div>
+      <div class="q-title">Does the GEC 8-pillar ecosystem (assessments, CRM, nurture, events) still proceed in parallel, or does this product take priority?</div>
+      <textarea data-q="q7_4" placeholder="Priority decision..."></textarea>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 8 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">8</span>
+      <h2>Risks & Concerns</h2>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q8.1</div>
+      <div class="q-title">What's Tea's biggest concern about replacing her team with a system?</div>
+      <div class="q-hint">Quality? Client trust? Losing creative control? Technical reliability?</div>
+      <textarea data-q="q8_1" placeholder="Main concerns..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q8.2</div>
+      <div class="q-title">Have any of Tea's clients expressed opinions about AI-generated content?</div>
+      <textarea data-q="q8_2" placeholder="Client sentiment on AI content..." style="min-height: 50px;"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q8.3</div>
+      <div class="q-title">What happens if the system goes down for a day?</div>
+      <div class="q-hint">Is there a manual fallback? Does Tea need the ability to post manually from the dashboard as backup?</div>
+      <textarea data-q="q8_3" placeholder="Downtime handling and fallback plan..."></textarea>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Q8.4</div>
+      <div class="q-title">Data sensitivity — do any clients have restrictions on where their data is stored or who can access it?</div>
+      <textarea data-q="q8_4" placeholder="Data storage or privacy requirements..." style="min-height: 50px;"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'gec-autoposter-questions-v1';
+
+  // Collect all answerable elements
+  function getAllFields() {
+    const fields = {};
+    document.querySelectorAll('textarea[data-q]').forEach(el => {
+      fields[el.dataset.q] = { type: 'textarea', value: el.value };
+    });
+    document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+      fields[el.name] = { type: 'radio', value: el.value };
+    });
+    return fields;
+  }
+
+  // Restore saved data
+  function loadFromLocal() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+      const data = JSON.parse(saved);
+
+      Object.entries(data).forEach(([key, field]) => {
+        if (field.type === 'textarea') {
+          const el = document.querySelector(`textarea[data-q="${key}"]`);
+          if (el) el.value = field.value;
+        } else if (field.type === 'radio') {
+          const el = document.querySelector(`input[name="${key}"][value="${field.value}"]`);
+          if (el) el.checked = true;
+        }
+      });
+
+      updateProgress();
+      updateStatus('Loaded saved progress', true);
+    } catch(e) {
+      console.error('Failed to load:', e);
+    }
+  }
+
+  // Save to localStorage
+  function saveToLocal() {
+    try {
+      const data = getAllFields();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      updateStatus('Saved just now', true);
+      showToast('Progress saved');
+    } catch(e) {
+      showToast('Failed to save');
+    }
+  }
+
+  // Auto-save on input
+  let autoSaveTimer;
+  document.addEventListener('input', () => {
+    updateProgress();
+    updateStatus('Unsaved changes', false);
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+      saveToLocal();
+    }, 2000);
+  });
+
+  // Progress tracking
+  function updateProgress() {
+    let answered = 0;
+    const total = 30;
+
+    document.querySelectorAll('textarea[data-q]').forEach(el => {
+      // Skip "notes" fields for progress counting
+      if (el.dataset.q.endsWith('_notes')) return;
+      if (el.value.trim().length > 0) answered++;
+    });
+
+    // Count radio groups as 1 question each
+    const radioGroups = new Set();
+    document.querySelectorAll('input[type="radio"]').forEach(el => radioGroups.add(el.name));
+    radioGroups.forEach(name => {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      if (checked) answered++;
+    });
+
+    // Subtract textarea questions that are paired with radio (to avoid double counting)
+    // Radio questions: q3_3, q4_5, q5_1, q5_4, q7_1 = 5 radio groups
+    // Standalone textareas that have a radio pair should not count separately
+    // Actually let's just count unique questions
+    const pct = Math.min(100, Math.round((answered / total) * 100));
+    document.getElementById('progressCount').textContent = answered;
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  function updateStatus(text, saved) {
+    document.getElementById('statusText').textContent = text;
+    const dot = document.getElementById('statusDot');
+    dot.className = 'dot ' + (saved ? 'saved' : 'unsaved');
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2000);
+  }
+
+  // Export as plain text
+  function exportAsText() {
+    let output = 'GEC SOCIAL AUTO-POSTER — DISCUSSION ANSWERS\n';
+    output += 'Exported: ' + new Date().toLocaleDateString() + '\n';
+    output += '='.repeat(50) + '\n\n';
+
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+      const title = section.querySelector('h2')?.textContent || '';
+      output += '\n' + title.toUpperCase() + '\n';
+      output += '-'.repeat(40) + '\n\n';
+
+      section.querySelectorAll('.question').forEach(q => {
+        const label = q.querySelector('.question-label')?.textContent || '';
+        const qTitle = q.querySelector('.q-title')?.textContent || '';
+        output += label + ': ' + qTitle + '\n';
+
+        // Check for radio answer
+        const radio = q.querySelector('input[type="radio"]:checked');
+        if (radio) {
+          const radioLabel = radio.closest('label')?.textContent?.trim() || radio.value;
+          output += 'Selected: ' + radioLabel + '\n';
+        }
+
+        // Check for textarea answers
+        q.querySelectorAll('textarea').forEach(ta => {
+          if (ta.value.trim()) {
+            output += ta.value.trim() + '\n';
+          }
+        });
+
+        // Role grid
+        q.querySelectorAll('.role-row').forEach(row => {
+          const role = row.querySelector('.role-label')?.textContent || '';
+          const val = row.querySelector('textarea')?.value?.trim() || '';
+          if (val) output += role + ' ' + val + '\n';
+        });
+
+        output += '\n';
+      });
+    });
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(output).then(() => {
+      showToast('Copied to clipboard');
+    }).catch(() => {
+      // Fallback: open in new window
+      const w = window.open('', '_blank');
+      w.document.write('<pre>' + output.replace(/</g, '&lt;') + '</pre>');
+    });
+  }
+
+  // Clear all
+  function clearAll() {
+    if (!confirm('Clear all answers? This cannot be undone.')) return;
+    document.querySelectorAll('textarea').forEach(el => el.value = '');
+    document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+    localStorage.removeItem(STORAGE_KEY);
+    updateProgress();
+    updateStatus('Cleared', true);
+    showToast('All answers cleared');
+  }
+
+  // Show "other" textarea when "Other" radio is selected
+  document.querySelectorAll('input[name="q5_1"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const otherInput = document.querySelector('textarea[data-q="q5_1_notes"]');
+      if (radio.value === 'other' && radio.checked) {
+        otherInput.classList.add('visible');
+        otherInput.style.display = 'block';
+      }
+    });
+  });
+
+  // Load on page open
+  loadFromLocal();
+</script>
+
+</body>
+</html>

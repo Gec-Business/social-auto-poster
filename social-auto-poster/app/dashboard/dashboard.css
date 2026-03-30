@@ -1,0 +1,440 @@
+/* Dashboard Design System — Light Theme */
+/* All classes prefixed with mcc- to avoid collisions */
+
+/* ===== Layout ===== */
+.mcc-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.mcc-sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+}
+
+.mcc-sidebar-brand {
+  padding: 20px 16px 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.mcc-sidebar-brand h1 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0284c7;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.mcc-sidebar-brand p {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 4px 0 0;
+}
+
+.mcc-sidebar-nav {
+  flex: 1;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mcc-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.mcc-sidebar-link:hover {
+  color: #1e293b;
+  background: #f1f5f9;
+}
+
+.mcc-sidebar-link.active {
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.08);
+}
+
+.mcc-sidebar-link .mcc-nav-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.mcc-sidebar-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.mcc-sidebar-footer a {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+.mcc-sidebar-footer a:hover { color: #64748b; }
+
+/* Main content area */
+.mcc-main {
+  flex: 1;
+  margin-left: 240px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Campaign status bar */
+.mcc-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 12px;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.mcc-status-item { display: flex; align-items: center; gap: 6px; }
+.mcc-status-value { color: #1e293b; font-weight: 600; }
+.mcc-status-accent { color: #0284c7; font-weight: 700; }
+
+.mcc-status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.mcc-status-dot.live { background: #22c55e; }
+.mcc-status-dot.upcoming { background: #eab308; }
+.mcc-status-dot.ended { background: #ef4444; }
+
+.mcc-status-sep { width: 1px; height: 16px; background: #e2e8f0; }
+
+/* Page content */
+.mcc-content { flex: 1; padding: 24px; max-width: 1400px; width: 100%; }
+.mcc-page-title { font-size: 22px; font-weight: 700; color: #0f172a; margin: 0 0 4px; }
+.mcc-page-subtitle { font-size: 13px; color: #94a3b8; margin: 0 0 24px; }
+
+/* ===== Metric Cards ===== */
+.mcc-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.mcc-metric {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.mcc-metric-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.mcc-metric-value { font-size: 26px; font-weight: 700; color: #0f172a; }
+.mcc-metric-value.accent { color: #0284c7; }
+.mcc-metric-value.green { color: #16a34a; }
+.mcc-metric-value.orange { color: #ea580c; }
+.mcc-metric-value.red { color: #dc2626; }
+.mcc-metric-sub { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+
+/* ===== Platform Badges ===== */
+.mcc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.mcc-badge.facebook { background: rgba(24, 119, 242, 0.1); color: #1877F2; }
+.mcc-badge.instagram { background: rgba(228, 64, 95, 0.1); color: #E4405F; }
+.mcc-badge.linkedin { background: rgba(10, 102, 194, 0.1); color: #0A66C2; }
+
+/* ===== Post Cards ===== */
+.mcc-post {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.mcc-post:hover { border-color: #93c5fd; }
+.mcc-post.today { border-color: #0284c7; }
+.mcc-post.overdue { border-color: #fca5a5; }
+
+.mcc-post-header { padding: 16px 16px 12px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.mcc-post-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mcc-post-day { font-size: 11px; font-weight: 700; color: #0284c7; padding: 2px 6px; background: rgba(2, 132, 199, 0.08); border-radius: 4px; }
+.mcc-post-type { font-size: 11px; color: #94a3b8; text-transform: capitalize; }
+.mcc-post-goal { font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+.mcc-post-topic { font-size: 14px; font-weight: 600; color: #1e293b; margin: 0 0 0 16px; padding: 0 16px 12px 0; }
+
+/* Copy area */
+.mcc-post-copy { padding: 0 16px; }
+.mcc-lang-tabs { display: flex; align-items: center; gap: 2px; margin-bottom: 8px; }
+
+.mcc-lang-tab {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.mcc-lang-tab:hover { color: #64748b; }
+.mcc-lang-tab.active { color: #0284c7; background: rgba(2, 132, 199, 0.08); }
+
+.mcc-copy-text {
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #334155;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Extras */
+.mcc-post-extras { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
+.mcc-post-row { display: flex; align-items: center; gap: 8px; }
+.mcc-post-row-label { color: #94a3b8; font-weight: 500; flex-shrink: 0; }
+.mcc-post-row-value { color: #64748b; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; word-break: break-all; }
+.mcc-post-row-value.hashtags { color: #0284c7; font-family: inherit; }
+
+/* Posted toggles */
+.mcc-post-actions { padding: 12px 16px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 8px; }
+
+.mcc-posted-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mcc-posted-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+.mcc-posted-btn.posted { background: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.3); color: #16a34a; }
+
+/* ===== Copy Button ===== */
+.mcc-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-left: auto;
+}
+
+.mcc-copy-btn:hover { background: #f1f5f9; color: #1e293b; }
+.mcc-copy-btn.copied { border-color: rgba(34, 197, 94, 0.3); color: #16a34a; }
+
+/* ===== Schedule Calendar ===== */
+.mcc-phase-group { margin-bottom: 24px; }
+
+.mcc-phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mcc-phase-header.p1 { background: rgba(59, 130, 246, 0.08); color: #2563eb; }
+.mcc-phase-header.p2 { background: rgba(34, 197, 94, 0.08); color: #16a34a; }
+.mcc-phase-header.p3 { background: rgba(249, 115, 22, 0.08); color: #ea580c; }
+.mcc-phase-header.p4 { background: rgba(239, 68, 68, 0.08); color: #dc2626; }
+
+.mcc-phase-dates { font-size: 11px; font-weight: 400; opacity: 0.7; }
+
+/* Day row */
+.mcc-day-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.1s;
+  font-size: 13px;
+}
+
+.mcc-day-row:hover { background: #f1f5f9; }
+.mcc-day-row.today { background: rgba(2, 132, 199, 0.06); }
+.mcc-day-row.overdue { background: rgba(239, 68, 68, 0.04); }
+
+.mcc-day-num { width: 60px; font-weight: 600; color: #64748b; flex-shrink: 0; }
+.mcc-day-row.today .mcc-day-num { color: #0284c7; }
+.mcc-day-date { width: 100px; color: #94a3b8; font-size: 12px; flex-shrink: 0; }
+.mcc-day-topic { flex: 1; color: #334155; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.mcc-day-badges { display: flex; gap: 4px; flex-shrink: 0; }
+
+.mcc-day-dot {
+  width: 24px; height: 20px; border-radius: 4px; font-size: 9px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(0, 0, 0, 0.35); background: #f1f5f9;
+}
+
+.mcc-day-dot.facebook { color: #1877F2; background: rgba(24, 119, 242, 0.08); }
+.mcc-day-dot.instagram { color: #E4405F; background: rgba(228, 64, 95, 0.08); }
+.mcc-day-dot.linkedin { color: #0A66C2; background: rgba(10, 102, 194, 0.08); }
+.mcc-day-dot.done { opacity: 0.4; position: relative; }
+.mcc-day-dot.done::after { content: '\2713'; position: absolute; font-size: 11px; color: #16a34a; }
+
+.mcc-day-status { width: 24px; text-align: center; flex-shrink: 0; font-size: 14px; }
+.mcc-day-expand { color: #94a3b8; font-size: 10px; flex-shrink: 0; }
+
+.mcc-day-expanded { padding: 16px; border-top: 1px solid #f1f5f9; background: #f8fafc; }
+
+/* ===== Gallery tabs ===== */
+.mcc-gallery-tabs { display: flex; gap: 4px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px; }
+
+.mcc-gallery-tab {
+  padding: 6px 14px; font-size: 12px; font-weight: 500;
+  border: 1px solid #e2e8f0; border-radius: 6px;
+  background: transparent; color: #64748b; cursor: pointer;
+  white-space: nowrap; transition: all 0.15s;
+}
+
+.mcc-gallery-tab:hover { background: #f1f5f9; }
+.mcc-gallery-tab.active { background: rgba(2, 132, 199, 0.08); border-color: #0284c7; color: #0284c7; }
+
+/* ===== Progress Bars ===== */
+.mcc-progress { display: flex; gap: 8px; margin-bottom: 24px; }
+.mcc-progress-seg { flex: 1; }
+.mcc-progress-bar { height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; margin-bottom: 4px; }
+.mcc-progress-fill { height: 100%; border-radius: 2px; transition: width 0.3s ease; }
+
+.mcc-progress-seg.p1 .mcc-progress-fill { background: #3b82f6; }
+.mcc-progress-seg.p2 .mcc-progress-fill { background: #22c55e; }
+.mcc-progress-seg.p3 .mcc-progress-fill { background: #f97316; }
+.mcc-progress-seg.p4 .mcc-progress-fill { background: #ef4444; }
+.mcc-progress-label { font-size: 10px; color: #94a3b8; }
+
+/* ===== Sections ===== */
+.mcc-section { margin-bottom: 32px; }
+.mcc-section-title { font-size: 15px; font-weight: 600; color: #1e293b; margin: 0 0 12px; }
+.mcc-empty { text-align: center; padding: 40px; color: #94a3b8; font-size: 13px; }
+
+/* ===== Login ===== */
+.mcc-login {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; background: #f8fafc;
+}
+
+.mcc-login-card {
+  background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;
+  padding: 40px; width: 100%; max-width: 380px; text-align: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.mcc-login-card h1 { font-size: 18px; color: #0284c7; margin: 0 0 8px; }
+.mcc-login-card p { font-size: 13px; color: #94a3b8; margin: 0 0 24px; }
+
+/* ===== Edit Links ===== */
+.mcc-edit-link {
+  font-size: 10px; font-weight: 600; color: #0284c7; text-decoration: none;
+  padding: 2px 6px; border-radius: 3px; background: rgba(2, 132, 199, 0.06);
+  transition: all 0.15s;
+}
+
+.mcc-edit-link:hover { background: rgba(2, 132, 199, 0.15); color: #0369a1; }
+
+.mcc-edit-link-lg {
+  display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600;
+  color: #ffffff; background: #0284c7; padding: 6px 16px; border-radius: 6px;
+  text-decoration: none; transition: all 0.15s;
+}
+
+.mcc-edit-link-lg:hover { background: #0369a1; }
+
+/* ===== Lightbox ===== */
+.mcc-lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+}
+
+.mcc-lightbox-img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+
+.mcc-lightbox-close {
+  position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
+  border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5); color: #e2e8f0; font-size: 18px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+.mcc-lightbox-info {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  text-align: center; color: #94a3b8; font-size: 13px;
+}
+
+.mcc-lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.5);
+  color: #e2e8f0; font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.mcc-lightbox-nav.prev { left: 16px; }
+.mcc-lightbox-nav.next { right: 16px; }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .mcc-sidebar { width: 56px; }
+  .mcc-sidebar-brand p, .mcc-sidebar-link span:not(.mcc-nav-icon), .mcc-sidebar-footer { display: none; }
+  .mcc-sidebar-brand h1 { font-size: 10px; text-align: center; }
+  .mcc-main { margin-left: 56px; }
+}

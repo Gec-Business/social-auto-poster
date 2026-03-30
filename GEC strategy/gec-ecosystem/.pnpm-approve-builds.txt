@@ -1,0 +1,3 @@
+esbuild
+sharp
+unrs-resolver
