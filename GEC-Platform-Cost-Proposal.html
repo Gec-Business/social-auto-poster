@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEC Platform — Cost & Investment Proposal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #0f4c81;
+    --primary-light: #e8f0f8;
+    --primary-dark: #0a3560;
+    --accent: #2ecc71;
+    --accent-light: #eafaf1;
+    --warning: #f39c12;
+    --warning-light: #fef9e7;
+    --danger: #e74c3c;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 6px rgba(0,0,0,0.07), 0 12px 28px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 16px; opacity: 0.85; font-weight: 400; }
+  .header .meta { margin-top: 16px; font-size: 13px; opacity: 0.7; }
+  .header .meta span { margin: 0 12px; }
+
+  /* Container */
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* Section */
+  .section { margin-bottom: 36px; }
+  .section-title {
+    font-size: 20px; font-weight: 700; color: var(--primary);
+    margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-title .num {
+    background: var(--primary); color: white; width: 32px; height: 32px;
+    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+  .section-desc { color: var(--gray-500); font-size: 14px; margin-bottom: 20px; margin-left: 42px; }
+
+  /* Cards */
+  .card {
+    background: white; border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 28px; margin-bottom: 16px; border: 1px solid var(--gray-200);
+  }
+  .card-title { font-size: 16px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+  .card-subtitle { font-size: 13px; color: var(--gray-400); margin-bottom: 16px; }
+
+  /* Executive Summary Box */
+  .exec-summary {
+    background: linear-gradient(135deg, var(--primary-light) 0%, #dbeafe 100%);
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 36px;
+  }
+  .exec-summary h2 { font-size: 18px; color: var(--primary); margin-bottom: 12px; }
+  .exec-summary p { color: var(--gray-700); font-size: 15px; margin-bottom: 12px; }
+
+  .highlight-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 20px;
+  }
+  .highlight-box {
+    background: white; border-radius: 10px; padding: 20px; text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .highlight-box .value { font-size: 28px; font-weight: 800; color: var(--primary); }
+  .highlight-box .label { font-size: 12px; color: var(--gray-500); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Info Tooltip */
+  .info-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--gray-200); color: var(--gray-500);
+    font-size: 11px; font-weight: 700; cursor: help;
+    position: relative; vertical-align: middle; margin-left: 4px;
+    font-style: italic; flex-shrink: 0;
+  }
+  .info-icon:hover { background: var(--primary); color: white; }
+  .info-icon .tooltip {
+    display: none; position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%); background: var(--gray-800); color: white;
+    padding: 10px 14px; border-radius: 8px; font-size: 12px; font-weight: 400;
+    font-style: normal; width: 260px; line-height: 1.5; z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: left;
+  }
+  .info-icon .tooltip::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: var(--gray-800);
+  }
+  .info-icon:hover .tooltip { display: block; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 0 -4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: var(--gray-100); color: var(--gray-600); font-weight: 600;
+    padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--gray-200);
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  tbody td { padding: 14px 16px; border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+  tbody tr:hover { background: var(--gray-50); }
+  .price { font-weight: 700; color: var(--primary); white-space: nowrap; }
+  .free { color: var(--accent); font-weight: 700; }
+  .note { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+
+  /* Option Cards */
+  .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .option-card {
+    background: white; border: 2px solid var(--gray-200); border-radius: var(--radius);
+    padding: 24px; position: relative; transition: border-color 0.2s;
+  }
+  .option-card:hover { border-color: var(--primary); }
+  .option-card.recommended { border-color: var(--accent); }
+  .option-card.recommended::before {
+    content: 'RECOMMENDED'; position: absolute; top: -11px; left: 20px;
+    background: var(--accent); color: white; font-size: 10px; font-weight: 700;
+    padding: 2px 10px; border-radius: 4px; letter-spacing: 1px;
+  }
+  .option-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .option-card .option-price { font-size: 24px; font-weight: 800; color: var(--primary); margin: 12px 0; }
+  .option-card .option-price span { font-size: 13px; font-weight: 400; color: var(--gray-400); }
+  .option-card ul { list-style: none; padding: 0; }
+  .option-card ul li {
+    padding: 6px 0; font-size: 13px; color: var(--gray-600);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .option-card ul li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+  /* Progress / Phase Timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--gray-200);
+  }
+  .timeline-item { position: relative; margin-bottom: 20px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -24px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--primary-light); border: 2px solid var(--primary);
+  }
+  .timeline-item h4 { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+  .timeline-item .t-meta { font-size: 12px; color: var(--gray-400); margin-bottom: 4px; }
+  .timeline-item p { font-size: 13px; color: var(--gray-600); }
+  .timeline-item .t-cost {
+    display: inline-block; background: var(--primary-light); color: var(--primary);
+    font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 20px; margin-top: 6px;
+  }
+
+  /* Bar Chart */
+  .bar-chart { margin: 20px 0; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 10px; gap: 12px; }
+  .bar-label { width: 100px; font-size: 13px; color: var(--gray-600); text-align: right; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 28px; background: var(--gray-100); border-radius: 6px; overflow: hidden; position: relative; }
+  .bar-fill {
+    height: 100%; border-radius: 6px; display: flex; align-items: center;
+    padding-left: 10px; font-size: 12px; font-weight: 600; color: white;
+    transition: width 0.6s ease;
+  }
+  .bar-fill.revenue { background: linear-gradient(90deg, var(--accent), #27ae60); }
+  .bar-fill.cost { background: linear-gradient(90deg, var(--warning), #e67e22); }
+  .bar-value { font-size: 13px; font-weight: 600; color: var(--gray-700); width: 80px; text-align: right; flex-shrink: 0; }
+
+  /* Callout */
+  .callout {
+    display: flex; gap: 14px; padding: 18px 20px;
+    border-radius: 10px; margin: 16px 0; font-size: 14px;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: -2px; }
+  .callout.info { background: var(--primary-light); color: var(--primary-dark); }
+  .callout.success { background: var(--accent-light); color: #1e8449; }
+  .callout.warning { background: var(--warning-light); color: #7d6608; }
+
+  /* Approval Section */
+  .approval-box {
+    background: white; border: 2px solid var(--primary);
+    border-radius: var(--radius); padding: 32px; margin-top: 40px;
+  }
+  .approval-box h3 { font-size: 18px; color: var(--primary); margin-bottom: 16px; }
+  .approval-items { margin: 20px 0; }
+  .approval-item {
+    display: flex; align-items: flex-start; gap: 12px; padding: 14px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .checkbox {
+    width: 22px; height: 22px; border: 2px solid var(--gray-300); border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; transition: all 0.2s;
+  }
+  .checkbox.checked { background: var(--accent); border-color: var(--accent); }
+  .checkbox.checked::after { content: '✓'; color: white; font-size: 14px; font-weight: 700; }
+  .approval-item .a-label { font-size: 14px; color: var(--gray-700); }
+  .approval-item .a-cost { font-size: 14px; font-weight: 700; color: var(--primary); margin-left: auto; white-space: nowrap; padding-left: 16px; }
+
+  .total-line {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0; border-top: 2px solid var(--gray-200); margin-top: 8px;
+  }
+  .total-line .total-label { font-size: 16px; font-weight: 700; color: var(--gray-800); }
+  .total-line .total-value { font-size: 22px; font-weight: 800; color: var(--primary); }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 32px 20px; color: var(--gray-400); font-size: 12px;
+    border-top: 1px solid var(--gray-200); margin-top: 40px;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .header { padding: 24px; }
+    .container { padding: 16px; }
+    .info-icon .tooltip { display: none !important; }
+    .card, .option-card, .approval-box { box-shadow: none; border: 1px solid #ddd; }
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 22px; }
+    .highlight-grid { grid-template-columns: 1fr 1fr; }
+    .options-grid { grid-template-columns: 1fr; }
+    .bar-label { width: 70px; font-size: 12px; }
+    .card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>GEC AI Platform — Investment Proposal</h1>
+  <div class="subtitle">Cost breakdown & approval request for the multi-tenant marketing automation platform</div>
+  <div class="meta">
+    <span>Prepared: March 30, 2026</span>
+    <span>|</span>
+    <span>Prepared by: Product & Engineering</span>
+    <span>|</span>
+    <span>Version 1.0</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="exec-summary">
+    <h2>Executive Summary</h2>
+    <p>
+      We are building an <strong>AI-powered marketing platform</strong> that automates what GEC currently does manually —
+      market research, competitor analysis, content strategy, and social media posting — and delivers it to
+      <strong>multiple clients simultaneously</strong>.
+    </p>
+    <p>
+      The platform has <strong>exceptionally low operating costs</strong> (under $4 per client per month) while delivering
+      high-value services priced at $49–$999/month per client. This means <strong>90%+ profit margins</strong> at scale.
+    </p>
+    <div class="highlight-grid">
+      <div class="highlight-box">
+        <div class="value">~$0</div>
+        <div class="label">Startup Cost</div>
+      </div>
+      <div class="highlight-box">
+        <div class="value">~$39</div>
+        <div class="label">Monthly Infrastructure</div>
+      </div>
+      <div class="highlight-box">
+        <div class="value">~$3-4</div>
+        <div class="label">Cost per Client/mo</div>
+      </div>
+      <div class="highlight-box">
+        <div class="value">90%+</div>
+        <div class="label">Profit Margin</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: WHAT WE'RE BUILDING -->
+  <div class="section">
+    <div class="section-title"><span class="num">1</span> What Are We Building?</div>
+    <div class="section-desc">A platform that replaces manual consulting work with AI, serving multiple clients at once.</div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>What It Does</th>
+            <th>Who Benefits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>Social Media Auto-Poster</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Automatically publishes content to Facebook, Instagram, and LinkedIn on a schedule. Supports bilingual content (Georgian + English) and includes an approval dashboard.</span>
+              </span>
+            </td>
+            <td>Automatically posts content to Facebook, Instagram & LinkedIn on a daily schedule</td>
+            <td>All clients</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>AI Research Agents</strong>
+              <span class="info-icon">i
+                <span class="tooltip">AI-powered software that analyzes a client's market, identifies competitors, and generates strategic recommendations — work that currently takes consultants days to do manually.</span>
+              </span>
+            </td>
+            <td>Analyzes markets, competitors & generates strategy reports — replacing days of manual research</td>
+            <td>Managed & Enterprise clients</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>AEO/SEO Engine</strong>
+              <span class="info-icon">i
+                <span class="tooltip">AEO = Answer Engine Optimization. Makes client businesses visible when people search using AI tools like ChatGPT or Google AI. SEO = Search Engine Optimization for traditional Google search. Almost no one in Georgia is doing AEO yet — this is a first-mover advantage.</span>
+              </span>
+            </td>
+            <td>Makes client businesses visible in AI search (ChatGPT, Perplexity, Google AI) — a new, untapped channel in Georgia</td>
+            <td>All clients</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Email Nurture System</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Sends personalized follow-up emails to leads automatically. For example, after someone fills out a business assessment, they receive tailored advice emails over the following weeks — all generated by AI and sent from GEC's real email address.</span>
+              </span>
+            </td>
+            <td>Sends AI-personalized follow-up emails to leads, automatically nurturing them into clients</td>
+            <td>GEC + Enterprise clients</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Client Dashboard</strong>
+              <span class="info-icon">i
+                <span class="tooltip">A private web portal where each client logs in to see their content calendar, approve AI-generated posts, view analytics, and manage their social accounts. Each client only sees their own data.</span>
+              </span>
+            </td>
+            <td>Each client gets their own login to manage content, approve posts & view performance</td>
+            <td>All clients</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 2: INFRASTRUCTURE COSTS -->
+  <div class="section">
+    <div class="section-title"><span class="num">2</span> Infrastructure Costs — What GEC Pays Monthly</div>
+    <div class="section-desc">These are fixed costs GEC pays regardless of client count. Most start at $0 and only increase as we grow.</div>
+
+    <div class="card">
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>What It Is</th>
+            <th>MVP Phase<br><small style="text-transform:none;font-weight:400">(0-5 clients)</small></th>
+            <th>Growth Phase<br><small style="text-transform:none;font-weight:400">(10-50 clients)</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>App Hosting</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Vercel hosts our web application (the dashboard clients log into) and runs scheduled tasks like daily social media posting. The free plan is enough to start; the $20/mo plan adds team features and more scheduled tasks.</span>
+              </span>
+            </td>
+            <td>Runs the web application and scheduled posting tasks</td>
+            <td class="free">$0/mo</td>
+            <td class="price">$20/mo</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Database</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Neon is a cloud database service. It stores all client data, content calendars, AI-generated reports, and analytics. The free tier includes 0.5GB — enough for the first few clients. At 10+ clients, we upgrade to the $19/mo plan (10GB).</span>
+              </span>
+            </td>
+            <td>Stores all client data, content, reports & analytics</td>
+            <td class="free">$0/mo</td>
+            <td class="price">$19/mo</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>AI API</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Claude (by Anthropic) is the AI that powers our research agents, writes content, and personalizes emails. We pay only for what we use — no monthly minimum. The cost depends on how many clients are active and how much content we generate.</span>
+              </span>
+            </td>
+            <td>Powers the AI agents that research, write & strategize</td>
+            <td class="price">$5-20/mo</td>
+            <td class="price">$50-200/mo</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Server (VPS)</strong>
+              <span class="info-icon">i
+                <span class="tooltip">GEC already pays for a Virtual Private Server that runs Odoo (our CRM). No additional cost — we use the same server for background tasks like AI agent processing and data syncing.</span>
+              </span>
+            </td>
+            <td>Runs CRM and background tasks — already paid for</td>
+            <td class="free">$0 (existing)</td>
+            <td class="free">$0 (existing)</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Email</strong>
+              <span class="info-icon">i
+                <span class="tooltip">We use GEC's existing Microsoft 365 subscription to send emails from @gecbusiness.com. No additional cost — emails are sent through the Microsoft Graph API, which is included in the M365 license.</span>
+              </span>
+            </td>
+            <td>Sends emails from @gecbusiness.com — uses existing M365</td>
+            <td class="free">$0 (existing)</td>
+            <td class="free">$0 (existing)</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Social Media APIs</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Facebook, Instagram, and LinkedIn provide free APIs (connection points) that let our system post content automatically. There is no charge for using these APIs within normal usage limits.</span>
+              </span>
+            </td>
+            <td>Facebook, Instagram & LinkedIn posting — free to use</td>
+            <td class="free">$0</td>
+            <td class="free">$0</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Domain & DNS</strong>
+              <span class="info-icon">i
+                <span class="tooltip">The gecbusiness.com domain is already registered and paid for at Hostinger. We just need to point a subdomain (like app.gecbusiness.com) to our application — no extra cost.</span>
+              </span>
+            </td>
+            <td>gecbusiness.com — already registered</td>
+            <td class="free">$0 (existing)</td>
+            <td class="free">$0 (existing)</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="total-line">
+        <span class="total-label">Total Monthly Infrastructure</span>
+        <span class="total-value">$5-20 <span style="font-size:14px;color:var(--gray-400);font-weight:400">→ $39-220</span></span>
+      </div>
+      <div class="note" style="margin-top:8px">MVP phase uses free tiers for most services. Costs grow only as client count increases.</div>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">&#9432;</span>
+      <div>
+        <strong>What's already paid for?</strong> GEC's VPS server, Microsoft 365 email, domain registration, and GitHub account
+        are existing expenses. The platform adds no cost for these. The only new expenses are the database ($0-19/mo),
+        app hosting ($0-20/mo), and AI usage (pay-per-use).
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PER-CLIENT COSTS -->
+  <div class="section">
+    <div class="section-title"><span class="num">3</span> Per-Client Operating Costs</div>
+    <div class="section-desc">What it costs GEC to serve each client per month. This is the variable cost that scales with client count.</div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Cost Item</th>
+            <th>What Drives It</th>
+            <th>Monthly Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>AI — Market Research & Strategy</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Each time the AI agents analyze a client's market, competitors, and generate strategy, it costs about $0.29 in AI processing. Running this 4 times per month = $1.16. This is the main cost driver.</span>
+              </span>
+            </td>
+            <td>Number of AI analysis runs per month (recommended: 4)</td>
+            <td class="price">~$1.16</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>AI — Content Generation</strong>
+              <span class="info-icon">i
+                <span class="tooltip">The AI writes social media posts based on the strategy. Each post costs about $0.05 to generate. For 20 posts/month, that's $1.00. Clients who want more posts pay slightly more.</span>
+              </span>
+            </td>
+            <td>Number of social media posts generated (est. 20/month)</td>
+            <td class="price">~$1.00</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>AI — Email Personalization</strong>
+              <span class="info-icon">i
+                <span class="tooltip">The AI personalizes follow-up emails for each lead. Cost depends on how many leads a client has and how many emails are sent. For a typical client with 50 active leads, this costs about $0.50/mo.</span>
+              </span>
+            </td>
+            <td>Number of leads being nurtured via email</td>
+            <td class="price">~$0.50</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Database Storage</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Each client's data (content, analytics, AI reports) takes up database space. A typical client uses about 50MB per year. At Neon's pricing, this costs roughly $0.50/mo per client.</span>
+              </span>
+            </td>
+            <td>Content, analytics & AI reports storage</td>
+            <td class="price">~$0.50</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Social Media Posting</strong>
+            </td>
+            <td>Publishing to Facebook, Instagram & LinkedIn</td>
+            <td class="free">$0</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Email Sending</strong>
+            </td>
+            <td>Sending via Microsoft 365</td>
+            <td class="free">$0</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="total-line">
+        <span class="total-label">Total Cost Per Client Per Month</span>
+        <span class="total-value">~$3-4</span>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <span class="callout-icon">&#10003;</span>
+      <div>
+        <strong>The biggest cost driver is AI usage</strong> (~80% of per-client cost). We can reduce this by 30-60% by using
+        a lighter AI model for draft work and caching common research data across clients in the same industry.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: REVENUE MODEL -->
+  <div class="section">
+    <div class="section-title"><span class="num">4</span> Proposed Client Pricing & Revenue</div>
+    <div class="section-desc">Three tiers based on the level of automation and service each client receives.</div>
+
+    <div class="options-grid">
+      <div class="option-card">
+        <h4>Self-Serve</h4>
+        <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px">For small businesses</div>
+        <div class="option-price">$49 <span>/month</span></div>
+        <ul>
+          <li>Social media auto-posting (3 platforms)</li>
+          <li>Content calendar & scheduling</li>
+          <li>Basic analytics dashboard</li>
+          <li>Bilingual content support</li>
+          <li>Client manages their own content</li>
+        </ul>
+        <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--gray-100)">
+          <div style="font-size:12px;color:var(--gray-400)">Cost to GEC</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent)">~$2/mo → $47 profit</div>
+        </div>
+      </div>
+
+      <div class="option-card recommended">
+        <h4>Managed</h4>
+        <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px">For growing companies</div>
+        <div class="option-price">$299 <span>/month</span></div>
+        <ul>
+          <li>Everything in Self-Serve</li>
+          <li>AI market research & competitor analysis</li>
+          <li>AI-generated content strategy</li>
+          <li>AEO/SEO optimization</li>
+          <li>Monthly strategy report</li>
+          <li>Email nurture sequences</li>
+        </ul>
+        <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--gray-100)">
+          <div style="font-size:12px;color:var(--gray-400)">Cost to GEC</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent)">~$4/mo → $295 profit</div>
+        </div>
+      </div>
+
+      <div class="option-card">
+        <h4>Enterprise</h4>
+        <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px">For large organizations</div>
+        <div class="option-price">$999+ <span>/month</span></div>
+        <ul>
+          <li>Everything in Managed</li>
+          <li>Custom AI agents for specific needs</li>
+          <li>CRM integration (Odoo/Salesforce)</li>
+          <li>Dedicated account support</li>
+          <li>Custom reporting & white-label</li>
+          <li>Priority processing</li>
+        </ul>
+        <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--gray-100)">
+          <div style="font-size:12px;color:var(--gray-400)">Cost to GEC</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent)">~$7/mo → $992+ profit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: REVENUE PROJECTIONS -->
+  <div class="section">
+    <div class="section-title"><span class="num">5</span> Revenue vs. Cost Projections</div>
+    <div class="section-desc">How revenue and costs scale as we add clients. Assumes an average price of $49/client/month (conservative — mostly Self-Serve tier).</div>
+
+    <div class="card">
+      <div class="card-title">Monthly Revenue vs. Cost at Scale</div>
+      <div class="card-subtitle">Green = Revenue | Orange = Total Cost (infrastructure + per-client)</div>
+
+      <div class="bar-chart">
+        <div class="bar-row">
+          <span class="bar-label">1 client</span>
+          <div class="bar-track">
+            <div class="bar-fill revenue" style="width: 3%">$49</div>
+          </div>
+          <span class="bar-value" style="color:var(--accent)">$49</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label"></span>
+          <div class="bar-track">
+            <div class="bar-fill cost" style="width: 1.5%"></div>
+          </div>
+          <span class="bar-value" style="color:var(--warning)">$8</span>
+        </div>
+
+        <div style="height:8px"></div>
+
+        <div class="bar-row">
+          <span class="bar-label">5 clients</span>
+          <div class="bar-track">
+            <div class="bar-fill revenue" style="width: 14%">$245</div>
+          </div>
+          <span class="bar-value" style="color:var(--accent)">$245</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label"></span>
+          <div class="bar-track">
+            <div class="bar-fill cost" style="width: 2%">$20</div>
+          </div>
+          <span class="bar-value" style="color:var(--warning)">$20</span>
+        </div>
+
+        <div style="height:8px"></div>
+
+        <div class="bar-row">
+          <span class="bar-label">20 clients</span>
+          <div class="bar-track">
+            <div class="bar-fill revenue" style="width: 55%">$980</div>
+          </div>
+          <span class="bar-value" style="color:var(--accent)">$980</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label"></span>
+          <div class="bar-track">
+            <div class="bar-fill cost" style="width: 6%">$100</div>
+          </div>
+          <span class="bar-value" style="color:var(--warning)">$100</span>
+        </div>
+
+        <div style="height:8px"></div>
+
+        <div class="bar-row">
+          <span class="bar-label">50 clients</span>
+          <div class="bar-track">
+            <div class="bar-fill revenue" style="width: 100%">$2,450</div>
+          </div>
+          <span class="bar-value" style="color:var(--accent)">$2,450</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label"></span>
+          <div class="bar-track">
+            <div class="bar-fill cost" style="width: 14%">$250</div>
+          </div>
+          <span class="bar-value" style="color:var(--warning)">$250</span>
+        </div>
+      </div>
+
+      <div class="callout info" style="margin-top:20px">
+        <span class="callout-icon">&#128200;</span>
+        <div>
+          <strong>If even 10% of clients choose the Managed tier ($299/mo)</strong>, the average revenue per client rises to ~$74/mo,
+          making the projections above significantly more favorable. Enterprise clients ($999+) would accelerate this further.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: DEVELOPMENT TIMELINE -->
+  <div class="section">
+    <div class="section-title"><span class="num">6</span> Development Timeline & Costs</div>
+    <div class="section-desc">12-week build plan. Development is done in-house — the only cost is AI API usage during testing.</div>
+
+    <div class="card">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="t-meta">Weeks 1-2</div>
+          <h4>Foundation — Database & Core Setup</h4>
+          <p>Set up the multi-tenant database, user authentication, and core infrastructure. Move existing auto-poster to the new platform.</p>
+          <span class="t-cost">Dev cost: $0</span>
+        </div>
+        <div class="timeline-item">
+          <div class="t-meta">Week 3</div>
+          <h4>Client Dashboard & Onboarding</h4>
+          <p>Build the client-facing dashboard where tenants register, connect social accounts, and manage their content calendar.</p>
+          <span class="t-cost">Dev cost: $0</span>
+        </div>
+        <div class="timeline-item">
+          <div class="t-meta">Weeks 4-5</div>
+          <h4>AI Agents — Research & Competitor Analysis</h4>
+          <p>Build AI agents that automatically research a client's market and analyze their competitors. Validate quality against our manual analyses for 3 Shawarma.</p>
+          <span class="t-cost">Dev cost: ~$10-30 (AI testing)</span>
+        </div>
+        <div class="timeline-item">
+          <div class="t-meta">Weeks 6-7</div>
+          <h4>AI Agents — Strategy & AEO/SEO Content</h4>
+          <p>Build AI agents that generate marketing strategy and SEO-optimized content. Connect the pipeline: research → strategy → blog posts → social media posts.</p>
+          <span class="t-cost">Dev cost: ~$15-40 (AI testing)</span>
+        </div>
+        <div class="timeline-item">
+          <div class="t-meta">Week 8</div>
+          <h4>Content Pipeline — End-to-End Automation</h4>
+          <p>Connect strategy output to auto-poster. Add content review & approval flow. Client reviews AI-generated content before it goes live.</p>
+          <span class="t-cost">Dev cost: $0</span>
+        </div>
+        <div class="timeline-item">
+          <div class="t-meta">Weeks 9-10</div>
+          <h4>Analytics & Performance Tracking</h4>
+          <p>Pull engagement data from social platforms. Show performance dashboards. Feed results back into AI for smarter future content.</p>
+          <span class="t-cost">Dev cost: $0</span>
+        </div>
+        <div class="timeline-item">
+          <div class="t-meta">Weeks 11-12</div>
+          <h4>Email Nurture & CRM Integration</h4>
+          <p>Add automated email follow-ups for leads. Connect with Odoo CRM for contact management. Build assessment lead magnets.</p>
+          <span class="t-cost">Dev cost: ~$5-10 (AI testing)</span>
+        </div>
+      </div>
+      <div class="total-line" style="margin-top:16px">
+        <span class="total-label">Total Development Cost</span>
+        <span class="total-value">~$30-80</span>
+      </div>
+      <div class="note">Development is done in-house. The only out-of-pocket cost is AI API usage during testing and validation.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: WHAT EATS THE PRICE -->
+  <div class="section">
+    <div class="section-title"><span class="num">7</span> What Drives Costs Up? (And How We Control Them)</div>
+    <div class="section-desc">Understanding the main cost drivers and the levers we have to keep costs low.</div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%">Cost Driver</th>
+            <th style="width:15%">Impact</th>
+            <th>How We Control It</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>AI API Usage</strong>
+              <span class="info-icon">i
+                <span class="tooltip">Every time AI reads data and generates text, we pay per "token" (roughly per word). More complex analysis = more tokens = higher cost. This is ~80% of the per-client cost.</span>
+              </span>
+            </td>
+            <td><span style="color:var(--danger);font-weight:700">HIGH</span></td>
+            <td>
+              Use a cheaper AI model for drafts and research (saves 60%).
+              Cache common research data so similar clients share costs (saves 30%).
+              Set monthly budget caps per client tier.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Database Storage</strong>
+              <span class="info-icon">i
+                <span class="tooltip">As we store more AI reports, content history, and analytics for more clients, the database grows. AI "embeddings" (used for smart search) are especially space-hungry at ~1KB each.</span>
+              </span>
+            </td>
+            <td><span style="color:var(--warning);font-weight:700">MEDIUM</span></td>
+            <td>
+              Archive old data after 12 months.
+              If storage costs rise above $69/mo, consider self-hosting the database on our existing VPS ($0 extra).
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>App Hosting (Vercel)</strong>
+            </td>
+            <td><span style="color:var(--accent);font-weight:700">LOW</span></td>
+            <td>
+              Free tier covers MVP. Pro tier ($20/mo) is a flat cost — doesn't increase with more clients.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Social Media APIs</strong>
+            </td>
+            <td><span style="color:var(--accent);font-weight:700">NONE</span></td>
+            <td>
+              Facebook, Instagram, and LinkedIn APIs are free. No cost increase regardless of client count.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Email Sending</strong>
+            </td>
+            <td><span style="color:var(--accent);font-weight:700">NONE</span></td>
+            <td>
+              Covered by existing Microsoft 365 license. Limit of 10,000 emails/day — far beyond our needs.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-icon">&#9888;</span>
+      <div>
+        <strong>Worst-case scenario:</strong> Even if AI costs double and we don't optimize at all,
+        the per-client cost would be ~$7/mo — still under 15% of the lowest pricing tier ($49).
+        The business model has a wide safety margin.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: DECISIONS NEEDED -->
+  <div class="section">
+    <div class="section-title"><span class="num">8</span> Decisions Needed From Management</div>
+    <div class="section-desc">Before we start building, we need alignment on the following choices.</div>
+
+    <div class="card" style="margin-bottom:12px">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:5%">#</th>
+            <th style="width:30%">Decision</th>
+            <th>Options</th>
+            <th style="width:20%">Cost Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td><strong>Hosting Platform</strong></td>
+            <td>
+              <strong>Option A:</strong> Vercel (recommended) — modern, auto-scaling, $0-20/mo<br>
+              <strong>Option B:</strong> Self-hosted on VPS — $0 but requires manual maintenance
+            </td>
+            <td>$0-20/mo</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td><strong>Database Provider</strong></td>
+            <td>
+              <strong>Option A:</strong> Neon (recommended) — managed, auto-scaling, $0-69/mo<br>
+              <strong>Option B:</strong> Self-hosted PostgreSQL on VPS — $0 but we manage backups
+            </td>
+            <td>$0-69/mo</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td><strong>Client Pricing Tiers</strong></td>
+            <td>
+              <strong>Option A:</strong> 3 tiers ($49 / $299 / $999+) — recommended<br>
+              <strong>Option B:</strong> 2 tiers ($99 / $499+) — simpler, higher minimum
+            </td>
+            <td>Revenue, not cost</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td><strong>Free Tier or Trial?</strong></td>
+            <td>
+              <strong>Option A:</strong> 14-day free trial, then paid — recommended<br>
+              <strong>Option B:</strong> Permanent free tier (auto-poster only, limited to 5 posts/week)
+            </td>
+            <td>~$1/mo per free user</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td><strong>Additional Social Platforms</strong></td>
+            <td>
+              <strong>MVP:</strong> Facebook + Instagram + LinkedIn (recommended to start)<br>
+              <strong>Phase 2:</strong> Add TikTok + YouTube Shorts<br>
+              <strong>Note:</strong> Twitter/X API costs $100/mo — skip unless demanded
+            </td>
+            <td>$0 (except Twitter: $100/mo)</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td><strong>AI Budget Cap</strong></td>
+            <td>
+              Set a monthly AI spending limit to prevent unexpected costs.<br>
+              <strong>Suggested:</strong> $50/mo during MVP, $200/mo at 20+ clients
+            </td>
+            <td>Risk control</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- APPROVAL SECTION -->
+  <div class="approval-box">
+    <h3>Approval Request</h3>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:4px">
+      We request approval for the following expenses to begin building the GEC AI Platform.
+      Click items to approve/reject.
+    </p>
+
+    <div class="approval-items">
+      <div class="approval-item" onclick="toggleCheck(this)">
+        <div class="checkbox"></div>
+        <span class="a-label">
+          <strong>Anthropic API Credit</strong> — Initial AI testing budget for development (one-time)
+          <span class="info-icon">i
+            <span class="tooltip">This covers the cost of testing AI agents during development. We need to run many test analyses to validate quality before launching to clients. This is a one-time development expense.</span>
+          </span>
+        </span>
+        <span class="a-cost">$50-100</span>
+      </div>
+
+      <div class="approval-item" onclick="toggleCheck(this)">
+        <div class="checkbox"></div>
+        <span class="a-label">
+          <strong>Neon Database</strong> — Free tier to start, upgrade when needed (monthly)
+          <span class="info-icon">i
+            <span class="tooltip">Start at $0/mo. Only upgrade to $19/mo when we have 5+ clients and need more storage. Can also be moved to VPS at $0 if needed.</span>
+          </span>
+        </span>
+        <span class="a-cost">$0 → $19/mo</span>
+      </div>
+
+      <div class="approval-item" onclick="toggleCheck(this)">
+        <div class="checkbox"></div>
+        <span class="a-label">
+          <strong>Vercel Hosting</strong> — Free tier to start, Pro when team access needed (monthly)
+          <span class="info-icon">i
+            <span class="tooltip">Start at $0/mo on the free plan. Upgrade to $20/mo Pro plan when we need multiple team members, more cron jobs, or analytics. Can be delayed until after MVP launch.</span>
+          </span>
+        </span>
+        <span class="a-cost">$0 → $20/mo</span>
+      </div>
+
+      <div class="approval-item" onclick="toggleCheck(this)">
+        <div class="checkbox"></div>
+        <span class="a-label">
+          <strong>Monthly AI Budget Cap</strong> — Ongoing AI usage for production clients (monthly)
+          <span class="info-icon">i
+            <span class="tooltip">This is the maximum we'd spend on AI per month across all clients. Actual cost will be lower — this is a safety cap. Can be adjusted as we learn real usage patterns.</span>
+          </span>
+        </span>
+        <span class="a-cost">Cap: $50/mo</span>
+      </div>
+    </div>
+
+    <div class="total-line">
+      <span class="total-label">Maximum Monthly Commitment (after launch)</span>
+      <span class="total-value">~$89/mo</span>
+    </div>
+    <div class="note" style="margin-top:4px">This is the ceiling. Actual costs start at $5-20/mo and grow only with client revenue.</div>
+
+    <div class="callout success" style="margin-top:24px;margin-bottom:0">
+      <span class="callout-icon">&#128161;</span>
+      <div>
+        <strong>Break-even point: 2 Self-Serve clients</strong> ($98/mo revenue) covers the maximum infrastructure cost ($89/mo).
+        Every additional client is almost pure profit.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>GEC Business Consulting — AI Platform Investment Proposal</p>
+    <p style="margin-top:4px">Prepared March 30, 2026 | Confidential</p>
+    <p style="margin-top:8px">Questions? Contact the Product & Engineering team</p>
+  </div>
+
+</div>
+
+<script>
+function toggleCheck(item) {
+  const cb = item.querySelector('.checkbox');
+  cb.classList.toggle('checked');
+}
+</script>
+
+</body>
+</html>
